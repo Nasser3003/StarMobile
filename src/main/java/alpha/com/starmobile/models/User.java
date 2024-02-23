@@ -2,19 +2,19 @@ package alpha.com.starmobile.models;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 public class User {
 
     @Setter(AccessLevel.NONE)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(unique = true)
@@ -28,6 +28,7 @@ public class User {
     private String password;
 
     @OneToMany
+    @ToString.Exclude
     private List<Plan> plans;
     // should add a cart here and make it transient, or no
     // do I need unidirectional or bidirectional?
