@@ -1,21 +1,21 @@
 package alpha.com.starmobile.models;
 
+import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 public class Plan {
 
     @Setter(AccessLevel.NONE)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    private PlanTypes planType;
 
     private int price;
 
@@ -25,5 +25,6 @@ public class Plan {
     private String signalRange; // aka (galactic, solar,  universal)
 
     @OneToMany
+    @ToString.Exclude
     private List<Line> lines;
 }
