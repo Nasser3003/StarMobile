@@ -1,16 +1,16 @@
-package services;
+package alpha.com.starmobile.services;
 
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import alpha.com.starmobile.models.Line;
 import alpha.com.starmobile.repository.LineRepository;
-
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class LineServiceImpl implements LineService {
 
-    @Autowired
     private LineRepository repo;
 
     @Override

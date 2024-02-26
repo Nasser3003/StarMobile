@@ -1,17 +1,18 @@
-package services;
+package alpha.com.starmobile.services;
 
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import alpha.com.starmobile.models.Plan;
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import alpha.com.starmobile.repository.PlanRepository;
 
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PlanServiceImpl implements PlanService {
 
-    @Autowired
     private PlanRepository repo;
 
     @Override

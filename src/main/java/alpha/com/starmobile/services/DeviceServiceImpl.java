@@ -1,16 +1,17 @@
-package services;
+package alpha.com.starmobile.services;
 
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.repository.DeviceRepository;
 
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class DeviceServiceImpl implements DeviceService {
 
-    @Autowired
     private DeviceRepository repo;
 
     @Override

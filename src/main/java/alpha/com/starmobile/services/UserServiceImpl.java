@@ -1,16 +1,17 @@
-package services;
+package alpha.com.starmobile.services;
 
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.repository.UserRepository;
 
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UserRepository repo;
 
     @Override
