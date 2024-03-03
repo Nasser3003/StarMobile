@@ -1,0 +1,34 @@
+.main {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    grid-template-areas: 
+        "app-menu-bar app-menu-bar"
+        "app-side-bar app-main-content"
+        "app-footer-bar app-footer-bar";
+}
+
+.menu-bar{
+    grid-area: app-menu-bar;
+    /* position: fixed; */
+    background-color: aqua;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content{
+    grid-area: app-main-content;
+    background-color: red;
+}
+
+.side-bar{
+    grid-area: app-side-bar;
+    background-color: green;
+}
+
+.footer-bar{
+    grid-area: app-footer-bar;
+    background-color: blue;
+}

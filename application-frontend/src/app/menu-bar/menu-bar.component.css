@@ -1,0 +1,35 @@
+:root{
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+        "main-menu-list account-list";
+}
+
+.main-menu-list{
+    grid-area: main-menu-list;
+    /* display: flex; */
+    color: bisque;
+    /* flex-wrap: nowrap; */
+    /* border-width: 1em; */
+    /* justify-self: flex-start; */
+}
+
+.main-menu-list ul{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: content;
+}
+
+.main-menu-list li{
+    font-size: x-large;
+    padding: 2em;
+    width: min-content;
+}
+
+.account{
+    grid-area: account-list;
+    display: flex;
+    flex-direction: row-reverse;
+}
