@@ -6,14 +6,20 @@
 body {
     font-family: 'Be Vietnam Pro', sans-serif;
     background-color: var(--primary-color);
+    background-image: url('./assets/imgs/galaxy-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     border: 1em;
-    border-color: aqua;
     padding: 1em;
+    color: var(--text-color);
   }
 
 :root {
-    --primary-color: #605DC8;
-    --secondary-color: #8B89E6;
-    --accent-color: #e8e7fa;
-    --shadow-color: #E8E8E8;
+    --primary-color: #070b25;
+    --secondary-color: #14213d;
+    --accent-color: #fca311;
+    --shadow-color: #000000;
+    --text-color: #e5e5e5;
+    --highlight-color: #ffffff;
 }

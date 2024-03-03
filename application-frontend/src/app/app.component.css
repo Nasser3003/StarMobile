@@ -1,34 +1,35 @@
-.main {
+main {
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 1fr 10fr;
     grid-template-rows: 1fr 8fr 1fr;
     grid-template-areas: 
-        "app-menu-bar app-menu-bar"
-        "app-side-bar app-main-content"
-        "app-footer-bar app-footer-bar";
+        "header header"
+        "side-bar content"
+        "footer footer";
 }
 
-.menu-bar{
-    grid-area: app-menu-bar;
-    /* position: fixed; */
-    background-color: aqua;
-    width: 100%;
-    height: 100%;
-    align-items: center;
+header{
+    grid-area: header;
+    position: fixed;
+    background-color: var(--accent-color);
+    width: 100vw;
+    height: max-content;
     justify-content: space-between;
+    border-top-left-radius: 75%;
+    border-bottom-left-radius: 75%;
 }
 
 .content{
-    grid-area: app-main-content;
-    background-color: red;
+    grid-area: content;
+    background-color: var(--primary-color);
 }
 
 .side-bar{
-    grid-area: app-side-bar;
-    background-color: green;
+    grid-area: side-bar;
+    background-color: var(--secondary-color);
 }
 
-.footer-bar{
-    grid-area: app-footer-bar;
-    background-color: blue;
+footer{
+    grid-area: footer;
+    background-color: var(--accent-color);
 }
