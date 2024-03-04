@@ -10,7 +10,10 @@
     text-decoration: none;
     font-size: 1.2em;
     transition: color 0.3s ease;
-    color: var(--text-color);
+    color: black;
+    border-top-left-radius: 99%;
+    border-bottom-left-radius: 99%;
+    padding-left: 2em;
 }
 
 .menu-bar a:hover {
@@ -22,7 +25,7 @@
     display: flex;
     color: var(--text-color);
     justify-content: space-around;
-    padding: 10px 0;
+    padding: 10px;
 }
 
 .main-menu-list ul{
