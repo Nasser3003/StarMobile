@@ -27,12 +27,12 @@ header{
 
 .header-inset{
     margin-left: .5em;
-    background-color: #ffffff;
+    background-color: #212f45;
     padding: 2px;
-    border: 5px solid yellow;
+    border: 5px solid #b1a7a6;
     border-bottom-left-radius: 99%;
     border-top-left-radius: 99%;
-    box-shadow: 0 0 8px 10px red;
+    box-shadow: 0 0 8px 10px #0466c8;
 }
 
 .logo{
