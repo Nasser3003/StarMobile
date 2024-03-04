@@ -6,7 +6,7 @@
 body {
     font-family: 'Be Vietnam Pro', sans-serif;
     background-color: var(--primary-color);
-    background-image: url('./assets/imgs/galaxy-bg.jpg');
+    /* background-image: url('./assets/imgs/galaxy-bg.jpg'); */
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
