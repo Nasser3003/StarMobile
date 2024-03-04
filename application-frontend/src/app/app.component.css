@@ -46,15 +46,9 @@ header{
 
 .content{
     grid-area: content;
-    /* background-color: var(--primary-color); */
-    /* padding-top: 2em; */
-    /* display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(10, min-content);
-    grid-template-areas: 
-        "content-column-left content-column-right"; */
     height: min-content;
     margin-top: 80px;
+    margin-right: 10px;
 }
 
 .side-bar{
