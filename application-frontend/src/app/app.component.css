@@ -4,11 +4,11 @@ main {
     grid-template-rows: 1fr repeat(10, min-content) 1fr;
     grid-template-areas: 
         "header header"
-        "side-bar content"
+        "content content"
         "footer footer";
 }
 
-header{
+.header-inset{
     grid-area: header;
     position: fixed;
     margin-left: 1em;
@@ -25,11 +25,12 @@ header{
     /* margin-bottom: 1em; */
 }
 
-.header-inset{
+.menu-bar{
     margin-left: .5em;
-    background-color: #212f45;
+    margin-top: 1em;
+    background-color: #0a244d;
     padding: 2px;
-    border: 5px solid #b1a7a6;
+    border: 5px solid #00e1ff;
     border-bottom-left-radius: 99%;
     border-top-left-radius: 99%;
     box-shadow: 0 0 8px 10px #0466c8;
@@ -44,21 +45,10 @@ header{
     z-index: 10;
 }
 
-.content{
+app-main-content{
     grid-area: content;
     height: min-content;
-    margin-top: 80px;
     margin-right: 10px;
-}
-
-.side-bar{
-    grid-area: side-bar;
-    padding: 1em;
-    margin-top: 105px;
-    margin-right: 10px;
-    background-color: var(--secondary-color);
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
 }
 
 footer{

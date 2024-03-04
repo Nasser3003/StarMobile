@@ -1,4 +1,4 @@
-.content-container{
+main{
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: repeat(10, min-content);

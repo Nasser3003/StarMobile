@@ -10,17 +10,17 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    border: 1em;
-    padding: 1em;
+    border: 0;
+    padding: 0;
     color: var(--text-color);
   }
 
 :root {
     --primary-color: #272640;
     --secondary-color: #212f45;
-    --accent-color: #ffba08;
+    --accent-color: #00b4d8;
     --shadow-color: #000000;
     --text-color: #e5e5e5;
-    --highlight-color: #4d194d;
+    --highlight-color: #ffffff;
     --card-color: #4d194d;
 }

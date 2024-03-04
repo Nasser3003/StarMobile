@@ -9,15 +9,17 @@
 .menu-bar a{
     text-decoration: none;
     font-size: 1.2em;
-    transition: color 0.3s ease;
+    transition: 0.3s ease;
     color: #f8edeb;
     border-top-left-radius: 99%;
     border-bottom-left-radius: 99%;
-    padding-left: 2em;
 }
 
 .menu-bar a:hover {
     color: var(--highlight-color);
+    /* background-color: black; */
+    /* border-radius: 15%; */
+    text-shadow: 2px 2px 10px blueviolet, -2px -2px 10px blue;
   }
 
 .main-menu-list{
