@@ -16,10 +16,11 @@ body {
   }
 
 :root {
-    --primary-color: #070b25;
-    --secondary-color: #14213d;
-    --accent-color: #fca311;
+    --primary-color: #272640;
+    --secondary-color: #212f45;
+    --accent-color: #ffba08;
     --shadow-color: #000000;
     --text-color: #e5e5e5;
-    --highlight-color: #ffffff;
+    --highlight-color: #4d194d;
+    --card-color: #4d194d;
 }

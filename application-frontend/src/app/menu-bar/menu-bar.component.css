@@ -1,17 +1,28 @@
 .menu-bar{
     display: grid;
-    grid-template-columns: 9fr 1fr;
+    grid-template-columns: 1fr 9fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: 
-        "main-menu-list account-list";
+        "logo main-menu-list account-list";
 }
+
+.menu-bar a{
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+    color: var(--text-color);
+}
+
+.menu-bar a:hover {
+    color: var(--highlight-color);
+  }
 
 .main-menu-list{
     grid-area: main-menu-list;
     display: flex;
     color: var(--text-color);
-    float: left;
     justify-content: space-around;
+    padding: 10px 0;
 }
 
 .main-menu-list ul{
@@ -21,8 +32,6 @@
 .main-menu-list li{
     display: flex;
     font-size: x-large;
-    /* padding: 1em; */
-    /* width: auto; */
     list-style-type: none;
     align-items: center;
     justify-content: center;
@@ -37,4 +46,6 @@
 
 .account li{
     width: max-content;
+    list-style-type: none;
+    padding-right: 2em;
 }
