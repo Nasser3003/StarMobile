@@ -41,6 +41,7 @@ ul li{
     list-style-type: none;
     align-items: center;
     justify-content: center;
+    flex-shrink: 3;
 }
 
 .account{
@@ -69,7 +70,7 @@ ul li{
     margin-top: .25em;
     width: 100vw;
     height: 60px;
-    justify-content: flex-start;
+    justify-content: center;
     border-top-left-radius: 75%;
     border-bottom-left-radius: 75%;
     display: flex;

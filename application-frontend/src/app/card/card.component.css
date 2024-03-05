@@ -1,0 +1,15 @@
+section{
+    border-radius: 30px;
+    width: 100%;
+    /* height: min-content; */
+    margin: 5px;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    padding: 1em;
+    background-color: var(--card-color);
+    display: flex;
+    flex-flow: column;
+    justify-items: center;
+    align-items: center;
+    min-height: 500px;
+}
