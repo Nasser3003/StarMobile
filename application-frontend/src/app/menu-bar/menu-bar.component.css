@@ -1,0 +1,81 @@
+header{
+    display: grid;
+    grid-template-columns: 1fr 9fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+        "logo main-menu-list account";
+    margin-top: 1em;
+}
+
+a{
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: 0.3s ease;
+    color: #f8edeb;
+    border-top-left-radius: 99%;
+    border-bottom-left-radius: 99%;
+    padding: 0 2em;
+}
+
+a:hover {
+    color: var(--highlight-color);
+    text-shadow: 2px 2px 10px blueviolet, -2px -2px 10px blue;
+}
+
+.main-menu{
+    grid-area: main-menu;
+    margin-left: 2em;
+}
+
+ul{
+    grid-area: main-menu-list;
+    display: flex;
+    color: var(--text-color);
+    justify-content: space-around;
+    /* padding: 10px; */
+}
+
+ul li{
+    display: flex;
+    font-size: 25px;
+    list-style-type: none;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 3;
+}
+
+.account{
+    grid-area: account;
+    display: flex;
+}
+
+.account li{
+    width: max-content;
+    list-style-type: none;
+    padding-right: 2em;
+    justify-content: right;
+}
+
+.logo{
+    height: 80px;
+    width: 80px;
+    z-index: 10;
+    padding: 0;
+}
+
+.inset{
+    grid-area: header;
+    position: fixed;
+    margin-left: 2em;
+    margin-top: .25em;
+    width: 100vw;
+    height: 60px;
+    justify-content: center;
+    border-top-left-radius: 75%;
+    border-bottom-left-radius: 75%;
+    display: flex;
+    border: 5px solid #00e1ff;
+    border-bottom-left-radius: 99%;
+    border-top-left-radius: 99%;
+    box-shadow: 0 0 8px 10px #0466c8;
+}
