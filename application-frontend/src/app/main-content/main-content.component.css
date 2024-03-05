@@ -4,6 +4,7 @@ main{
     grid-template-rows: repeat(10, min-content);
     grid-template-areas: 
         "content-column-left content-column-right";
+    margin: 1em;
 }
 
 .content-column-left{
