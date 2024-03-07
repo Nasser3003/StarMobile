@@ -1,0 +1,28 @@
+# conf port
+server:
+  port: 3000
+
+# conf server or no server
+spring:
+  main:
+    web-application-type: servlet
+
+  # conf database address and auth
+  datasource:
+    url: jdbc:mysql://localhost:3306/dbtest
+    username: mysql
+    password: mysql
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    #          ddl-auto: create
+    #          ddl-auto: create-drop
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  # conf spring security auth
+  security:
+    user:
+      name: spring
+      password: spring
