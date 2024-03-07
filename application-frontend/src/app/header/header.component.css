@@ -1,4 +1,4 @@
-header{
+header {
     display: flex;
     align-content: space-between;
     justify-content: center;
@@ -8,7 +8,7 @@ header{
     margin-bottom: 8px;
 }
 
-ul{
+ul {
     text-align: center;
     display: flex;
     list-style: none;
@@ -16,6 +16,14 @@ ul{
     align-items: center;
 }
 
-li{
+li {
     margin: 8px;
+    padding: 1em;
+    transition: 1s;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+li:hover {
+    background-color: rgb(35, 6, 43);
 }
