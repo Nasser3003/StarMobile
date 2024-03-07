@@ -1,0 +1,43 @@
+<section class="register-container">
+  <h2>Register here:</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="form-group">
+        <label for="registerEmail">Email:</label>
+        <span *ngIf="registerEmail?.invalid && (registerEmail?.touched || registerEmail?.dirty)">
+          <span *ngIf="registerEmail!.errors?.['required']">*required</span>
+          <span *ngIf="registerEmail!.errors?.['minlength']">*5-character minimum</span>
+          <span *ngIf="registerEmail!.errors?.['email']">*Please enter a valid email</span>
+      </span>
+        <input type="text" formControlName="registerEmail" id="registerEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="registerPassword">Password:</label>
+        <span *ngIf="registerPassword?.invalid && (registerPassword?.touched || registerPassword?.dirty)">
+          <span *ngIf="registerPassword!.errors?.['required']">*required</span>
+          <span *ngIf="registerPassword!.errors?.['minlength']">*8-character minimum</span>
+          <span *ngIf="registerPassword!.errors?.['maxlength']">*25-character maximum</span>
+          <span *ngIf="registerPassword!.errors?.['password']">*Please enter a valid password</span>
+      </span>
+        <input type="password" formControlName="registerPassword" id="registerPassword" required>
+      </div>
+      <div class="form-group">
+        <label for="registerFirstName">First Name:</label>
+        <span *ngIf="registerFirstName?.invalid && (registerFirstName?.touched || registerFirstName?.dirty)">
+          <span *ngIf="registerFirstName!.errors?.['required']">*required</span>
+          <span *ngIf="registerFirstName!.errors?.['minlength']">*3-character minimum</span>
+          <span *ngIf="registerFirstName!.errors?.['maxlength']">*25-character limit</span>
+      </span>
+        <input type="text" formControlName="registerFirstName" id="registerFirstName" required>
+      </div>
+      <div class="form-group">
+        <label for="registerLastName">Last Name:</label>
+        <span *ngIf="registerLastName?.invalid && (registerLastName?.touched || registerLastName?.dirty)">
+          <span *ngIf="registerLastName!.errors?.['required']">*required</span>
+          <span *ngIf="registerLastName!.errors?.['minlength']">*3-character minimum</span>
+          <span *ngIf="registerLastName!.errors?.['maxlength']">*25-character limit</span>
+      </span>
+        <input type="text" formControlName="registerLastName" id="registerLastName" required>
+      </div>
+      <button type="submit" [disabled]="!registerForm.valid">Login</button>
+    </form>
+  </section>

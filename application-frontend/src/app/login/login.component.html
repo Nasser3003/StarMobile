@@ -1,0 +1,22 @@
+<section class="login-container">
+    <h2>Please log in:</h2>
+    <form [formGroup]="loginForm" (login)="login()">
+      <div class="form-group">
+        <label for="loginEmail">Email:</label>
+        <span *ngIf="loginEmail?.invalid && (loginEmail?.touched || loginEmail?.dirty)">
+            <span *ngIf="loginEmail!.errors?.['required']">*required</span>
+            <span *ngIf="loginEmail!.errors?.['email']">*Please enter a valid email</span>
+        </span>
+        <input type="text" formControlName="loginEmail" id="loginEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Password:</label>
+        <span *ngIf="loginPassword?.invalid && (loginPassword?.touched || loginPassword?.dirty)">
+            <span *ngIf="loginPassword!.errors?.['required']">*required</span>
+            <span *ngIf="loginPassword!.errors?.['password']">*Please enter a valid password</span>
+        </span>
+        <input type="password" formControlName="loginPassword" id="loginPassword" required>
+      </div>
+      <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    </form>
+  </section>
