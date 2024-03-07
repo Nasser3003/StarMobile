@@ -4,12 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Data
+@Data @NoArgsConstructor @AllArgsConstructor
 public class Device {
 
     @Setter(AccessLevel.NONE)
@@ -17,6 +15,7 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String picturePath;
     private String brand;
     private String model;
     private String description;

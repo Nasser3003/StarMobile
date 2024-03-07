@@ -1,15 +1,12 @@
 package alpha.com.starmobile.models;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
+@Data @NoArgsConstructor @AllArgsConstructor
 public class User {
 
     @Setter(AccessLevel.NONE)

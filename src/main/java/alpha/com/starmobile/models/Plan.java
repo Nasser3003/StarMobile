@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Data
+@Data @NoArgsConstructor @AllArgsConstructor
 public class Plan {
 
     @Setter(AccessLevel.NONE)

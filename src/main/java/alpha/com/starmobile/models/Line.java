@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
+@Data @NoArgsConstructor @AllArgsConstructor
 public class Line {
 
     @Setter(AccessLevel.NONE)
