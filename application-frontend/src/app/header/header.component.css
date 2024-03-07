@@ -2,6 +2,10 @@ header{
     display: flex;
     align-content: space-between;
     justify-content: center;
+    background-color: var(--card-color);
+    border-bottom-left-radius: 48px;
+    border-bottom-right-radius: 48px;
+    margin-bottom: 8px;
 }
 
 ul{
