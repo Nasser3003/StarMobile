@@ -33,4 +33,22 @@ public class User {
     // should add a cart here and make it transient, or no
     // do I need unidirectional or bidirectional?
 
+    public User() {
+    }
+
+    public User(long id, String email, String firstName, String lastName, String password, List<Plan> plans) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.plans = plans;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    
+
 }

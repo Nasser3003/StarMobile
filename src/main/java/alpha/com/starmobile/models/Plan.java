@@ -27,4 +27,18 @@ public class Plan {
     @OneToMany
     @ToString.Exclude
     private List<Line> lines;
+
+    public Plan() {
+    }
+
+    public Plan(long id, PlanTypes planType, int price, int quota, String signalRange, List<Line> lines) {
+        this.id = id;
+        this.planType = planType;
+        this.price = price;
+        this.quota = quota;
+        this.signalRange = signalRange;
+        this.lines = lines;
+    }
+
+    
 }
