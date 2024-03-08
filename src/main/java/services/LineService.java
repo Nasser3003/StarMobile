@@ -15,4 +15,6 @@ public interface LineService {
 
     public Line save(Line line);
 
+    public void deleteById(Long id);
+
 }

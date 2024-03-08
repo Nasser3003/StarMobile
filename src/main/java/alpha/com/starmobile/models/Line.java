@@ -19,4 +19,19 @@ public class Line {
     @ToString.Exclude
     private Device device;
 
+    public Line() {
+    }
+
+    public Line(long id, String number, Device device) {
+        this.id = id;
+        this.number = number;
+        this.device = device;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    
+
 }

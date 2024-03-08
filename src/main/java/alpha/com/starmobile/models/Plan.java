@@ -40,5 +40,10 @@ public class Plan {
         this.lines = lines;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    
     
 }

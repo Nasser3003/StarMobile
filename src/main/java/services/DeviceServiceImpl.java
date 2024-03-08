@@ -44,4 +44,9 @@ public class DeviceServiceImpl implements DeviceService {
         return repo.save(device);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        repo.deleteById(id);
+    }
+
 }

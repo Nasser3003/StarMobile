@@ -39,4 +39,9 @@ public class LineServiceImpl implements LineService {
         return repo.save(line);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        repo.deleteById(id);
+    }
+
 }

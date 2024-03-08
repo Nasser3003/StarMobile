@@ -10,8 +10,8 @@ spring:
   # conf database address and auth
   datasource:
     url: jdbc:mysql://localhost:3306/db
-    username: mysql
-    password: mysql
+    username: root
+    password: palmer
 
   jpa:
     hibernate:

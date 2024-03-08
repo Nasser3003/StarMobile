@@ -17,4 +17,6 @@ public interface DeviceService {
 
     public Device save(Device device);
 
+    public void deleteById(Long id);
+
 }

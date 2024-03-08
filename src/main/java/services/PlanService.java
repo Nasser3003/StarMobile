@@ -16,4 +16,6 @@ public interface PlanService {
 
     public Plan save(Plan plan);
 
+    public void deleteById(Long id);
+
 }

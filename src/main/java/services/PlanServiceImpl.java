@@ -40,4 +40,8 @@ public class PlanServiceImpl implements PlanService {
         return repo.save(plan);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        repo.deleteById(id);
+    }
 }
