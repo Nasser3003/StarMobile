@@ -12,7 +12,7 @@ import alpha.com.starmobile.models.Line;
 import services.LineService;
 
 @RestController
-@RequestMapping("/api/lines")
+@RequestMapping("/lines")
 public class LineController {
 
     private LineService lineService;
@@ -38,7 +38,7 @@ public class LineController {
     }
 
     // Endpoint to retrieve a line by number
-    @GetMapping("/by-number")
+    @GetMapping("/{number}")
     public ResponseEntity<Line> getLineByNumber(@RequestParam("number") String number) {
         Optional<Line> lineOptional = lineService.findByNumber(number);
         return lineOptional.map(line -> new ResponseEntity<>(line, HttpStatus.OK))

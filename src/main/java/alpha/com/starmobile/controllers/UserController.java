@@ -32,7 +32,7 @@ public class UserController {
     }
 
     // Endpoint to retrieve a user by ID
-    @GetMapping("user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         Optional<User> userOptional = userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))

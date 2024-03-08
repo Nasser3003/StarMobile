@@ -12,7 +12,7 @@ import alpha.com.starmobile.models.Plan;
 import services.PlanService;
 
 @RestController
-@RequestMapping("/api/plans")
+@RequestMapping("/plans")
 public class PlanController {
 
     private PlanService planService;
