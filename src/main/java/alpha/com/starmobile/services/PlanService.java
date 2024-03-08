@@ -1,4 +1,4 @@
-package services;
+package alpha.com.starmobile.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,5 +15,7 @@ public interface PlanService {
     public Optional<Plan> findById(Long id);
 
     public Plan save(Plan plan);
+
+    public void deleteById(Long id);
 
 }

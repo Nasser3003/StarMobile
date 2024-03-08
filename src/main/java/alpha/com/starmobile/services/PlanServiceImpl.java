@@ -1,14 +1,16 @@
-package services;
+package alpha.com.starmobile.services;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import alpha.com.starmobile.models.Plan;
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import alpha.com.starmobile.repository.PlanRepository;
 
+@Service
 public class PlanServiceImpl implements PlanService {
 
     @Autowired
@@ -40,4 +42,8 @@ public class PlanServiceImpl implements PlanService {
         return repo.save(plan);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        repo.deleteById(id);
+    }
 }

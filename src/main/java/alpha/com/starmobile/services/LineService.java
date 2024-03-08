@@ -1,4 +1,4 @@
-package services;
+package alpha.com.starmobile.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,5 +14,7 @@ public interface LineService {
     Optional<Line> findByNumber(String number);
 
     public Line save(Line line);
+
+    public void deleteById(Long id);
 
 }

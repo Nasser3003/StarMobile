@@ -1,4 +1,4 @@
-package services;
+package alpha.com.starmobile.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,5 +16,7 @@ public interface DeviceService {
     List<Device> findAllByModel(String brand);
 
     public Device save(Device device);
+
+    public void deleteById(Long id);
 
 }

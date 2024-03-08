@@ -1,13 +1,15 @@
-package services;
+package alpha.com.starmobile.services;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import alpha.com.starmobile.models.Line;
 import alpha.com.starmobile.repository.LineRepository;
 
+@Service
 public class LineServiceImpl implements LineService {
 
     @Autowired
@@ -37,6 +39,11 @@ public class LineServiceImpl implements LineService {
             throw new IllegalArgumentException("Line must not be null");
         }
         return repo.save(line);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        repo.deleteById(id);
     }
 
 }
