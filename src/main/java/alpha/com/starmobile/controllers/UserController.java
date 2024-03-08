@@ -9,17 +9,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import alpha.com.starmobile.models.User;
-import services.UserService;
+import alpha.com.starmobile.services.UserService;
 
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
+    @Autowired
     private UserService userService;
 
     
-    @Autowired
+    
     public UserController(UserService userService) {
         this.userService = userService;
     }

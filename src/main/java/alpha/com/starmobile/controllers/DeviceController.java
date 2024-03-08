@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import alpha.com.starmobile.models.Device;
-import services.DeviceService;
+import alpha.com.starmobile.services.DeviceService;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,10 +14,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
-
+    @Autowired
     private final DeviceService deviceService;
 
-    @Autowired
+
     public DeviceController(DeviceService deviceService) {
         this.deviceService = deviceService;
     }

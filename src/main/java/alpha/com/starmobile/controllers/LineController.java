@@ -9,15 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import alpha.com.starmobile.models.Line;
-import services.LineService;
+import alpha.com.starmobile.services.LineService;
 
 @RestController
 @RequestMapping("/lines")
 public class LineController {
-
+    @Autowired
     private LineService lineService;
 
-    @Autowired
+
     public LineController(LineService lineService) {
         this.lineService = lineService;
     }

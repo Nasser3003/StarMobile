@@ -9,15 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import alpha.com.starmobile.models.Plan;
-import services.PlanService;
+import alpha.com.starmobile.services.PlanService;
 
 @RestController
 @RequestMapping("/plans")
 public class PlanController {
-
+    @Autowired
     private PlanService planService;
 
-    @Autowired
+
     public PlanController(PlanService planService) {
         this.planService = planService;
     }
