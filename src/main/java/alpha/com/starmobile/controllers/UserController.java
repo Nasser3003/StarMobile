@@ -13,7 +13,7 @@ import services.UserService;
 
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/user")
 public class UserController {
 
     private UserService userService;
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     // Endpoint to retrieve a user by ID
-    @GetMapping("/{id}")
+    @GetMapping("user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         Optional<User> userOptional = userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     // Endpoint to retrieve a user by email
-    @GetMapping("/by-email")
+    @GetMapping("/{email}")
     public ResponseEntity<User> getUserByEmail(@RequestParam("email") String email) {
         Optional<User> userOptional = userService.findByEmail(email);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
