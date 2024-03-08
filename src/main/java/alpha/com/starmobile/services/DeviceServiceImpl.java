@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.repository.DeviceRepository;
 
+@Service
 public class DeviceServiceImpl implements DeviceService {
 
     @Autowired

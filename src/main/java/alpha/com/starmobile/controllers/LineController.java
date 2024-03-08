@@ -14,25 +14,25 @@ import alpha.com.starmobile.services.LineService;
 @RestController
 @RequestMapping("/lines")
 public class LineController {
-    @Autowired
-    private LineService lineService;
 
+    @Autowired
+    private LineService service;
 
     public LineController(LineService lineService) {
-        this.lineService = lineService;
+        this.service = lineService;
     }
 
     // Endpoint to retrieve all lines
     @GetMapping
     public ResponseEntity<List<Line>> getAllLines() {
-        List<Line> lines = lineService.findAll();
+        List<Line> lines = service.findAll();
         return new ResponseEntity<>(lines, HttpStatus.OK);
     }
 
     // Endpoint to retrieve a line by ID
     @GetMapping("/{id}")
     public ResponseEntity<Line> getLineById(@PathVariable("id") Long id) {
-        Optional<Line> lineOptional = lineService.findById(id);
+        Optional<Line> lineOptional = service.findById(id);
         return lineOptional.map(line -> new ResponseEntity<>(line, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -40,7 +40,7 @@ public class LineController {
     // Endpoint to retrieve a line by number
     @GetMapping("/{number}")
     public ResponseEntity<Line> getLineByNumber(@RequestParam("number") String number) {
-        Optional<Line> lineOptional = lineService.findByNumber(number);
+        Optional<Line> lineOptional = service.findByNumber(number);
         return lineOptional.map(line -> new ResponseEntity<>(line, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -48,7 +48,7 @@ public class LineController {
     // Endpoint to create a new line
     @PostMapping
     public ResponseEntity<Line> createLine(@RequestBody Line line) {
-        Line newLine = lineService.save(line);
+        Line newLine = service.save(line);
         return new ResponseEntity<>(newLine, HttpStatus.CREATED);
     }
 
@@ -56,14 +56,14 @@ public class LineController {
     @PutMapping("/{id}")
     public ResponseEntity<Line> updateLine(@PathVariable("id") Long id, @RequestBody Line line) {
         line.setId(id); // Ensure the ID matches the path variable
-        Line updatedLine = lineService.save(line);
+        Line updatedLine = service.save(line);
         return new ResponseEntity<>(updatedLine, HttpStatus.OK);
     }
 
     // Endpoint to delete a line
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLine(@PathVariable("id") Long id) {
-        lineService.deleteById(id);
+        service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

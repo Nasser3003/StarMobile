@@ -14,25 +14,25 @@ import alpha.com.starmobile.services.PlanService;
 @RestController
 @RequestMapping("/plans")
 public class PlanController {
+
     @Autowired
-    private PlanService planService;
+    private PlanService service;
 
-
-    public PlanController(PlanService planService) {
-        this.planService = planService;
+    public PlanController(PlanService service) {
+        this.service = service;
     }
 
     // Endpoint to retrieve all plans
     @GetMapping
     public ResponseEntity<List<Plan>> getAllPlans() {
-        List<Plan> plans = planService.findAll();
+        List<Plan> plans = service.findAll();
         return new ResponseEntity<>(plans, HttpStatus.OK);
     }
 
     // Endpoint to retrieve a plan by ID
     @GetMapping("/{id}")
     public ResponseEntity<Plan> getPlanById(@PathVariable("id") Long id) {
-        Optional<Plan> planOptional = planService.findById(id);
+        Optional<Plan> planOptional = service.findById(id);
         return planOptional.map(plan -> new ResponseEntity<>(plan, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -40,7 +40,7 @@ public class PlanController {
     // Endpoint to create a new plan
     @PostMapping
     public ResponseEntity<Plan> createPlan(@RequestBody Plan plan) {
-        Plan newPlan = planService.save(plan);
+        Plan newPlan = service.save(plan);
         return new ResponseEntity<>(newPlan, HttpStatus.CREATED);
     }
 
@@ -48,14 +48,14 @@ public class PlanController {
     @PutMapping("/{id}")
     public ResponseEntity<Plan> updatePlan(@PathVariable("id") Long id, @RequestBody Plan plan) {
         plan.setId(id); // Ensure the ID matches the path variable
-        Plan updatedPlan = planService.save(plan);
+        Plan updatedPlan = service.save(plan);
         return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
     }
 
     // Endpoint to delete a plan
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlan(@PathVariable("id") Long id) {
-        planService.deleteById(id);
+        service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

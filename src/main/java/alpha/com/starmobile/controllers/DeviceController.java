@@ -15,24 +15,24 @@ import java.util.Optional;
 @RequestMapping("/devices")
 public class DeviceController {
     @Autowired
-    private final DeviceService deviceService;
+    private DeviceService service;
 
 
     public DeviceController(DeviceService deviceService) {
-        this.deviceService = deviceService;
+        this.service = deviceService;
     }
 
     // Endpoint to retrieve all devices
     @GetMapping
     public ResponseEntity<List<Device>> getAllDevices() {
-        List<Device> devices = deviceService.findAll();
+        List<Device> devices = service.findAll();
         return new ResponseEntity<>(devices, HttpStatus.OK);
     }
 
     // Endpoint to retrieve a device by ID
     @GetMapping("/{id}")
     public ResponseEntity<Device> getDeviceById(@PathVariable("id") Long id) {
-        Optional<Device> deviceOptional = deviceService.findById(id);
+        Optional<Device> deviceOptional = service.findById(id);
         return deviceOptional.map(device -> new ResponseEntity<>(device, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -40,7 +40,7 @@ public class DeviceController {
     // Endpoint to create a new device
     @PostMapping
     public ResponseEntity<Device> createDevice(@RequestBody Device device) {
-        Device newDevice = deviceService.save(device);
+        Device newDevice = service.save(device);
         return new ResponseEntity<>(newDevice, HttpStatus.CREATED);
     }
 
@@ -48,14 +48,14 @@ public class DeviceController {
     @PutMapping("/{id}")
     public ResponseEntity<Device> updateDevice(@PathVariable("id") Long id, @RequestBody Device device) {
         device.setId(id); // Ensure the ID matches the path variable
-        Device updatedDevice = deviceService.save(device);
+        Device updatedDevice = service.save(device);
         return new ResponseEntity<>(updatedDevice, HttpStatus.OK);
     }
 
     // Endpoint to delete a device
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDevice(@PathVariable("id") Long id) {
-        deviceService.deleteById(id);
+        service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

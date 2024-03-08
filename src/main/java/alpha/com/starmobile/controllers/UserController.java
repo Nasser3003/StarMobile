@@ -11,30 +11,29 @@ import org.springframework.web.bind.annotation.*;
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.services.UserService;
 
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
-    private UserService userService;
+    private UserService service;
 
     
-    
     public UserController(UserService userService) {
-        this.userService = userService;
+        this.service = userService;
     }
 
     // Endpoint to retrieve all users
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.findAll();
+        List<User> users = service.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     // Endpoint to retrieve a user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-        Optional<User> userOptional = userService.findById(id);
+        Optional<User> userOptional = service.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -42,7 +41,7 @@ public class UserController {
     // Endpoint to retrieve a user by email
     @GetMapping("/{email}")
     public ResponseEntity<User> getUserByEmail(@RequestParam("email") String email) {
-        Optional<User> userOptional = userService.findByEmail(email);
+        Optional<User> userOptional = service.findByEmail(email);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -50,7 +49,7 @@ public class UserController {
     // Endpoint to create a new user
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        User newUser = userService.save(user);
+        User newUser = service.save(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
@@ -58,14 +57,14 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
         user.setId(id); // Ensure the ID matches the path variable
-        User updatedUser = userService.save(user);
+        User updatedUser = service.save(user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
     // Endpoint to delete a user
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
-        userService.deleteById(id);
+        service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
