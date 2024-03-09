@@ -11,12 +11,12 @@ import alpha.com.starmobile.services.DeviceService;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/device")
 public class DeviceController {
     @Autowired
     private DeviceService service;
-
 
     public DeviceController(DeviceService deviceService) {
         this.service = deviceService;

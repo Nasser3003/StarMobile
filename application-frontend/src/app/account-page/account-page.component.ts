@@ -12,7 +12,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class AccountPageComponent {
 
-  currentUser: User = new User('','',0,'','')
+  currentUser: User = new User('','','','')
   isLoggedIn: boolean = false;
 
 }
