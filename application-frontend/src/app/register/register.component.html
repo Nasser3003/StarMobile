@@ -1,6 +1,6 @@
 <section class="register-container">
   <h2>Register here:</h2>
-    <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <form [formGroup]="registerForm">
       <div class="form-group">
         <label for="registerEmail">Email:</label>
         <span *ngIf="registerEmail?.invalid && (registerEmail?.touched || registerEmail?.dirty)">
@@ -38,7 +38,7 @@
       </span>
         <input type="text" formControlName="registerLastName" id="registerLastName" required>
       </div>
-      <button type="submit" [disabled]="!registerForm.valid">Login</button>
+      <button (click)="register()" type="submit" [disabled]="!registerForm.valid">Login</button>
     </form>
     <!-- <div *ngIf="message" class="alert">{{ message }}</div> -->
   </section>

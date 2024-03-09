@@ -13,10 +13,10 @@ export class BackendService {
 
   baseURL = environment.apiURL;
 
-  postUser = new User(0,'','','','');
-  getUser = new User(0,'','','','');
-  putUser = new User(0,'','','','');
-  deletedUser = new User(0,'','','','');
+  postUser = new User('','','','');
+  getUser = new User('','','','');
+  putUser = new User('','','','');
+  deletedUser = new User('','','','');
   allUsers: User[] = [];
 
   postDevice = new Device('','',0,'',0);
