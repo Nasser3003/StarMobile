@@ -1,0 +1,28 @@
+main {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    grid-template-rows: 1fr repeat(10, min-content) 1fr;
+    grid-template-areas: 
+        "header header"
+        "content content"
+        "footer footer";
+}
+
+app-menu-bar{
+    grid-area: header;
+}
+
+app-main-content{
+    grid-area: content;
+    height: min-content;
+    /* margin-right: 10px; */
+}
+
+footer{
+    grid-area: footer;
+    background-color: var(--accent-color);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 0px 10px 5px 0px var(--shadow-color);
+    height: 64px;
+}
