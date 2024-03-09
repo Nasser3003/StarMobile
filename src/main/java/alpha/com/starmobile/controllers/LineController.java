@@ -12,7 +12,7 @@ import alpha.com.starmobile.models.Line;
 import alpha.com.starmobile.services.LineService;
 
 @RestController
-@RequestMapping("/lines")
+@RequestMapping("/line")
 public class LineController {
 
     @Autowired

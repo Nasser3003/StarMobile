@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/devices")
+@RequestMapping("/device")
 public class DeviceController {
     @Autowired
     private DeviceService service;
