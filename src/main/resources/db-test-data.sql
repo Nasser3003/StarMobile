@@ -22,7 +22,7 @@ INSERT INTO user (email, first_name, last_name, password) VALUES
 ('user2@example.com', 'Jane', 'Smith', 'password2');
 
 -- Insert data into the user_device table
-INSERT INTO user_device (user_id, device_id) VALUES
+INSERT INTO user_devices (user_id, devices_id) VALUES
 (1, 1),
 (1, 2),
 (2, 3);
