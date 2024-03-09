@@ -6,4 +6,10 @@ import { Injectable } from '@angular/core';
 export class BackendService {
 
   constructor() { }
+
+  login(userName: string, hashedPw: string) {
+    
+  }
+
+
 }

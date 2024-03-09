@@ -15,7 +15,7 @@ public class User {
     @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
     private String email;
@@ -27,10 +27,28 @@ public class User {
 
     private String password;
 
-    @OneToMany
+    @ManyToMany
     @ToString.Exclude
-    private List<Plan> plans;
+    private List<Device> devices;
     // should add a cart here and make it transient, or no
     // do I need unidirectional or bidirectional?
+
+    public User() {
+    }
+
+    public User(long id, String email, String firstName, String lastName, String password, List<Device> devices) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.devices = devices;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    
 
 }
