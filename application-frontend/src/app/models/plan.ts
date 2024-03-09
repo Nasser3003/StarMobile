@@ -1,22 +1,22 @@
 
 export class Plan {
     id: number;
-    plan_type: number;
+    planType: number;
     price: number;
     quota: number;
-    signal_range: string;
+    signalRange: string;
 
     constructor (
         id: number,
-        plan_type: number,
+        planType: number,
         price: number,
         quota: number,
-        signal_range: string
+        signalRange: string
     ) {
         this.id = id;
-        this.plan_type = plan_type;
+        this.planType = planType;
         this.price = price;
         this.quota = quota;
-        this.signal_range = signal_range;
+        this.signalRange = signalRange;
     }
 }
