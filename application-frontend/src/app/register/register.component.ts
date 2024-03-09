@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BackendService } from '../services/backend.service';
 import { CommonModule } from '@angular/common';
+import { User } from '../models/user';
+import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +15,8 @@ import { CommonModule } from '@angular/common';
 export class RegisterComponent {
 
   registerForm: FormGroup;
+  newUser: User = new User('','','','')
+  hashedPw: string = '';
 
   constructor (private formBuilder: FormBuilder, private backend: BackendService) {
     this.registerForm = this.formBuilder.group({
@@ -39,7 +43,32 @@ export class RegisterComponent {
   register() {
     // registration logic here - call on backend to send POST
     if(this.registerForm.valid) {
-      console.log('Registration sent!', this.registerForm.value);
+      this.newUser.email = this.registerEmail?.value;
+      this.newUser.first_name = this.registerFirstName?.value;
+      this.newUser.last_name = this.registerLastName?.value;
+
+      // hash the password
+      bcrypt.hash(this.registerPassword!.value, 10, (err, hash) => {
+
+        // check if err is truthy
+        if (err) {
+          // handle error
+          console.error(err); // log the error to the console
+
+          // uncomment this if we get time to add a messageService
+          // display a message to the user
+          // this.messageService.add({severity:'error', summary:'Error', detail:'Something went wrong. Please try again.'});
+
+          // throw an exception
+          throw new Error('Bcrypt hashing failed');
+        } else {
+          // assign the password
+          this.newUser.password = hash;
+          // send the user to backend
+          this.backend.register(this.newUser);
+          console.log('Registration sent!', this.registerForm.value);
+        }
+      });
     }
   }
 
