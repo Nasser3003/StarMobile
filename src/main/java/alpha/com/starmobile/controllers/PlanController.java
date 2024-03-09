@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import alpha.com.starmobile.models.Plan;
 import alpha.com.starmobile.services.PlanService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/plan")
 public class PlanController {
@@ -59,4 +60,3 @@ public class PlanController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
-

@@ -45,10 +45,16 @@ public class User {
         this.devices = devices;
     }
 
+    public User(String email, String firstName, String lastName, String password, List<Device> devices) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.devices = devices;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
-
-    
 
 }

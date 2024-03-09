@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import alpha.com.starmobile.models.Line;
 import alpha.com.starmobile.services.LineService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/line")
 public class LineController {
@@ -67,4 +68,3 @@ public class LineController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
-
