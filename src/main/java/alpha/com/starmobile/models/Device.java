@@ -21,6 +21,7 @@ public class Device {
     private String model;
     private String description;
     private int price;
+    
     public Device() {
     }
     public Device(long id, String brand, String model, String description, int price) {
