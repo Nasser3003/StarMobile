@@ -4,8 +4,6 @@ import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Data
 public class Plan {
@@ -24,20 +22,19 @@ public class Plan {
     @Column(name = "signal_range")
     private String signalRange; // aka (galactic, solar,  universal)
 
-    @OneToMany
-    @ToString.Exclude
-    private List<Line> lines;
+    @OneToOne
+    private Device device;
 
     public Plan() {
     }
 
-    public Plan(long id, PlanTypes planType, int price, int quota, String signalRange, List<Line> lines) {
+    public Plan(long id, PlanTypes planType, int price, int quota, String signalRange, Device device) {
         this.id = id;
         this.planType = planType;
         this.price = price;
         this.quota = quota;
         this.signalRange = signalRange;
-        this.lines = lines;
+        this.device = device;
     }
 
     public void setId(long id) {
