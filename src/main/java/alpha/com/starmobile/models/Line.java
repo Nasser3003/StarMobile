@@ -16,7 +16,6 @@ public class Line {
     private String number;
 
     @OneToOne
-    @ToString.Exclude
     private Device device;
 
     public Line() {
