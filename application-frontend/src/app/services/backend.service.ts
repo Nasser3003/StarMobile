@@ -193,7 +193,7 @@ export class BackendService {
    * GET /line/{id}
    */
   getLineById(id: string) {
-    this.http.get<any>(this.baseURL + 'line' + id, {observe: 'response'}).subscribe({
+    this.http.get<any>(this.baseURL + 'line/' + id, {observe: 'response'}).subscribe({
       next : data => this.getLine = data.body.data,
       error: err => console.log(err),
       complete: () => console.log('Line retrieved by ID')
@@ -204,7 +204,7 @@ export class BackendService {
    * GET /line/{number}
    */
   getLineByNumber(num: number) {
-    this.http.get<any>(this.baseURL + 'line' + num, {observe: 'response'}).subscribe({
+    this.http.get<any>(this.baseURL + 'line/' + num, {observe: 'response'}).subscribe({
       next : data => this.getLine = data.body.data,
       error: err => console.log(err),
       complete: () => console.log('Line retrieved by phone number')
@@ -252,35 +252,55 @@ export class BackendService {
    * GET /plan
    */
   getAllPlans() {
-
+    this.http.get<any>(this.baseURL + 'plan', {observe: 'response'}).subscribe({
+      next : data => this.allPlans = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('All plans retrieved')
+    });
   }
 
   /**
    * GET /plan/{id}
    */
-  getPlanById() {
-
+  getPlanById(id: string) {
+    this.http.get<any>(this.baseURL + 'plan/' + id, {observe: 'response'}).subscribe({
+      next : data => this.getPlan = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('Plan retrieved by ID')
+    });
   }
 
   /**
    * POST /plan
    */
   createPlan() {
-
+    this.http.post<any>(this.baseURL + 'plan', {observe: 'response'}).subscribe({
+      next : data => this.postPlan = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('Plan created')
+    });
   }
 
   /**
    * PUT /plan/{id}
    */
-  updatePlan() {
-
+  updatePlan(id: string) {
+    this.http.put<any>(this.baseURL + 'plan/' + id, {observe: 'response'}).subscribe({
+      next : data => this.putPlan = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('Plan updated')
+    });
   }
 
   /**
    * DELETE /plan/{id}
    */
-  deletePlan() {
-
+  deletePlan(id: string) {
+    this.http.delete<any>(this.baseURL + 'plan/' + id, {observe: 'response'}).subscribe({
+      next : data => this.deletedPlan = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('Plan deleted')
+    });
   }
 
 }
