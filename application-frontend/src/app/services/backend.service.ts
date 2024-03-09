@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
+import { Device } from '../models/device';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class BackendService {
   /**
    * POST /user
    */
-  register(user: {}) {
+  register(user: User) {
     this.http.post<any>(this.baseURL + 'user', user, {observe: 'response'}).subscribe({
       next : data => this.postUser = data.body.data,
       error: err => console.log(err),
@@ -75,7 +76,7 @@ export class BackendService {
    * PUT /user/{id}
    */
   editUser(id: string, user: {}) {
-    this.http.put<any>(this.baseURL + id, user, {observe: 'response'}).subscribe({
+    this.http.put<any>(this.baseURL + 'user/' + id, user, {observe: 'response'}).subscribe({
       next : data => this.getUser = data.body.data,
       error: err => console.log(err),
       complete: () => console.log('User edited')
@@ -90,7 +91,7 @@ export class BackendService {
       complete: () => console.log('User deleted')
     });
   }
-  
+
   /////////////////
   /////DEVICES/////
   /////////////////
@@ -99,35 +100,55 @@ export class BackendService {
    * GET /device
    */
   getAllDevices() {
-
+    this.http.get<any>(this.baseURL + 'device', {observe: 'response'}).subscribe({
+      next : data => this.getUser = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('All devices retrieved')
+    });
   }
 
   /**
    * GET /device/{id}
    */
-  getDeviceById() {
-
+  getDeviceById(id: string) {
+    this.http.get<any>(this.baseURL + 'device/' + id, {observe: 'response'}).subscribe({
+      next : data => this.getUser = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('Device retrieved by ID')
+    });
   }
 
   /**
    * POST /device
    */
-  createDevice() {
-
+  createDevice(device: Device) {
+    this.http.post<any>(this.baseURL + 'device', {observe: 'response'}).subscribe({
+      next : data => this.getUser = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('Device created')
+    });
   }
 
   /**
    * PUT /device/{id}
    */
-  updateDevice() {
-
+  updateDevice(id: string) {
+    this.http.put<any>(this.baseURL + 'device/' + id, {observe: 'response'}).subscribe({
+      next : data => this.getUser = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('All devices retrieved')
+    });
   }
 
   /**
    * DELETE /device/{id}
    */
-  deleteDevice() {
-
+  deleteDevice(id: string) {
+    this.http.delete<any>(this.baseURL + 'device/' + id, {observe: 'response'}).subscribe({
+      next : data => this.getUser = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('All devices retrieved')
+    });
   }
 
   ///////////////
