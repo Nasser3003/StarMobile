@@ -1,0 +1,15 @@
+<main>
+    <h2>ACCOUNT</h2>
+    
+    <section *ngIf="isLoggedIn">
+        <table>
+            <th></th>
+        </table>
+    </section>
+    
+    <section id="loginroute" *ngIf="!isLoggedIn">
+        <p>Please click the button to log into your account or create a new one.</p>
+        <button type="button" routerLink="/login">LOGIN/REGISTER</button>
+    </section>
+
+</main>
