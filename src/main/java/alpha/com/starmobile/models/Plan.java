@@ -23,6 +23,7 @@ public class Plan {
     private String signalRange; // aka (galactic, solar,  universal)
 
     @OneToOne
+    @JoinColumn(name = "device_id")
     private Device device;
 
     public Plan() {
