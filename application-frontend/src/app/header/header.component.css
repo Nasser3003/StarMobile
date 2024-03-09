@@ -1,0 +1,29 @@
+header {
+    display: flex;
+    align-content: space-between;
+    justify-content: center;
+    background-color: var(--card-color);
+    border-bottom-left-radius: 48px;
+    border-bottom-right-radius: 48px;
+    margin-bottom: 8px;
+}
+
+ul {
+    text-align: center;
+    display: flex;
+    list-style: none;
+    align-content: space-between;
+    align-items: center;
+}
+
+li {
+    margin: 8px;
+    padding: 1em;
+    transition: 1s;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+li:hover {
+    background-color: rgb(35, 6, 43);
+}
