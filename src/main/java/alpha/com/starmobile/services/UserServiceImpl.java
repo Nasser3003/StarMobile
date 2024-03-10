@@ -20,10 +20,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID must not be null");
-        }
+    public Optional<User> findById(long id) {
         return repo.findById(id);
     }
 

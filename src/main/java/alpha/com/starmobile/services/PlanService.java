@@ -12,7 +12,7 @@ public interface PlanService {
 
     List<Plan> findAllByPlanType(PlanTypes planType);
 
-    Optional<Plan> findById(Long id);
+    Optional<Plan> findById(long id);
 
     Plan save(Plan plan);
 

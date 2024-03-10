@@ -19,10 +19,8 @@ public class LineServiceImpl implements LineService {
     }
 
     @Override
-    public Optional<Line> findById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID must not be null");
-        }
+    public Optional<Line> findById(long id) {
+
         return repo.findById(id);
     }
 

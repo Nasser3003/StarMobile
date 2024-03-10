@@ -26,10 +26,7 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public Optional<Plan> findById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID must not be null");
-        }
+    public Optional<Plan> findById(long id) {
         return repo.findById(id);
     }
 

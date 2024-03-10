@@ -9,7 +9,7 @@ public interface LineService {
 
     List<Line> findAll();
 
-    Optional<Line> findById(Long id);
+    Optional<Line> findById(long id);
 
     Optional<Line> findByNumber(String number);
 
