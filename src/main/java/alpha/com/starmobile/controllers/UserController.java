@@ -2,14 +2,15 @@ package alpha.com.starmobile.controllers;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import alpha.com.starmobile.dtos.RegisterRequest;
+import alpha.com.starmobile.dtos.RegisterResponse;
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.services.UserService;
+import alpha.com.starmobile.services.UserServiceImpl;
 
 @RestController
 @RequestMapping("/user")
@@ -18,6 +19,8 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private UserServiceImpl serviceImpl;
     
     public UserController(UserService userService) {
         this.service = userService;
@@ -67,4 +70,12 @@ public class UserController {
         service.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    	// Register
+	@PostMapping("/register")
+	public RegisterResponse register(@RequestBody RegisterRequest authDetails) {
+		User user = serviceImpl.register(authDetails.getUsername(), authDetails.getPassword());
+		
+		return new RegisterResponse(user.getUsername(), user.getRole());
+	}
 }
