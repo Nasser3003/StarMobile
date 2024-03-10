@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import alpha.com.starmobile.models.Line;
 import alpha.com.starmobile.repository.LineRepository;
+
+@Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class LineServiceImpl implements LineService {
+
 
     private LineRepository repo;
 
@@ -35,6 +38,11 @@ public class LineServiceImpl implements LineService {
             throw new IllegalArgumentException("Line must not be null");
         }
         return repo.save(line);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        repo.deleteById(id);
     }
 
 }

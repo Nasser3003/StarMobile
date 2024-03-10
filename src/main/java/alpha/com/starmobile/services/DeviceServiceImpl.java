@@ -6,9 +6,11 @@ import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.repository.DeviceRepository;
 
+@Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class DeviceServiceImpl implements DeviceService {
 
@@ -21,6 +23,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public Optional<Device> findById(long id) {
+
         return repo.findById(id);
     }
 
@@ -40,6 +43,11 @@ public class DeviceServiceImpl implements DeviceService {
             throw new IllegalArgumentException("Device must not be null");
         }
         return repo.save(device);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        repo.deleteById(id);
     }
 
 }

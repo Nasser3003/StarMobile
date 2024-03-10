@@ -11,10 +11,13 @@ public interface DeviceService {
 
     Optional<Device> findById(long id);
 
+
     List<Device> findAllByBrand(String brand);
 
     List<Device> findAllByModel(String brand);
 
     Device save(Device device);
+    Device save(Device device);
+    void deleteById(long id);
 
 }

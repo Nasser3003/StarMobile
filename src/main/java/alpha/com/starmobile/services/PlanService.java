@@ -15,5 +15,7 @@ public interface PlanService {
     Optional<Plan> findById(long id);
 
     Plan save(Plan plan);
+  
+    void deleteById(long id);
 
 }

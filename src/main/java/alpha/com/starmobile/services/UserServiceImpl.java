@@ -6,13 +6,16 @@ import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.repository.UserRepository;
 
+@Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
 
     private UserRepository repo;
+
 
     @Override
     public List<User> findAll() {
@@ -35,6 +38,10 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("User must not be null");
         }
         return repo.save(user);
+    }
+      @Override
+    public void deleteById(long id) {
+        repo.deleteById(id);
     }
 
 }

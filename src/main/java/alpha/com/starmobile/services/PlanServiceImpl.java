@@ -10,6 +10,7 @@ import alpha.com.starmobile.models.Plan;
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import alpha.com.starmobile.repository.PlanRepository;
 
+@Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PlanServiceImpl implements PlanService {
 
@@ -27,6 +28,7 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public Optional<Plan> findById(long id) {
+
         return repo.findById(id);
     }
 
@@ -38,4 +40,8 @@ public class PlanServiceImpl implements PlanService {
         return repo.save(plan);
     }
 
+    @Override
+    public void deleteById(long id) {
+        repo.deleteById(id);
+    }
 }
