@@ -45,6 +45,10 @@
     /* align-self: center; */
 }
 
+.add-a-card:hover {
+    box-shadow: 0 10px 20px 0 rgba(190, 190, 190, 0.2);
+}  
+
 section {
     width: 512px;
     height: 512px;

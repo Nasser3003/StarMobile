@@ -4,20 +4,22 @@
         <li *ngFor="let line of lineList">{{line | phone}}</li>
     </ul>
 </section> -->
-<h1>Your Plans</h1>
+<!-- <section *ngIf="isLoggedIn"> -->
+    <h1>Your Plans</h1>
 
-<div class="flex-container">
-    <div class="add-a-card">
-        <div>Add a plan?</div>
-    </div>
-    <div class="card">
-        <div class="card-head">Citizen Plan</div>
-        <div class="card-details">
-            <div>Device: </div>
-            <div>Cost</div>
+    <div class="flex-container">
+        <div class="add-a-card">
+            <div>Add a plan?</div>
+        </div>
+        <div class="card">
+            <div class="card-head">Citizen Plan</div>
+            <div class="card-details">
+                <div>Device: </div>
+                <div>Cost</div>
+            </div>
         </div>
     </div>
-</div>
+<!-- </section> -->
 
 <h1>Available Plans</h1>
 <div class="flex-container">
