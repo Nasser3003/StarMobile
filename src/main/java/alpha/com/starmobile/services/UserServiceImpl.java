@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository repo;
     private final PasswordEncoder encoder;
 
-
     @Override
     public List<User> findAll() {
         return repo.findAll();
@@ -41,10 +40,6 @@ public class UserServiceImpl implements UserService {
         repo.save(user);
         user.setPassword(""); // setting password empty before returning it
         return user;
-    }
-      @Override
-    public void deleteById(long id) {
-        repo.deleteById(id);
     }
 
 }

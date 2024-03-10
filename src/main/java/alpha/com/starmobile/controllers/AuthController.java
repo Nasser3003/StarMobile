@@ -2,7 +2,6 @@ package alpha.com.starmobile.controllers;
 
 import alpha.com.starmobile.dto.RegistrationDTO;
 import alpha.com.starmobile.models.User;
-import alpha.com.starmobile.services.LoadUserByUsernameService;
 import alpha.com.starmobile.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private UserService service;
-    private LoadUserByUsernameService loadUserByUsernameService;
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody RegistrationDTO registrationDTO) {

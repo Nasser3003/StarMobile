@@ -34,6 +34,7 @@ public class SecurityConfig {
 		return http
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated())
+				.formLogin(withDefaults())
 				.httpBasic(withDefaults())
 				.build();
 	}

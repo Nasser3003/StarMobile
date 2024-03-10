@@ -1,6 +1,5 @@
 package alpha.com.starmobile.controllers;
 
-import alpha.com.starmobile.dto.RegistrationDTO;
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.services.UserService;
 import lombok.AllArgsConstructor;

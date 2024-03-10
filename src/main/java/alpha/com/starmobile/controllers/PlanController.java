@@ -20,14 +20,12 @@ public class PlanController {
 
     private PlanService service;
 
-    // Endpoint to retrieve all plans
     @GetMapping
     public ResponseEntity<List<Plan>> getAllPlans() {
         List<Plan> plans = service.findAll();
         return new ResponseEntity<>(plans, HttpStatus.OK);
     }
 
-    // Endpoint to retrieve a plan by ID
     @GetMapping("/{id}")
     public ResponseEntity<Plan> getPlanById(@PathVariable("id") Long id) {
         Optional<Plan> planOptional = service.findById(id);
@@ -35,14 +33,12 @@ public class PlanController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Endpoint to create a new plan
     @PostMapping
     public ResponseEntity<Plan> createPlan(@RequestBody Plan plan) {
         Plan newPlan = service.save(plan);
         return new ResponseEntity<>(newPlan, HttpStatus.CREATED);
     }
 
-    // Endpoint to update an existing plan
     @PutMapping("/{id}")
     public ResponseEntity<Plan> updatePlan(@PathVariable("id") Long id, @RequestBody Plan plan) {
         plan.setId(id); // Ensure the ID matches the path variable
@@ -50,7 +46,6 @@ public class PlanController {
         return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
     }
 
-    // Endpoint to delete a plan
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlan(@PathVariable("id") Long id) {
         service.deleteById(id);
