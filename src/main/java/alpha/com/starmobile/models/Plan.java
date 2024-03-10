@@ -4,11 +4,13 @@ import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Plan {
 
-//    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +25,8 @@ public class Plan {
     @Column(name = "signal_range")
     private String signalRange; // aka (galactic, solar,  universal)
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "device_id")
-    private Device device;
-    
+    private List<Line> lines;
+
 }

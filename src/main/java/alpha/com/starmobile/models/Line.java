@@ -7,7 +7,7 @@ import lombok.*;
 @Data @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Line {
 
-//    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +17,7 @@ public class Line {
     private String number;
 
     @OneToOne
+    @ToString.Exclude
     private Device device;
+
 }

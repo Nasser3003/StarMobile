@@ -21,7 +21,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-//    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +41,9 @@ public class User implements UserDetails {
 
     private String password;
 
-    @ManyToMany
+    @OneToMany
     @ToString.Exclude
-    private List<Device> devices;
+    private List<Plan> plans;
 
     // user roles
     @Override

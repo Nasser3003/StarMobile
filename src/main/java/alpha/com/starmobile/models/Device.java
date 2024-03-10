@@ -8,7 +8,7 @@ import lombok.*;
 @Data @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Device {
 
-//    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,5 @@ public class Device {
     private String model;
     private String description;
     private int price;
-
-    @OneToOne
-    private Line line;
 
 }
