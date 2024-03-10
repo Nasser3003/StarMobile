@@ -19,7 +19,9 @@ public class Device {
     private String description;
     private int price;
 
-    @OneToOne
+    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL, orphanRemoval = true)
     private Line line;
 
+    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Plan plan;
 }
