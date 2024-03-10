@@ -28,7 +28,7 @@ public class UserController {
     }
 
     // Endpoint to retrieve a user by ID
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         Optional<User> userOptional = service.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     // Endpoint to retrieve a user by email
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
         Optional<User> userOptional = service.findByEmail(email);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
