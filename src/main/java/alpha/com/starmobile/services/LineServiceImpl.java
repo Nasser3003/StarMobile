@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import alpha.com.starmobile.models.Line;
 import alpha.com.starmobile.repository.LineRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))

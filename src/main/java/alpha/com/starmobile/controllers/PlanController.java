@@ -3,6 +3,7 @@ package alpha.com.starmobile.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +15,10 @@ import alpha.com.starmobile.services.PlanService;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/plan")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PlanController {
 
-    @Autowired
     private PlanService service;
-
-    public PlanController(PlanService service) {
-        this.service = service;
-    }
 
     // Endpoint to retrieve all plans
     @GetMapping
