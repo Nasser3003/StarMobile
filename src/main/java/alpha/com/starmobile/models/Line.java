@@ -17,7 +17,11 @@ public class Line {
     private String number;
 
     @OneToOne
-    @ToString.Exclude
     private Device device;
+
+    @ManyToOne
+    @ToString.Exclude
+    @JoinColumn(name = "plan_id")
+    private Plan plan;
 
 }

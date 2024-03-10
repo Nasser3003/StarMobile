@@ -19,8 +19,8 @@ import java.util.Optional;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private UserService service;
-    private AuthenticationService authService;
+    private final UserService service;
+    private final AuthenticationService authService;
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody RegistrationDTO registrationDTO) {

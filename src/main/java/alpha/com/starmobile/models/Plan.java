@@ -20,13 +20,18 @@ public class Plan {
 
     private int price;
 
-    private int quota; // dataLimit (gigabyte megabyte or terabyte in the future) :D
+    private int quota;
 
     @Column(name = "signal_range")
-    private String signalRange; // aka (galactic, solar,  universal)
+    private String signalRange;
 
-    @OneToMany
-    @JoinColumn(name = "device_id")
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Line> lines;
+
+    @ManyToOne
+    @ToString.Exclude
+    @JoinColumn(name = "user_id") // Customize the column name as needed
+    private User user;
 
 }

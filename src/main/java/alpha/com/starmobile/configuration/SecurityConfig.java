@@ -7,6 +7,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,6 +40,11 @@ public class SecurityConfig {
 				.formLogin(withDefaults())
 				.httpBasic(withDefaults())
 				.build();
+	}
+
+	@Bean
+	public String getAuthenticatedUsername() {
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
 }

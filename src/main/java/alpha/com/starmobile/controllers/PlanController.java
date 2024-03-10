@@ -41,7 +41,6 @@ public class PlanController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Plan> updatePlan(@PathVariable("id") Long id, @RequestBody Plan plan) {
-        plan.setId(id); // Ensure the ID matches the path variable
         Plan updatedPlan = service.save(plan);
         return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
     }

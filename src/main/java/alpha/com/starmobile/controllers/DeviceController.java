@@ -41,7 +41,6 @@ public class DeviceController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Device> updateDevice(@PathVariable("id") Long id, @RequestBody Device device) {
-        device.setId(id); // Ensure the ID matches the path variable
         Device updatedDevice = service.save(device);
         return new ResponseEntity<>(updatedDevice, HttpStatus.OK);
     }
