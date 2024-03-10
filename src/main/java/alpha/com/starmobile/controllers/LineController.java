@@ -3,6 +3,7 @@ package alpha.com.starmobile.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +15,10 @@ import alpha.com.starmobile.services.LineService;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/line")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class LineController {
 
-    @Autowired
     private LineService service;
-
-    public LineController(LineService lineService) {
-        this.service = lineService;
-    }
 
     // Endpoint to retrieve all lines
     @GetMapping
@@ -40,7 +37,7 @@ public class LineController {
 
     // Endpoint to retrieve a line by number
     @GetMapping("/{number}")
-    public ResponseEntity<Line> getLineByNumber(@RequestParam("number") String number) {
+    public ResponseEntity<Line> getLineByNumber(@PathVariable("number") String number) {
         Optional<Line> lineOptional = service.findByNumber(number);
         return lineOptional.map(line -> new ResponseEntity<>(line, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

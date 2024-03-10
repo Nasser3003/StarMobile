@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))

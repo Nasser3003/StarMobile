@@ -1,5 +1,6 @@
 package alpha.com.starmobile.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,10 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/device")
-public class DeviceController {
-    @Autowired
-    private DeviceService service;
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 
-    public DeviceController(DeviceService deviceService) {
-        this.service = deviceService;
-    }
+public class DeviceController {
+    private DeviceService service;
 
     // Endpoint to retrieve all devices
     @GetMapping
