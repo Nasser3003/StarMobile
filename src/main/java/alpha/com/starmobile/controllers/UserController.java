@@ -1,16 +1,16 @@
 package alpha.com.starmobile.controllers;
 
-import java.util.List;
-import java.util.Optional;
-
+import alpha.com.starmobile.dto.RegistrationDTO;
+import alpha.com.starmobile.models.User;
+import alpha.com.starmobile.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import alpha.com.starmobile.models.User;
-import alpha.com.starmobile.services.UserService;
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -20,22 +20,12 @@ public class UserController {
 
     private UserService service;
 
-    // Endpoint to retrieve all users
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = service.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    // Endpoint to retrieve a user by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-        Optional<User> userOptional = service.findById(id);
-        return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    // Endpoint to retrieve a user by email
     @GetMapping("/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
         Optional<User> userOptional = service.findByEmail(email);
@@ -43,25 +33,4 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Endpoint to create a new user
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User newUser = service.save(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    }
-
-    // Endpoint to update an existing user
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
-        user.setId(id); // Ensure the ID matches the path variable
-        User updatedUser = service.save(user);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
-    }
-
-    // Endpoint to delete a user
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
-        service.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 }

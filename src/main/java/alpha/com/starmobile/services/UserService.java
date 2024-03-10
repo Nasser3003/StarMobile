@@ -1,9 +1,10 @@
 package alpha.com.starmobile.services;
 
+import alpha.com.starmobile.dto.RegistrationDTO;
+import alpha.com.starmobile.models.User;
+
 import java.util.List;
 import java.util.Optional;
-
-import alpha.com.starmobile.models.User;
 
 public interface UserService {
 
@@ -13,7 +14,7 @@ public interface UserService {
 
     Optional<User> findByEmail(String email);
 
-    User save(User user);
+    User register(RegistrationDTO registrationDTO);
     void deleteById(long id);
 
 }

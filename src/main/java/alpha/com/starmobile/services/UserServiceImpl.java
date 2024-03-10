@@ -1,21 +1,22 @@
 package alpha.com.starmobile.services;
 
-import java.util.List;
-import java.util.Optional;
-
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-
-
+import alpha.com.starmobile.dto.RegistrationDTO;
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
 
     private UserRepository repo;
+    private final PasswordEncoder encoder;
 
 
     @Override
@@ -34,11 +35,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User must not be null");
-        }
-        return repo.save(user);
+    public User register(RegistrationDTO registrationDTO) {
+        User user = new User(registrationDTO.firstName(), registrationDTO.lastName(), registrationDTO.email(),
+                encoder.encode(registrationDTO.password()));
+        repo.save(user);
+        user.setPassword(""); // setting password empty before returning it
+        return user;
     }
       @Override
     public void deleteById(long id) {
