@@ -17,7 +17,6 @@ public interface DeviceService {
     List<Device> findAllByModel(String brand);
 
     Device save(Device device);
-    Device save(Device device);
     void deleteById(long id);
 
 }

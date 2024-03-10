@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import alpha.com.starmobile.models.Plan;
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import alpha.com.starmobile.repository.PlanRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
