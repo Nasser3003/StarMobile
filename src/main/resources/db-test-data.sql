@@ -5,10 +5,10 @@ INSERT INTO line (number) VALUES
 ('Line 3');
 
 -- Insert data into the device table
-INSERT INTO device (brand, description, model, price) VALUES
-('Brand A', 'Description A', 'Model X', 100),
-('Brand B', 'Description B', 'Model Y', 150),
-('Brand C', 'Description C', 'Model Z', 200);
+INSERT INTO device (brand, description, model, picture_path, price) VALUES
+('Brand A', 'Description A', 'Model X', 'image1', 100),
+('Brand B', 'Description B', 'Model Y', 'image2', 150),
+('Brand C', 'Description C', 'Model Z', 'image3', 200);
 
 -- Insert data into the plan table
 INSERT INTO plan (plan_type, price, quota, signal_range, device_id) VALUES
