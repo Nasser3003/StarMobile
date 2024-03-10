@@ -21,9 +21,10 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(requests -> {
             // GET requests to /user or /user/something
-            requests.requestMatchers(HttpMethod.POST, "/register").permitAll();
-            requests.requestMatchers("/user/**", "/user").hasAnyRole("ADMIN");
-            requests.anyRequest().authenticated();
+            // requests.requestMatchers(HttpMethod.POST, "/register").permitAll();
+            // requests.requestMatchers("/user/**", "/user").hasAnyRole("ADMIN");
+            //requests.anyRequest().authenticated();
+            requests.anyRequest().permitAll();
         })          
         .exceptionHandling(configurer -> configurer
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
