@@ -4,7 +4,7 @@
         <li *ngFor="let line of lineList">{{line | phone}}</li>
     </ul>
 </section> -->
-<!-- <section *ngIf="isLoggedIn"> -->
+<section *ngIf="LoginStatus.getIsLoggedIn">
     <h1>Your Plans</h1>
 
     <div class="flex-container">
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-<!-- </section> -->
+</section>
 
 <h1>Available Plans</h1>
 <div class="flex-container">

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PhonePipe } from '../pipes/phone.pipe';
-import { AccountPageComponent } from '../account-page/account-page.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-plan-card',
@@ -11,6 +11,7 @@ import { AccountPageComponent } from '../account-page/account-page.component';
     imports: [CommonModule, PhonePipe]
 })
 export class PlanCardComponent {
+  LoginStatus: AuthService = inject(AuthService);
 
   lineList: string[] = ['5096270952', '0983427547']
 

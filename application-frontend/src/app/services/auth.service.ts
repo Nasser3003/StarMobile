@@ -10,7 +10,7 @@ import { User } from '../models/user';
 })
 export class AuthService {
 
-  isLoggedIn = false;
+  protected isLoggedIn = false;
   apiUrl: string = environment.apiURL;
   loginRedirectUrl: string | null = null;
   accountRedirectUrl: string | null = null;
@@ -22,6 +22,10 @@ export class AuthService {
 
   logout(): void {
     this.isLoggedIn = false;
+  }
+
+  getIsLoggedIn() : boolean {
+    return this.isLoggedIn;
   }
 
   constructor(private http: HttpClient) { }

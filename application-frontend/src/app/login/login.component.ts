@@ -23,7 +23,7 @@ export class LoginComponent {
       loginEmail: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.email])],
       loginPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(25)])]
     });
-    if (authService.isLoggedIn) {
+    if (authService.getIsLoggedIn()) {
       const redirectUrl = this.authService.accountRedirectUrl
       ? this.authService.accountRedirectUrl: '/account';
       this.router.navigate([redirectUrl]);
@@ -62,7 +62,7 @@ export class LoginComponent {
         });
 
       this.authService.login().subscribe(() => {
-        if (this.authService.isLoggedIn) {
+        if (this.authService.getIsLoggedIn()) {
           const redirectUrl = this.authService.accountRedirectUrl
           ? this.authService.accountRedirectUrl: '/account';
           this.router.navigate([redirectUrl])
