@@ -1,10 +1,12 @@
 package alpha.com.starmobile.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -24,15 +26,20 @@ public class Device {
     private String description;
     private int price;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "plan_id", nullable = true)
     private Plan plan;
 
     @OneToOne
+    @JoinColumn(name = "line_id", nullable = true)
     private Line line;
+
+    @Column(name = "image")
+    private String image;
     
     public Device() {
     }
-    public Device(long id, String brand, String model, String description, int price, Plan plan, Line line) {
+    public Device(long id, String brand, String model, String description, int price, Plan plan, Line line, String image) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -40,6 +47,7 @@ public class Device {
         this.price = price;
         this.plan = plan;
         this.line = line;
+        this.image = image;
     }
     public void setId(long id) {
         this.id = id;

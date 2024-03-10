@@ -13,6 +13,7 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Enumerated(EnumType.STRING) // Use EnumType.STRING to store enums as strings
     private PlanTypes planType;
 
     private int price;
@@ -22,20 +23,15 @@ public class Plan {
     @Column(name = "signal_range")
     private String signalRange; // aka (galactic, solar,  universal)
 
-    @OneToOne
-    @JoinColumn(name = "device_id")
-    private Device device;
-
     public Plan() {
     }
 
-    public Plan(long id, PlanTypes planType, int price, int quota, String signalRange, Device device) {
+    public Plan(long id, PlanTypes planType, int price, int quota, String signalRange) {
         this.id = id;
         this.planType = planType;
         this.price = price;
         this.quota = quota;
         this.signalRange = signalRange;
-        this.device = device;
     }
 
     public void setId(long id) {

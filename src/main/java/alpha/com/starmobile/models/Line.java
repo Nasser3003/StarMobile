@@ -17,7 +17,7 @@ public class Line {
 
     @OneToOne
     @JoinColumn(name = "device_id")
-    private Device device;
+    private Device device = null;
 
     public Line() {
     }

@@ -27,11 +27,12 @@ public class User {
 
     private String password;
 
-    @ManyToMany
+    @OneToMany
     @ToString.Exclude
     private List<Device> devices;
     // should add a cart here and make it transient, or no
     // do I need unidirectional or bidirectional?
+
 
     public User() {
     }
