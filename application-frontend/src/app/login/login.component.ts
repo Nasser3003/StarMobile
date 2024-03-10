@@ -61,13 +61,13 @@ export class LoginComponent {
           }
         });
 
-      this.authService.login().subscribe(() => {
         if (this.authService.getIsLoggedIn()) {
           const redirectUrl = this.authService.accountRedirectUrl
           ? this.authService.accountRedirectUrl: '/account';
           this.router.navigate([redirectUrl])
-        }
-      });
+        };
+      // this.authService.login().subscribe(() => {
+      // });
 
       console.log('Login sent!', this.loginForm.value);
     }
