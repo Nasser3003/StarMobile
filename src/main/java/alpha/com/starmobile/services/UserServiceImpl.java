@@ -3,23 +3,19 @@ package alpha.com.starmobile.services;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.repository.UserRepository;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UserRepository repo;
 
-    
-    @Autowired
-    public UserServiceImpl(UserRepository repo) {
-        this.repo = repo;
-    }
 
     @Override
     public List<User> findAll() {
@@ -27,10 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID must not be null");
-        }
+    public Optional<User> findById(long id) {
         return repo.findById(id);
     }
 
@@ -46,12 +39,9 @@ public class UserServiceImpl implements UserService {
         }
         return repo.save(user);
     }
-
-    @Override
-    public void deleteById(Long id) {
+      @Override
+    public void deleteById(long id) {
         repo.deleteById(id);
     }
-
-
 
 }

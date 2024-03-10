@@ -3,16 +3,17 @@ package alpha.com.starmobile.services;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 
 import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.repository.DeviceRepository;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class DeviceServiceImpl implements DeviceService {
 
-    @Autowired
     private DeviceRepository repo;
 
     @Override
@@ -21,10 +22,8 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Optional<Device> findById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID must not be null");
-        }
+    public Optional<Device> findById(long id) {
+
         return repo.findById(id);
     }
 
@@ -47,7 +46,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(long id) {
         repo.deleteById(id);
     }
 

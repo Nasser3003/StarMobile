@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
+@Data @NoArgsConstructor @AllArgsConstructor
 public class Plan {
 
     @Setter(AccessLevel.NONE)

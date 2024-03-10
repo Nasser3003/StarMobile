@@ -7,16 +7,17 @@ import alpha.com.starmobile.models.Device;
 
 public interface DeviceService {
 
-    public List<Device> findAll();
+    List<Device> findAll();
 
-    public Optional<Device> findById(Long id);
+    Optional<Device> findById(long id);
+
 
     List<Device> findAllByBrand(String brand);
 
     List<Device> findAllByModel(String brand);
 
-    public Device save(Device device);
-
-    public void deleteById(Long id);
+    Device save(Device device);
+    Device save(Device device);
+    void deleteById(long id);
 
 }

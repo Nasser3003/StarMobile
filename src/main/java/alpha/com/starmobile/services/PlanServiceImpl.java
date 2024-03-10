@@ -3,17 +3,17 @@ package alpha.com.starmobile.services;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import alpha.com.starmobile.models.Plan;
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import alpha.com.starmobile.repository.PlanRepository;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PlanServiceImpl implements PlanService {
 
-    @Autowired
     private PlanRepository repo;
 
     @Override
@@ -27,10 +27,8 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public Optional<Plan> findById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID must not be null");
-        }
+    public Optional<Plan> findById(long id) {
+
         return repo.findById(id);
     }
 
@@ -43,7 +41,7 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(long id) {
         repo.deleteById(id);
     }
 }

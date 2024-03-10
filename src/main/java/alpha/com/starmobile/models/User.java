@@ -1,30 +1,33 @@
 package alpha.com.starmobile.models;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
+@Data @NoArgsConstructor @RequiredArgsConstructor
 public class User {
+
 
     @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String email;
-
+    @NonNull
     @Column(name = "first_name")
     private String firstName;
+
+    @NonNull
     @Column(name = "last_name")
     private String lastName;
 
+    @NonNull
+    @Column(unique = true)
+    private String email;
+
+    @NonNull
     private String password;
 
     @ManyToMany

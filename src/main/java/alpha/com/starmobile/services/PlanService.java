@@ -8,14 +8,14 @@ import alpha.com.starmobile.models.ENUMS.PlanTypes;
 
 public interface PlanService {
 
-    public List<Plan> findAll();
+    List<Plan> findAll();
 
-    public List<Plan> findAllByPlanType(PlanTypes planType);
+    List<Plan> findAllByPlanType(PlanTypes planType);
 
-    public Optional<Plan> findById(Long id);
+    Optional<Plan> findById(long id);
 
-    public Plan save(Plan plan);
-
-    public void deleteById(Long id);
+    Plan save(Plan plan);
+  
+    void deleteById(long id);
 
 }

@@ -32,4 +32,15 @@ build/
 .vscode/
 
 ### Mac ###
-.DS Store
+.DS_Store
+
+### Node.js ###
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+.env
+.env.local
+.cache/
+dist/
+*.log
