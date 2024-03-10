@@ -38,8 +38,7 @@ public class UserServiceImpl implements UserService {
         User user = new User(registrationDTO.firstName(), registrationDTO.lastName(), registrationDTO.email(),
                 encoder.encode(registrationDTO.password()));
         repo.save(user);
-        user.setPassword(""); // setting password empty before returning it
+        user.setPassword("");
         return user;
     }
-
 }

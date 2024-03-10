@@ -1,6 +1,5 @@
 package alpha.com.starmobile.services;
 
-import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import alpha.com.starmobile.models.Line;
 import alpha.com.starmobile.models.Plan;
@@ -23,18 +22,19 @@ public class MyService {
     private DeviceRepository deviceRepository;
 
     @Transactional
-    public Plan addPlan(String email, String planType) {
+    public void addPlan(String email, String planType) {
         User user = userRepository.findByEmail(email).orElseThrow(IllegalArgumentException::new);
-        return null; // planRepository.save();
+        Plan plan = new Plan(PlanTypes.valueOf(planType));
+
+        plan.setUser(user);
+        user.addPlan(plan);
     }
 
-//    @Transactional
-//    public Line addLine(String planType, Line line) {
-//        Plan plan = planRepository.findByPlanType(PlanTypes.valueOf(planType)).orElseThrow(IllegalArgumentException::new);
-//        line.setPlan(plan);
-//        return null;  // lineRepository.save(line);
-//    }
-//
+    @Transactional
+    public void addLine(String planType, Line line) {
+        Plan plan = planRepository.findByPlanType(PlanTypes.valueOf(planType)).orElseThrow(IllegalArgumentException::new);
+    }
+
 //    @Transactional
 //    public Device addDevice(Long lineId, Device device) {
 //        Line line = lineRepository.findByNumber(lineId).orElseThrow();

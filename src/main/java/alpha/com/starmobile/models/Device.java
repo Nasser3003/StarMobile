@@ -20,9 +20,8 @@ public class Device {
     private String description;
     private int price;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "device_id") // Customize the column name as needed
-    private Device device;
+    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
+    private Line line;
 
 
 }

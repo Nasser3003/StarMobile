@@ -1,6 +1,7 @@
 package alpha.com.starmobile;
 
 import alpha.com.starmobile.dto.RegistrationDTO;
+import alpha.com.starmobile.services.MyService;
 import alpha.com.starmobile.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Runner implements CommandLineRunner {
     private UserService userService;
+    private MyService myService;
+
 
     @Override
     public void run(String... args) {
@@ -21,5 +24,6 @@ public class Runner implements CommandLineRunner {
                     "abdo.abdo3003@gmail.com", "Abdo");
             userService.register(registrationNasserDTO);
         }
+        myService.addPlan("abdo.abdo3003@gmail.com","GALACTIC");
     }
 }
