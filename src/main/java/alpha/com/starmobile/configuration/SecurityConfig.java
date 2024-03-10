@@ -7,6 +7,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,17 +35,19 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http
 				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated()
+						auth -> auth.anyRequest().permitAll()
 				)
 				.formLogin(withDefaults())
 				.httpBasic(withDefaults())
 				.build();
 	}
 
-	@Bean
-	public String getAuthenticatedUsername() {
-		return SecurityContextHolder.getContext().getAuthentication().getName();
+	public static String getAuthenticatedUsername() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null) {
+			return authentication.getName();
+		}
+		return null;
 	}
 
 }

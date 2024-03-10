@@ -9,6 +9,4 @@ import java.util.Optional;
 
 public interface PlanRepository extends JpaRepository<Plan, Long> {
     Optional<Plan> findByPlanType(PlanTypes planType);
-
-    List<Plan> findAllByPlanType(PlanTypes planType);
 }
