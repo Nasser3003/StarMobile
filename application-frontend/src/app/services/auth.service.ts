@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +11,18 @@ import { tap, delay } from 'rxjs/operators';
 export class AuthService {
 
   isLoggedIn = false;
+  apiUrl: string = environment.apiURL;
   loginRedirectUrl: string | null = null;
   accountRedirectUrl: string | null = null;
 
-  login(): Observable<boolean> {
-    return of(true).pipe(delay(1000), tap(() => (this.isLoggedIn = true)));
+  login(email: string, password: string): Observable<User> {
+    // return of(true).pipe(delay(1000), tap(() => (this.isLoggedIn = true)));
+    return this.http.post<User>('login', {email, password})
   }
 
   logout(): void {
     this.isLoggedIn = false;
   }
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 }
