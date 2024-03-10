@@ -6,7 +6,9 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Data @NoArgsConstructor @RequiredArgsConstructor
+@Data 
+@NoArgsConstructor 
+@RequiredArgsConstructor
 public class User {
 
 //    @Setter(AccessLevel.NONE)
@@ -34,5 +36,8 @@ public class User {
     private List<Device> devices;
     // should add a cart here and make it transient, or no
     // do I need unidirectional or bidirectional?
+
+    @Column
+    private String roles;
 
 }
