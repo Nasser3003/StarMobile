@@ -1,16 +1,22 @@
 .login-container {
-    max-width: 500px;
-    margin: auto;
-    margin-top: 2em;
-    margin-bottom: 2em;
-    padding: 20px;
-    border-radius: 30px;
-    background-color: var(--accent-color);
-    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding: 20px;
+  border-radius: 30px;
+  background-color: var(--accent-color);
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
   }
 
   form {
     padding: 1em;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
   }
   
   .form-group {
@@ -37,4 +43,22 @@
   span {
     color: red;
     font-style: italic;
+  }
+
+  .input-error {
+    border: 1px solid red;
+  }
+
+  button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: auto;
+    cursor: pointer;
+  }
+
+  button[disabled] {
+    background-color: #ccc;
   }

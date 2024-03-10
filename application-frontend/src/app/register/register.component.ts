@@ -66,7 +66,7 @@ export class RegisterComponent {
           this.newUser.password = hash;
           // send the user to backend
           this.backend.register(this.newUser);
-          console.log('Registration sent!', this.registerForm.value);
+          console.log('Registration sent!', this.newUser);
         }
       });
     }

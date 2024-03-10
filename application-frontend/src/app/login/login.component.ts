@@ -34,7 +34,7 @@ export class LoginComponent {
     return this.loginForm.get('loginEmail');
   }
   get loginPassword() {
-    return this.loginForm.get('loginpassword');
+    return this.loginForm.get('loginPassword');
   }
 
   login() {

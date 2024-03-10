@@ -19,10 +19,10 @@ export class BackendService {
   deletedUser = new User('','','','');
   allUsers: User[] = [];
 
-  postDevice = new Device('','',0,'',0);
-  getDevice = new Device('','',0,'',0);
-  putDevice = new Device('','',0,'',0);
-  deletedDevice = new Device('','',0,'',0);
+  postDevice = undefined;
+  getDevice = undefined;
+  putDevice = undefined;
+  deletedDevice = undefined;
   allDevices: Device[] = [];
 
   postLine = new Line(0,0,'');
