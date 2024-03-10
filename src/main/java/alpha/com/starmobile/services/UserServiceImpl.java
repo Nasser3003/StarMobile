@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository repo;
 
-    @Autowired
     public UserServiceImpl(UserRepository repo) {
         this.repo = repo;
     }
@@ -50,6 +49,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return repo.save(user);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void deleteById(Long id) {
         repo.deleteById(id);
