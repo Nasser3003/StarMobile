@@ -8,7 +8,7 @@ import lombok.*;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Plan {
 
-    @Setter(AccessLevel.NONE)
+//    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -25,23 +25,5 @@ public class Plan {
     @OneToOne
     @JoinColumn(name = "device_id")
     private Device device;
-
-    public Plan() {
-    }
-
-    public Plan(long id, PlanTypes planType, int price, int quota, String signalRange, Device device) {
-        this.id = id;
-        this.planType = planType;
-        this.price = price;
-        this.quota = quota;
-        this.signalRange = signalRange;
-        this.device = device;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    
     
 }
