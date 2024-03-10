@@ -16,6 +16,7 @@ public class Line {
     private String number;
 
     @OneToOne
+    @JoinColumn(name = "device_id")
     private Device device;
 
     public Line() {

@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -21,15 +23,23 @@ public class Device {
     private String model;
     private String description;
     private int price;
+
+    @OneToOne
+    private Plan plan;
+
+    @OneToOne
+    private Line line;
     
     public Device() {
     }
-    public Device(long id, String brand, String model, String description, int price) {
+    public Device(long id, String brand, String model, String description, int price, Plan plan, Line line) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.description = description;
         this.price = price;
+        this.plan = plan;
+        this.line = line;
     }
     public void setId(long id) {
         this.id = id;
