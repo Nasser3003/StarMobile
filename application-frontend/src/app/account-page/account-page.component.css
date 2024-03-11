@@ -1,24 +1,24 @@
 main {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    flex-direction: column;
+    flex-flow: column wrap;
 }
 
 h2 {
     text-align: center;
+    margin: 2em;
 }
 
 section {
-    background-color: var(--accent-color);
+    background-color: var(--card-color);
     height: 40em;
-    width: 40em;
+    /* margin-bottom: 10em; */
+    /* width: 40em; */
     padding: 2em;
-    border-radius: 32px;
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     justify-items: center;
     align-items: center;
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
@@ -29,6 +29,60 @@ section p {
 }
 
 button {
-width: 10em;
-cursor: pointer;
+    margin: 1em;
+    width: 5em;
+    justify-self: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+button:hover {
+    box-shadow: 0 0 20px 20px rgba(122, 117, 173, 0.2);
+    transform: translateY(-5px);
+}
+
+th, td{
+    text-align: left;
+    padding-right: 16px;
+}
+
+td{
+    padding: 0px 6px 0px 6px;
+    /* border-radius: 4px; */
+}
+
+th{
+    padding-bottom: 8px;
+}
+
+.even{
+    background-color: rgb(62, 47, 102);
+}
+
+.odd{
+    background-color: rgb(46, 27, 97);
+}
+
+div {
+    background-color: rgb(27, 17, 54);
+    width: 100%;
+    margin-top: 4em;
+}
+
+div table{
+    width: 100%;
+
+}
+
+div table th {
+    background-color: black;
+    width: 50%;
+}
+
+div table tr:nth-child(even){
+    background-color: rgb(62, 47, 102);
+}
+
+div table tr:nth-child(odd){
+    background-color: rgb(46, 27, 97);
 }
