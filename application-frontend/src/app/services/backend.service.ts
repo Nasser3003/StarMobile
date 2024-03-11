@@ -31,10 +31,10 @@ export class BackendService {
   deletedLine = new Line(0,0,'');
   allLines: Line[] = [];
 
-  postPlan = new Plan(0,0,0,0,'');
-  getPlan = new Plan(0,0,0,0,'');
-  putPlan = new Plan(0,0,0,0,'');
-  deletedPlan = new Plan(0,0,0,0,'');
+  postPlan = new Plan(0,"",0,0,'');
+  getPlan = new Plan(0,"",0,0,'');
+  putPlan = new Plan(0,"",0,0,'');
+  deletedPlan = new Plan(0,"",0,0,'');
   allPlans: Plan[] = [];
 
 
