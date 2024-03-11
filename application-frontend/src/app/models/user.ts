@@ -2,9 +2,9 @@ import { Device } from "./device";
 
 export class User {
     id?: number;
-    email: string;
     first_name: string;
     last_name: string;
+    email: string;
     password: string;
     devices?: Device[];
     
