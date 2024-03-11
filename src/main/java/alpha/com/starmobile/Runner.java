@@ -26,8 +26,9 @@ public class Runner implements CommandLineRunner {
 
             myService.addPlan("GALACTIC");
         }
-        myService.removePlan("GALACTIC");
 
+//        myService.addLine("GALACTIC","+1(347) 207 7039");
+        myService.removeLine("GALACTIC","+1(347) 207 7039");
 
     }
 }

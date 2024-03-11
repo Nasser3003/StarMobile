@@ -1,6 +1,5 @@
 package alpha.com.starmobile.services;
 
-import alpha.com.starmobile.configuration.SecurityConfig;
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import alpha.com.starmobile.models.Line;
 import alpha.com.starmobile.models.Plan;
@@ -14,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileNotFoundException;
-import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -48,10 +47,31 @@ public class MyService {
     }
 
     @Transactional
-    public void addLine(String planType, Line line) {
-        Plan plan = planRepository.findByPlanType(PlanTypes.valueOf(planType)).orElseThrow(IllegalArgumentException::new);
-
+    public void addLine(String planType, String phoneNumber) {
+        String userEmail = "abdo.abdo3003@gmail.com";
+//        SecurityConfig.getAuthenticatedUsername();
+        User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
+        Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType)).orElseThrow(IllegalArgumentException::new);
+        Line line = new Line(phoneNumber, plan);
+        plan.addLine(line);
     }
+
+    @Transactional
+    public void removeLine(String planType, String phoneNumber) {
+        String userEmail = "abdo.abdo3003@gmail.com";
+//        SecurityConfig.getAuthenticatedUsername();
+        User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
+        Plan plan = user.getPlans().stream()
+                .filter(p -> p.getPlanType().equals(PlanTypes.valueOf(planType)))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+
+        Line line = lineRepository.findByNumber(phoneNumber)
+                .orElseThrow(IllegalArgumentException::new);
+        plan.removeLine(line);
+        lineRepository.deleteLineById(line.getId());
+    }
+
 
 //    @Transactional
 //    public Device addDevice(Long lineId, Device device) {

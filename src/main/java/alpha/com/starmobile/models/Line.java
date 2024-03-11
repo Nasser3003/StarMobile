@@ -4,8 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data @NoArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Line {
+
+    public Line(String number, Plan plan) {
+        this.number = number;
+        this.plan = plan;
+    }
 
     @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include

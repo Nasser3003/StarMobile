@@ -47,6 +47,10 @@ public class Plan {
         lines.add(line);
         line.setPlan(this);
     }
+    public void removeLine(Line line) {
+        lines.remove(line);
+        line.setPlan(null);
+    }
 
 
     private void setDefaultsForPlanType() {
