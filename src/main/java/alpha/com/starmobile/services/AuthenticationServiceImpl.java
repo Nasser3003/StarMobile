@@ -1,22 +1,27 @@
 package alpha.com.starmobile.services;
 
-import alpha.com.starmobile.models.User;
-import alpha.com.starmobile.repository.UserRepository;
-import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-@AllArgsConstructor(onConstructor = @__(@Autowired))
-@Transactional
-public class AuthenticationServiceImp implements AuthenticationService {
+import alpha.com.starmobile.models.User;
+import alpha.com.starmobile.repository.UserRepository;
+
+@Service
+public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
+
+    @Autowired
+    public AuthenticationServiceImpl(UserRepository userRepository, PasswordEncoder encoder, AuthenticationManager authenticationManager) {
+        this.userRepository = userRepository;
+        this.encoder = encoder;
+        this.authenticationManager = authenticationManager;
+    }
 
     @Override
     public void registerUser(String firstName, String lastName, String email, String password) {
@@ -28,11 +33,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
     @Override
     public void loginUser(String email, String password) {
-        Authentication auth = authenticationManager.authenticate(
+        authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password)
         );
-
-        User user = userRepository.findByEmail(email).orElse(null);
     }
-
 }

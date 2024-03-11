@@ -55,9 +55,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { 
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/auth/welcome", "/auth/addNewUser", "/auth/generateToken").permitAll())
-                .authorizeHttpRequests(requests -> requests.requestMatchers("/auth/user/**").authenticated())
-                .authorizeHttpRequests(requests -> requests.requestMatchers("/auth/admin/**").authenticated())
+                        .requestMatchers("/auth/**", "/auth/welcome", "/auth/addNewUser", "/auth/generateToken").permitAll())
+                .authorizeHttpRequests(requests -> requests.requestMatchers("/auth/user/**").permitAll())
+                .authorizeHttpRequests(requests -> requests.requestMatchers("/auth/admin/**").permitAll())
                 .sessionManagement(management -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
