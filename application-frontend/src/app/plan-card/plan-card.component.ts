@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { PhonePipe } from '../pipes/phone.pipe';
+import { AccountPageComponent } from '../account-page/account-page.component';
 
 @Component({
     selector: 'app-plan-card',

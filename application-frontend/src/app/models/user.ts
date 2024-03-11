@@ -1,3 +1,4 @@
+import { Device } from "./device";
 
 export class User {
     id?: number;
@@ -5,6 +6,7 @@ export class User {
     first_name: string;
     last_name: string;
     password: string;
+    devices?: Device[];
     
     constructor (
         email: string,

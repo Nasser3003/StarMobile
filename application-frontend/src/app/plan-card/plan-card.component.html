@@ -1,13 +1,30 @@
-<section>
+<!-- <section>
     <h3>Plan Name Placeholder</h3>
-    
     <ul>
         <li *ngFor="let line of lineList">{{line | phone}}</li>
     </ul>
-</section>
+</section> -->
+<!-- <section *ngIf="isLoggedIn"> -->
+    <h1>Your Plans</h1>
+
+    <div class="flex-container">
+        <div class="add-a-card">
+            <div>Add a plan?</div>
+        </div>
+        <div class="card">
+            <div class="card-head">Citizen Plan</div>
+            <div class="card-details">
+                <div>Device: </div>
+                <div>Cost</div>
+            </div>
+        </div>
+    </div>
+<!-- </section> -->
+
+<h1>Available Plans</h1>
 <div class="flex-container">
     <div class="card">
-        <div class="card-head">Plan A</div>
+        <div class="card-head">Citizen Plan</div>
         <div class="card-details">
             <div>Base Cost</div>
             <div>Cost per line</div>
@@ -16,7 +33,7 @@
         </div>
     </div>
     <div class="card">
-        <div class="card-head">Plan B</div>
+        <div class="card-head">Starfighter Plan</div>
         <div class="card-details">
             <div>Base Cost</div>
             <div>Cost per line</div>
@@ -25,7 +42,7 @@
         </div>
     </div>
     <div class="card">
-        <div class="card-head">Plan C</div>
+        <div class="card-head">Child Plan</div>
         <div class="card-details">
             <div>Base Cost</div>
             <div>Cost per line</div>
@@ -34,7 +51,7 @@
         </div>
     </div>
     <div class="card">
-        <div class="card-head">Plan D</div>
+        <div class="card-head">Larval/Child Plan</div>
         <div class="card-details">
             <div>Base Cost</div>
             <div>Cost per line</div>

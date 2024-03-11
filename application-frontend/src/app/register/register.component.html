@@ -16,9 +16,8 @@
           <span *ngIf="registerPassword!.errors?.['required']">*required</span>
           <span *ngIf="registerPassword!.errors?.['minlength']">*8-character minimum</span>
           <span *ngIf="registerPassword!.errors?.['maxlength']">*25-character maximum</span>
-          <span *ngIf="registerPassword!.errors?.['password']">*Please enter a valid password</span>
       </span>
-        <input type="password" formControlName="registerPassword" id="registerPassword" required>
+        <input type="password" formControlName="registerPassword" name="loginPassword" id="registerPassword" required>
       </div>
       <div class="form-group">
         <label for="registerFirstName">First Name:</label>
@@ -38,7 +37,7 @@
       </span>
         <input type="text" formControlName="registerLastName" id="registerLastName" required>
       </div>
-      <button (click)="register()" type="submit" [disabled]="!registerForm.valid">Login</button>
+      <button (click)="register()" type="submit" [disabled]="!registerForm.valid">Register</button>
     </form>
     <!-- <div *ngIf="message" class="alert">{{ message }}</div> -->
   </section>

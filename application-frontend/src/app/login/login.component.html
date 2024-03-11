@@ -12,10 +12,11 @@
       <div class="form-group">
         <label for="loginPassword">Password:</label>
         <span *ngIf="loginPassword?.invalid && (loginPassword?.touched || loginPassword?.dirty)">
-            <span *ngIf="loginPassword!.errors?.['required']">*required</span>
-            <span *ngIf="loginPassword!.errors?.['password']">*Please enter a valid password</span>
+          <span *ngIf="loginPassword!.errors?.['required']">*required</span>
+          <span *ngIf="loginPassword!.errors?.['minlength']">*8-character minimum</span>
+          <span *ngIf="loginPassword!.errors?.['maxlength']">*25-character maximum</span>
         </span>
-        <input type="password" formControlName="loginPassword" id="loginPassword" required>
+        <input type="password" formControlName="loginPassword" name="loginPassword" id="loginPassword" required>
       </div>
       <button type="submit" [disabled]="!loginForm.valid">Login</button>
     </form>
