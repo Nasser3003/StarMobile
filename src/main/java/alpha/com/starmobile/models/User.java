@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 @Entity
-@Data @NoArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data @NoArgsConstructor
 public class User implements UserDetails {
 
     // LoadUserByUsername can only fetch by username, I want to use email as username;
@@ -21,13 +21,13 @@ public class User implements UserDetails {
     }
 
     @Setter(AccessLevel.NONE)
-    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Plan> plans = new HashSet<>();
 
     @Column(name = "first_name")
@@ -45,6 +45,10 @@ public class User implements UserDetails {
     private String password;
 
     public void addPlan(Plan plan) {
+        for (Plan p : plans) {
+            if (p.getPlanType().equals(plan.getPlanType()))
+                return;
+        }
         plans.add(plan);
         plan.setUser(this);
     }

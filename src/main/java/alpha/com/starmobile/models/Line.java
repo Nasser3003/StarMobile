@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data @NoArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data @NoArgsConstructor
 public class Line {
 
     public Line(String number, Plan plan) {
@@ -26,6 +26,8 @@ public class Line {
     private Device device;
 
     @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @JoinColumn(name = "plan_id")
     private Plan plan;
 

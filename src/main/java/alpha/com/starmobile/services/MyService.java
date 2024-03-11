@@ -1,5 +1,6 @@
 package alpha.com.starmobile.services;
 
+import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import alpha.com.starmobile.models.Line;
 import alpha.com.starmobile.models.Plan;
@@ -13,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -42,8 +42,7 @@ public class MyService {
                 .orElseThrow(IllegalAccessError::new);
 
         user.removePlan(plan);
-        planRepository.deletePlanById(plan.getId());
-
+        planRepository.delete(plan);
     }
 
     @Transactional
@@ -69,14 +68,32 @@ public class MyService {
         Line line = lineRepository.findByNumber(phoneNumber)
                 .orElseThrow(IllegalArgumentException::new);
         plan.removeLine(line);
-        lineRepository.deleteLineById(line.getId());
+        lineRepository.delete(line);
     }
 
+    @Transactional
+    public void addDevice(String phoneNumber, String brand, String model) {
+        Device device = new Device(brand, model);
+        Line line = lineRepository.findByNumber(phoneNumber).orElseThrow(IllegalArgumentException::new);
+        line.setDevice(device);
+        device.setLine(line);
+    }
+    @Transactional
+    public void removeDevice(String phoneNumber, String brand, String model) {
+        Device device = deviceRepository.findDeviceByBrandAndModel(brand, model)
+                .orElseThrow(IllegalArgumentException::new);
 
-//    @Transactional
-//    public Device addDevice(Long lineId, Device device) {
-//        Line line = lineRepository.findByNumber(lineId).orElseThrow();
-//        return deviceRepository.save(device);
-//    }
+        Line line = lineRepository.findByNumber(phoneNumber).orElseThrow(IllegalArgumentException::new);
+        line.setDevice(null);
+        device.setLine(null);
+        deviceRepository.delete(device);
+    }
+
+    public List<Plan> getUserPlans() {
+        String userEmail = "abdo.abdo3003@gmail.com";
+//        SecurityConfig.getAuthenticatedUsername();
+        User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
+        return planRepository.findAllByUser(user);
+    }
 }
 

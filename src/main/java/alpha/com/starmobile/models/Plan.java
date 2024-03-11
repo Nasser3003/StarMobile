@@ -4,14 +4,11 @@ import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Plan {
 
     public Plan(PlanTypes planType) {
@@ -36,10 +33,12 @@ public class Plan {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Line> lines = new HashSet<>();
 
     @ManyToOne
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -54,22 +53,24 @@ public class Plan {
 
 
     private void setDefaultsForPlanType() {
-        switch (planType) {
-            case UNIVERSAL:
+        String planTypeString = planType.name().toLowerCase();
+        switch (planTypeString) {
+            case "universal":
                 this.price = 300;
                 this.quota = 30;
                 this.signalRange = "Universal";
                 break;
-            case GALACTIC:
+            case "galactic":
                 this.price = 200;
                 this.quota = 20;
                 this.signalRange = "Galactic";
                 break;
-            case SOLAR:
+            case "solar":
                 this.price = 100;
                 this.quota = 10;
                 this.signalRange = "Solar";
                 break;
         }
     }
+
 }

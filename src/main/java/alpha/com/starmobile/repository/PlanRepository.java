@@ -11,8 +11,7 @@ import java.util.Optional;
 public interface PlanRepository extends JpaRepository<Plan, Long> {
     Optional<Plan> findByPlanType(PlanTypes planType);
     Optional<Plan> findByUserAndPlanType(User user, PlanTypes planType);
-
-    void deletePlanById(long id);
+    List<Plan> findAllByUser(User user);
     void deletePlanByUserAndPlanType(User user, PlanTypes planType);
 
 }
