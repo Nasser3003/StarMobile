@@ -20,7 +20,7 @@ public class Device {
     private String description;
     private int price;
 
-    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Line line;
 
 

@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data @NoArgsConstructor
@@ -34,8 +36,7 @@ public class Plan {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
-    private List<Line> lines = new ArrayList<>();
-
+    private Set<Line> lines = new HashSet<>();
 
     @ManyToOne
     @ToString.Exclude
@@ -44,7 +45,9 @@ public class Plan {
 
     public void addLine(Line line) {
         lines.add(line);
+        line.setPlan(this);
     }
+
 
     private void setDefaultsForPlanType() {
         switch (planType) {

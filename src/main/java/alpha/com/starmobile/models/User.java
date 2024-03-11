@@ -5,9 +5,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Data @NoArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -28,9 +26,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    private List<Plan> plans = new ArrayList<>();
+    private Set<Plan> plans = new HashSet<>();
 
     @Column(name = "first_name")
     private String firstName;
@@ -48,6 +46,11 @@ public class User implements UserDetails {
 
     public void addPlan(Plan plan) {
         plans.add(plan);
+        plan.setUser(this);
+    }
+
+    public void removePlan(Plan plan) {
+        plans.remove(plan);
     }
 
     @Override

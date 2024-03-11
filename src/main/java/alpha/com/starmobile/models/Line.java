@@ -20,6 +20,10 @@ public class Line {
     @JoinColumn(name = "device_id")
     private Device device;
 
+    @ManyToOne
+    @JoinColumn(name = "plan_id")
+    private Plan plan;
+
     private void linkDevice(Device device) {
         this.device = device;
     }

@@ -23,7 +23,11 @@ public class Runner implements CommandLineRunner {
             RegistrationDTO registrationNasserDTO = new RegistrationDTO("Nasser", "Abdrabbo",
                     "abdo.abdo3003@gmail.com", "Abdo");
             userService.register(registrationNasserDTO);
+
+            myService.addPlan("GALACTIC");
         }
-        myService.addPlan("abdo.abdo3003@gmail.com","GALACTIC");
+        myService.removePlan("GALACTIC");
+
+
     }
 }
