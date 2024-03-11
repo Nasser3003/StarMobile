@@ -98,7 +98,7 @@ export class BackendService {
   /**
    * PUT /user/{id}
    */
-  editUser(id: string, user: {}) {
+  editUser(id: number, user: User) {
     this.http.put<any>(this.baseURL + 'user/' + id, user, {observe: 'response'}).subscribe({
       next : data => this.putUser = data.body.data,
       error: err => console.log(err),

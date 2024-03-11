@@ -6,4 +6,5 @@
         <li routerLink="account">ACCOUNT</li>
         <li routerLink="login">LOGIN/REGISTER</li>
     </ul>
+    <button (click)="logout()" *ngIf="this.isLoggedIn">Log Out</button>
 </header>

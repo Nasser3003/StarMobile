@@ -18,11 +18,9 @@ app-main-content{
     /* margin-right: 10px; */
 }
 
-footer{
+app-footer{
     grid-area: footer;
     background-color: var(--accent-color);
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
     box-shadow: 0px 10px 5px 0px var(--shadow-color);
     height: 64px;
 }
