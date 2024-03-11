@@ -1,9 +1,7 @@
 main {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    flex-direction: column;
+    flex-flow: column wrap;
 }
 
 h2 {
@@ -12,11 +10,12 @@ h2 {
 }
 
 section {
-    background-color: var(--accent-color);
+    background-color: var(--card-color);
     height: 40em;
+    /* margin-bottom: 10em; */
     /* width: 40em; */
     padding: 2em;
-    border-radius: 32px;
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -34,10 +33,12 @@ button {
     width: 5em;
     justify-self: center;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-table{
-    /* border-collapse: collapse; */
+button:hover {
+    box-shadow: 0 0 20px 20px rgba(122, 117, 173, 0.2);
+    transform: translateY(-5px);
 }
 
 th, td{
@@ -55,16 +56,17 @@ th{
 }
 
 .even{
-    background-color: lightgray;
+    background-color: rgb(62, 47, 102);
 }
 
 .odd{
-    background-color: darkgrey;
+    background-color: rgb(46, 27, 97);
 }
 
 div {
-    background-color: blue;
+    background-color: rgb(27, 17, 54);
     width: 100%;
+    margin-top: 4em;
 }
 
 div table{
@@ -78,9 +80,9 @@ div table th {
 }
 
 div table tr:nth-child(even){
-    background-color: darkcyan;
+    background-color: rgb(62, 47, 102);
 }
 
 div table tr:nth-child(odd){
-    background-color: darkolivegreen;
+    background-color: rgb(46, 27, 97);
 }
