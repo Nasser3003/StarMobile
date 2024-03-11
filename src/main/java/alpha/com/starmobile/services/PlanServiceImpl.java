@@ -23,8 +23,8 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public List<Plan> findAllByPlanType(PlanTypes planType) {
-        return repo.findAllByPlanType(planType);
+    public Optional<Plan> findByPlanType(PlanTypes planType) {
+        return repo.findByPlanType(planType);
     }
 
     @Override

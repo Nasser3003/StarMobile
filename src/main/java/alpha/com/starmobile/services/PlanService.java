@@ -10,7 +10,7 @@ public interface PlanService {
 
     List<Plan> findAll();
 
-    List<Plan> findAllByPlanType(PlanTypes planType);
+    Optional<Plan> findByPlanType(PlanTypes planType);
 
     Optional<Plan> findById(long id);
 
