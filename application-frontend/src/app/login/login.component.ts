@@ -25,11 +25,11 @@ export class LoginComponent {
       loginPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(25)])]
     });
     // If user is logged in, redirect to account page
-    if (auth.isLoggedIn) {
-      const redirectUrl = this.auth.accountRedirectUrl
-      ? this.auth.accountRedirectUrl: '/account';
-      this.router.navigate([redirectUrl]);
-    }
+    // if (auth.isLoggedIn) {
+    //   const redirectUrl = this.auth.accountRedirectUrl
+    //   ? this.auth.accountRedirectUrl: '/account';
+    //   this.router.navigate([redirectUrl]);
+    // }
   }
 
   get loginEmail() {
