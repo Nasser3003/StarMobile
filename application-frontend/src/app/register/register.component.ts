@@ -4,6 +4,7 @@ import { BackendService } from '../services/backend.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../models/user';
 import * as bcrypt from 'bcryptjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,7 @@ export class RegisterComponent {
   newUser: User = new User('','','','')
   hashedPw: string = '';
 
-  constructor (private formBuilder: FormBuilder, private backend: BackendService) {
+  constructor (private formBuilder: FormBuilder, private backend: BackendService, private auth: AuthService) {
     this.registerForm = this.formBuilder.group({
       registerEmail: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.email])],
       registerPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(25)])],
@@ -65,7 +66,7 @@ export class RegisterComponent {
           // assign the password
           this.newUser.password = hash;
           // send the user to backend
-          this.backend.register(this.newUser);
+          this.auth.register(this.newUser);
           console.log('Registration sent!', this.newUser);
         }
       });

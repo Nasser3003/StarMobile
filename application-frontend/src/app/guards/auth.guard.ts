@@ -6,11 +6,11 @@ export const authGuard = () =>{
   const authService: AuthService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isLoggedIn) {
-    return true;
-  }
+  // if (authService.isLoggedIn) {
+  //   return true;
+  // }
 
   // redirect to the login page
-  return router.parseUrl('/login');
+  // return router.parseUrl('/login');
 
 }

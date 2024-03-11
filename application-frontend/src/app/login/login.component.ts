@@ -18,14 +18,16 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private backend: BackendService) {
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router, private backend: BackendService) {
+    // build the login form with validators
     this.loginForm = this.formBuilder.group({
       loginEmail: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.email])],
       loginPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(25)])]
     });
-    if (authService.isLoggedIn) {
-      const redirectUrl = this.authService.accountRedirectUrl
-      ? this.authService.accountRedirectUrl: '/account';
+    // If user is logged in, redirect to account page
+    if (auth.isLoggedIn) {
+      const redirectUrl = this.auth.accountRedirectUrl
+      ? this.auth.accountRedirectUrl: '/account';
       this.router.navigate([redirectUrl]);
     }
   }
@@ -56,20 +58,20 @@ export class LoginComponent {
             // throw an exception
             throw new Error('Bcrypt hashing failed');
           } else {
-            // send login info to backend
-            this.backend.login(this.loginEmail!.value, hash);
+            // send login info to authentication service
+            this.auth.login(this.loginEmail!.value, hash);
           }
         });
 
-      this.authService.login().subscribe(() => {
-        if (this.authService.isLoggedIn) {
-          const redirectUrl = this.authService.accountRedirectUrl
-          ? this.authService.accountRedirectUrl: '/account';
-          this.router.navigate([redirectUrl])
-        }
-      });
+      // this.auth.login().subscribe(() => {
+      //   if (this.auth.isLoggedIn) {
+      //     const redirectUrl = this.auth.accountRedirectUrl
+      //     ? this.auth.accountRedirectUrl: '/account';
+      //     this.router.navigate([redirectUrl])
+      //   }
+      // });
 
-      console.log('Login sent!', this.loginForm.value);
+      console.log('Login sent to auth!', this.loginForm.value);
     }
   }
 

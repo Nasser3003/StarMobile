@@ -1,15 +1,76 @@
 <main>
     <h2>ACCOUNT</h2>
     
-    <section *ngIf="isLoggedIn">
-        <table>
-            <th></th>
+    <section>
+        <h2>Welcome, {{this.currentUser.first_name + ' ' + this.currentUser.last_name}}!</h2>
+
+        <section *ngIf="this.currentUser.devices!.length === 0">
+            <h2>You have no devices on your account.</h2>
+            <button>Shop Devices</button>
+        </section>
+        
+        <table *ngIf="!(this.currentUser.devices!.length === 0)">
+            <thead>
+                <th>Device</th>
+                <th>Device Price</th>
+                <th>Line</th>
+                <th>Plan</th>
+                <th>Plan Price</th>
+                <th>Total</th>
+                
+            </thead>
+
+            <tbody>
+                <ng-container *ngFor="let device of this.currentUser.devices; let i = index; let e = even">
+                    <tr [ngClass]="{
+                        'even': e,
+                        'odd': !e
+                    }">
+                        <td>{{device.brand + ' ' + device.model}}</td>
+                        <td>{{device.price | currency}}</td>
+                        <td>{{device.line.number | phone}}</td>
+                        <td>{{device.plan.planType}}</td>
+                        <td>{{device.plan.price | currency}}</td>
+                        <td>{{device.price + device.plan.price | currency}}</td>
+                        <td><button (click)="removeDevice(device, i)">Remove device</button></td>
+                        <td><button>Change Plan</button></td>
+                        <td><button>Change Line</button></td>
+
+                    </tr>
+                </ng-container>
+            </tbody>
+
+            
         </table>
+        <div>
+            <h2>Monthly Bill</h2>
+            <table>
+                <thead>
+                    <th>Category</th>
+                    <th>Total</th>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Devices Total:</td>
+                        <td>{{this.devicesTotal | currency}}</td>
+                    </tr>
+                    <tr>
+                        <td>Plans Total:</td>
+                        <td>{{this.plansTotal | currency}}</td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Amount Due:</td>
+                        <td>{{this.billTotal | currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
     
-    <section id="loginroute" *ngIf="!isLoggedIn">
+    <!-- <section id="loginroute" *ngIf="!isLoggedIn">
         <p>Please click the button to log into your account or create a new one.</p>
         <button type="button" routerLink="/login">LOGIN/REGISTER</button>
-    </section>
+    </section> -->
 
 </main>

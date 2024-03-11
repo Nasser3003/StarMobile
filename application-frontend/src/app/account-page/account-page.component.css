@@ -8,17 +8,18 @@ main {
 
 h2 {
     text-align: center;
+    margin: 2em;
 }
 
 section {
     background-color: var(--accent-color);
     height: 40em;
-    width: 40em;
+    /* width: 40em; */
     padding: 2em;
     border-radius: 32px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     justify-items: center;
     align-items: center;
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
@@ -29,6 +30,57 @@ section p {
 }
 
 button {
-width: 10em;
-cursor: pointer;
+    margin: 1em;
+    width: 5em;
+    justify-self: center;
+    cursor: pointer;
+}
+
+table{
+    /* border-collapse: collapse; */
+}
+
+th, td{
+    text-align: left;
+    padding-right: 16px;
+}
+
+td{
+    padding: 0px 6px 0px 6px;
+    /* border-radius: 4px; */
+}
+
+th{
+    padding-bottom: 8px;
+}
+
+.even{
+    background-color: lightgray;
+}
+
+.odd{
+    background-color: darkgrey;
+}
+
+div {
+    background-color: blue;
+    width: 100%;
+}
+
+div table{
+    width: 100%;
+
+}
+
+div table th {
+    background-color: black;
+    width: 50%;
+}
+
+div table tr:nth-child(even){
+    background-color: darkcyan;
+}
+
+div table tr:nth-child(odd){
+    background-color: darkolivegreen;
 }
