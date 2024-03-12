@@ -14,13 +14,14 @@ import { Plan } from '../models/plan';
 export class PlanCardComponent {
   LoginStatus: AuthService = inject(AuthService);
 
-  // citPlan: Plan = new Plan(23, "Citizen", 25, 150, "galactic")
-  // starPlan: Plan = new Plan(24, "Starfighter", 20, 150, "universal")
-  // droidPlan: Plan = new Plan(25, "Droid", 100, 10000, "galactic")
-  // larvaPlan: Plan = new Plan(26, "Larval", 5, 10, "system")
+  citPlan: Plan = new Plan("Citizen", 25, 150, "galactic")
+  starPlan: Plan = new Plan("Starfighter", 20, 150, "universal")
+  droidPlan: Plan = new Plan("Droid", 100, 10000, "galactic")
+  larvaPlan: Plan = new Plan("Larval", 5, 10, "system")
 
-  // listOfAvailablePlansDefault: Plan[] = [this.citPlan, this.starPlan, this.droidPlan, this.larvaPlan];
+  listOfAvailablePlansDefault: Plan[] = [this.citPlan, this.starPlan, this.droidPlan, this.larvaPlan];
 
   // lineList: string[] = ['5096270952', '0983427547'] //Removable. was for HW, same for phonePipe above
 
 }
+
