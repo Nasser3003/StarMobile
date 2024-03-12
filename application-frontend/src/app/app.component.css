@@ -15,7 +15,6 @@ app-menu-bar{
 app-main-content{
     grid-area: content;
     height: min-content;
-    /* margin-right: 10px; */
 }
 
 app-footer{

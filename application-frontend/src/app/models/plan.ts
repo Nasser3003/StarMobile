@@ -1,19 +1,21 @@
+import { Line } from "./line";
+import { User } from "./user";
 
 export class Plan {
-    id: number;
+    id?: number;
     planType: string;
     price: number;
     quota: number;
     signalRange: string;
+    lines?: Line[];
+    user?: User;
 
     constructor (
-        id: number,
         planType: string,
         price: number,
         quota: number,
         signalRange: string
     ) {
-        this.id = id;
         this.planType = planType;
         this.price = price;
         this.quota = quota;

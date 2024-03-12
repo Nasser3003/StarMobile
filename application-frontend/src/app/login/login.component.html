@@ -7,7 +7,7 @@
             <span *ngIf="loginEmail!.errors?.['required']">*required</span>
             <span *ngIf="loginEmail!.errors?.['email']">*Please enter a valid email</span>
         </span>
-        <input type="text" formControlName="loginEmail" id="loginEmail" required>
+        <input type="text" placeholder="Enter your email" formControlName="loginEmail" id="loginEmail" required>
       </div>
       <div class="form-group">
         <label for="loginPassword">Password:</label>
@@ -16,7 +16,7 @@
           <span *ngIf="loginPassword!.errors?.['minlength']">*8-character minimum</span>
           <span *ngIf="loginPassword!.errors?.['maxlength']">*25-character maximum</span>
         </span>
-        <input type="password" formControlName="loginPassword" name="loginPassword" id="loginPassword" required>
+        <input type="password" placeholder="Enter your password" formControlName="loginPassword" name="loginPassword" id="loginPassword" required>
       </div>
       <button type="submit" [disabled]="!loginForm.valid">Login</button>
     </form>

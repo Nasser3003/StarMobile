@@ -6,19 +6,17 @@ main {
 
 h2 {
     text-align: center;
-    margin: 2em;
+    margin: 1em;
 }
 
 section {
     background-color: var(--card-color);
-    height: 40em;
-    /* margin-bottom: 10em; */
-    /* width: 40em; */
+    margin-bottom: 2em;
+    width: 40em;
     padding: 2em;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     justify-items: center;
     align-items: center;
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
@@ -26,6 +24,19 @@ section {
 
 section p {
     text-align: center;
+}
+
+section.plan {
+    width: 30em;
+}
+
+.account-section {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    flex: 1;
+    width: 80vw;
+    background-color: rgba(0, 0, 0, 0.582);
 }
 
 button {
@@ -65,13 +76,12 @@ th{
 
 div {
     background-color: rgb(27, 17, 54);
-    width: 100%;
-    margin-top: 4em;
+    width: 80vw;
+    margin: 2em;
 }
 
 div table{
     width: 100%;
-
 }
 
 div table th {

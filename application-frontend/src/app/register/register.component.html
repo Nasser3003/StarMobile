@@ -8,7 +8,7 @@
           <span *ngIf="registerEmail!.errors?.['minlength']">*5-character minimum</span>
           <span *ngIf="registerEmail!.errors?.['email']">*Please enter a valid email</span>
       </span>
-        <input type="text" formControlName="registerEmail" id="registerEmail" required>
+        <input type="text" placeholder="Enter your email" formControlName="registerEmail" id="registerEmail" required>
       </div>
       <div class="form-group">
         <label for="registerPassword">Password:</label>
@@ -17,7 +17,7 @@
           <span *ngIf="registerPassword!.errors?.['minlength']">*8-character minimum</span>
           <span *ngIf="registerPassword!.errors?.['maxlength']">*25-character maximum</span>
       </span>
-        <input type="password" formControlName="registerPassword" name="loginPassword" id="registerPassword" required>
+        <input type="password" placeholder="Enter a password" formControlName="registerPassword" name="loginPassword" id="registerPassword" required>
       </div>
       <div class="form-group">
         <label for="registerFirstName">First Name:</label>
@@ -26,7 +26,7 @@
           <span *ngIf="registerFirstName!.errors?.['minlength']">*3-character minimum</span>
           <span *ngIf="registerFirstName!.errors?.['maxlength']">*25-character limit</span>
       </span>
-        <input type="text" formControlName="registerFirstName" id="registerFirstName" required>
+        <input type="text" placeholder="Enter your first name" formControlName="registerFirstName" id="registerFirstName" required>
       </div>
       <div class="form-group">
         <label for="registerLastName">Last Name:</label>
@@ -35,7 +35,7 @@
           <span *ngIf="registerLastName!.errors?.['minlength']">*3-character minimum</span>
           <span *ngIf="registerLastName!.errors?.['maxlength']">*25-character limit</span>
       </span>
-        <input type="text" formControlName="registerLastName" id="registerLastName" required>
+        <input type="text" placeholder="Enter your last name" formControlName="registerLastName" id="registerLastName" required>
       </div>
       <button (click)="register()" type="submit" [disabled]="!registerForm.valid">Register</button>
     </form>
