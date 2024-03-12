@@ -39,12 +39,6 @@ public class DeviceController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
-    public ResponseEntity<Device> createDevice(@RequestBody Device device) {
-        Device newDevice = service.save(device);
-        return new ResponseEntity<>(newDevice, HttpStatus.CREATED);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Device> updateDevice(@PathVariable("id") Long id, @RequestBody Device device) {
         Device updatedDevice = service.save(device);
