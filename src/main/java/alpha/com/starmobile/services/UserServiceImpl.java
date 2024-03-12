@@ -1,5 +1,6 @@
 package alpha.com.starmobile.services;
 
+import alpha.com.starmobile.configuration.SecurityConfig;
 import alpha.com.starmobile.dto.RegistrationDTO;
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.repository.UserRepository;
@@ -31,6 +32,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByEmail(String email) {
         return repo.findByEmail(email);
+    }
+
+    @Override
+    public Optional<User> getMyUser() {
+        String userEmail = SecurityConfig.getAuthenticatedUsername();
+        return repo.findByEmail(userEmail);
     }
 
     @Override

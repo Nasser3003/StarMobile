@@ -14,17 +14,22 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/plans")
+@RequestMapping("/plan")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PlanController {
 
     private PlanService planService;
     private MyService myService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Plan>> getAllPlans() {
         List<Plan> plans = planService.findAll();
         return new ResponseEntity<>(plans, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Plan>> getMyPlans() {
+        return new ResponseEntity<>(myService.getUserPlans(), HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -38,28 +43,4 @@ public class PlanController {
         Plan updatedPlan = myService.removeLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
         return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
     }
-
-    @PutMapping("/plans/{planId}")
-    public ResponseEntity<?> updatePlan(@PathVariable Long planId, @RequestBody Plan updatedPlan) {
-        boolean done = planService.updatePlan(planId, updatedPlan);
-        return ResponseEntity.ok(updatedPlan);
-    }
-//
-//    @PostMapping
-//    public ResponseEntity<Plan> createPlan(@RequestBody Plan plan) {
-//        Plan newPlan = service.save(plan);
-//        return new ResponseEntity<>(newPlan, HttpStatus.CREATED);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Plan> updatePlan(@PathVariable("id") Long id, @RequestBody Plan plan) {
-//        Plan updatedPlan = service.save(plan);
-//        return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deletePlan(@PathVariable("id") Long id) {
-//        service.deleteById(id);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
 }

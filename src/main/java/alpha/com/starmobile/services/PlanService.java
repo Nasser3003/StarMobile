@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import alpha.com.starmobile.models.Plan;
+import alpha.com.starmobile.models.User;
 
 public interface PlanService {
 
@@ -14,8 +15,7 @@ public interface PlanService {
     Optional<Plan> findPlanById(long id);
 
     Plan save(Plan plan);
-  
+
     void deleteById(long id);
 
-    boolean updatePlan(Long planId, Plan updatedPlan);
 }

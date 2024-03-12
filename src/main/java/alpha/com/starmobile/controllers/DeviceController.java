@@ -14,13 +14,13 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/devices")
+@RequestMapping("/device")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 
 public class DeviceController {
     private DeviceService service;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Device>> getAllDevices() {
         List<Device> devices = service.findAll();
         return new ResponseEntity<>(devices, HttpStatus.OK);

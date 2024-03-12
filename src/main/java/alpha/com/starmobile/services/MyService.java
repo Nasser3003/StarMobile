@@ -26,29 +26,28 @@ public class MyService {
     private DeviceRepository deviceRepository;
 
     @Transactional
-    public void addPlan(String planType) {
-        String userEmail = "abdo.abdo3003@gmail.com";
-//                SecurityConfig.getAuthenticatedUsername();
+    public User addPlan(String planType) {
+        String userEmail = SecurityConfig.getAuthenticatedUsername();
         User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
         Plan plan = new Plan(PlanTypes.valueOf(planType));
 
         user.addPlan(plan);
+        return user;
     }
     @Transactional
-    public void removePlan(String planType) {
-        String userEmail = "abdo.abdo3003@gmail.com";
-//        SecurityConfig.getAuthenticatedUsername();
+    public User removePlan(String planType) {
+        String userEmail = SecurityConfig.getAuthenticatedUsername();
         User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
         Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType))
                 .orElseThrow(IllegalAccessError::new);
 
         user.removePlan(plan);
         planRepository.delete(plan);
+        return user;
     }
 
     @Transactional
     public Plan addLine(String planType, String phoneNumber) {
-//        String userEmail = "abdo.abdo3003@gmail.com";
         String userEmail = SecurityConfig.getAuthenticatedUsername();
         User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
         Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType)).orElseThrow(IllegalArgumentException::new);
@@ -59,8 +58,7 @@ public class MyService {
 
     @Transactional
     public Plan removeLine(String planType, String phoneNumber) {
-        String userEmail = "abdo.abdo3003@gmail.com";
-//        SecurityConfig.getAuthenticatedUsername();
+        String userEmail = SecurityConfig.getAuthenticatedUsername();
         User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
         Plan plan = user.getPlans().stream()
                 .filter(p -> p.getPlanType().equals(PlanTypes.valueOf(planType)))
@@ -82,7 +80,7 @@ public class MyService {
         device.setLine(line);
     }
     @Transactional
-    public void removeDevice(String phoneNumber, String brand, String model) {
+    public Line removeDevice(String phoneNumber, String brand, String model) {
         Device device = deviceRepository.findDeviceByBrandAndModel(brand, model)
                 .orElseThrow(IllegalArgumentException::new);
 
@@ -90,11 +88,11 @@ public class MyService {
         line.setDevice(null);
         device.setLine(null);
         deviceRepository.delete(device);
+        return line;
     }
 
     public List<Plan> getUserPlans() {
-        String userEmail = "abdo.abdo3003@gmail.com";
-//        SecurityConfig.getAuthenticatedUsername();
+        String userEmail = SecurityConfig.getAuthenticatedUsername();
         User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
         return planRepository.findAllByUser(user);
     }
