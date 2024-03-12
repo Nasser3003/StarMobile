@@ -6,10 +6,10 @@
 </section> -->
 
 
-<section *ngIf="LoginStatus.getIsLoggedIn">
+<section *ngIf="isLoggedIn">
     <h1>Your Plans</h1>
     
-    <div class="flex-container">
+    <div class="flex-container" *ngIf="currentUser?.plans !== null">
         <div class="card">
             <div class="card-head">Citizen Plan</div>
             <div class="card-details">
@@ -21,6 +21,21 @@
             </div>
         </div>
     </div>
+
+    <div class="flex-container" *ngIf="currentUser?.plans == null">
+        <div class="card">
+            <div class="card-head">No Plans Yet</div>
+            <div class="card-details">
+                <div>Device: </div>
+                <div>Number: </div>
+                <div>DataCap: </div>
+                <div>Signal Range: </div>
+                <div>Cost: </div>
+            </div>
+        </div>
+    </div>
+
+    <div></div>
 </section>
 
 
