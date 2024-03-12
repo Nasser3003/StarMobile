@@ -1,4 +1,4 @@
-import { Device } from "./device";
+import { Plan } from "./plan";
 
 export class User {
     id?: number;
@@ -6,7 +6,7 @@ export class User {
     lastName: string;
     email: string;
     password: string;
-    devices?: Device[];
+    plans?: Plan[];
     
     constructor (
         email: string,
@@ -19,6 +19,5 @@ export class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        // this.devices = [];
     }
 }
