@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/device")
+@RequestMapping("/devices")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 
 public class DeviceController {
@@ -32,12 +32,12 @@ public class DeviceController {
         return new ResponseEntity<>(devices, HttpStatus.OK);
     }
 
-    @GetMapping("/{brand}/{model}")
-    public ResponseEntity<Device> getDeviceByBrandAndModel(@PathVariable String brand, @PathVariable String model) {
-        Optional<Device> deviceOptional = service.findByBrandAndModel(brand, model);
-        return deviceOptional.map(device -> new ResponseEntity<>(device, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+//    @GetMapping("/{brand}/{model}")
+//    public ResponseEntity<Device> getDeviceByBrandAndModel(@PathVariable String brand, @PathVariable String model) {
+//        Optional<Device> deviceOptional = service.findByBrandAndModel(brand, model);
+//        return deviceOptional.map(device -> new ResponseEntity<>(device, HttpStatus.OK))
+//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Device> updateDevice(@PathVariable("id") Long id, @RequestBody Device device) {

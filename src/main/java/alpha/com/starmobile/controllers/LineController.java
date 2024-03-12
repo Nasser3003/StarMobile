@@ -14,7 +14,7 @@ import alpha.com.starmobile.services.LineService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/line")
+@RequestMapping("/lines")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class LineController {
 

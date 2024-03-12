@@ -28,6 +28,11 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    public Optional<Plan> findPlanById(long id) {
+        return repo.findById(id);
+    }
+
+    @Override
     public Plan save(Plan plan) {
         if (plan == null) {
             throw new IllegalArgumentException("Plan must not be null");
@@ -38,5 +43,14 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public void deleteById(long id) {
         repo.deleteById(id);
+    }
+
+    @Override
+    public boolean updatePlan(Long planId, Plan updatedPlan) {
+        Optional<Plan> planOptional = repo.findById(planId);
+        if (planOptional.isEmpty())
+            return false;
+//        planOptional.get().setPlanType(PlanTypes.valueOf());
+        return false;
     }
 }
