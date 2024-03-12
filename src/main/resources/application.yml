@@ -6,6 +6,7 @@ server:
 spring:
   main:
     web-application-type: servlet
+    allow-circular-references: true
 
   # conf database address and auth
   datasource:
@@ -26,3 +27,4 @@ spring:
     user:
       name: spring
       password: spring
+  
