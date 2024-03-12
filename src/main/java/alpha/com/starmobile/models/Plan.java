@@ -1,6 +1,7 @@
 package alpha.com.starmobile.models;
 
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -42,6 +43,7 @@ public class Plan {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     public void addLine(Line line) {
