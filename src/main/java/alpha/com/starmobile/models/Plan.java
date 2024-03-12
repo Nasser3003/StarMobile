@@ -7,6 +7,8 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Data @NoArgsConstructor
 public class Plan {
@@ -40,6 +42,7 @@ public class Plan {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "user_id")
+    @JsonIgnore 
     private User user;
 
     public void addLine(Line line) {
