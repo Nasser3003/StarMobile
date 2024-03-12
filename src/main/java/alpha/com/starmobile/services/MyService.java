@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -27,8 +28,7 @@ public class MyService {
 
     @Transactional
     public User addPlan(String planType) {
-        String userEmail = SecurityConfig.getAuthenticatedUsername();
-        User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
+        User user = fetchAuthenticatedUser();
         Plan plan = new Plan(PlanTypes.valueOf(planType));
 
         user.addPlan(plan);
@@ -36,8 +36,7 @@ public class MyService {
     }
     @Transactional
     public User removePlan(String planType) {
-        String userEmail = SecurityConfig.getAuthenticatedUsername();
-        User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
+        User user = fetchAuthenticatedUser();
         Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType))
                 .orElseThrow(IllegalAccessError::new);
 
@@ -48,19 +47,22 @@ public class MyService {
 
     @Transactional
     public Plan addLine(String planType, String phoneNumber) {
-        String userEmail = SecurityConfig.getAuthenticatedUsername();
-        User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
-        Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType)).orElseThrow(IllegalArgumentException::new);
+        User user = fetchAuthenticatedUser();
+        Optional<Plan> plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType));
 
-        Line line = new Line(phoneNumber, plan);
-        plan.addLine(line);
-        return plan;
+        if (plan.isEmpty())
+            addPlan(planType);
+
+        plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType));
+
+        Line line = new Line(phoneNumber, plan.get());
+        plan.get().addLine(line);
+        return plan.get();
     }
 
     @Transactional
     public Plan removeLine(String planType, String phoneNumber) {
-        String userEmail = SecurityConfig.getAuthenticatedUsername();
-        User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
+        User user = fetchAuthenticatedUser();
         Plan plan = user.getPlans().stream()
                 .filter(p -> p.getPlanType().equals(PlanTypes.valueOf(planType)))
                 .findFirst()
@@ -76,7 +78,8 @@ public class MyService {
     @Transactional
     public void addDevice(String phoneNumber, String brand, String model) {
         Device device = new Device(brand, model);
-        Line line = lineRepository.findByNumber(phoneNumber).orElseThrow(IllegalArgumentException::new);
+        Line line = lineRepository.findByNumber(phoneNumber)
+                .orElseThrow(() -> new IllegalArgumentException("please create the line first"));
         line.setDevice(device);
         device.setLine(line);
     }
@@ -93,9 +96,14 @@ public class MyService {
     }
 
     public List<Plan> getUserPlans() {
-        String userEmail = SecurityConfig.getAuthenticatedUsername();
-        User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
+        User user = fetchAuthenticatedUser();
         return planRepository.findAllByUser(user);
+    }
+
+    private User fetchAuthenticatedUser() {
+        String userEmail = SecurityConfig.getAuthenticatedUsername();
+        return userRepository.findByEmail(userEmail)
+                .orElseThrow(IllegalArgumentException::new);
     }
 }
 
