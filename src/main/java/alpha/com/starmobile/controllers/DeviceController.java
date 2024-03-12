@@ -26,9 +26,15 @@ public class DeviceController {
         return new ResponseEntity<>(devices, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Device> getDeviceById(@PathVariable("id") Long id) {
-        Optional<Device> deviceOptional = service.findById(id);
+    @GetMapping("/{brand}")
+    public ResponseEntity<List<Device>> getAllByBrand(@PathVariable String brand) {
+        List<Device> devices = service.findAllByBrand(brand);
+        return new ResponseEntity<>(devices, HttpStatus.OK);
+    }
+
+    @GetMapping("/{brand}/{model}")
+    public ResponseEntity<Device> getDeviceByBrandAndModel(@PathVariable String brand, @PathVariable String model) {
+        Optional<Device> deviceOptional = service.findByBrandAndModel(brand, model);
         return deviceOptional.map(device -> new ResponseEntity<>(device, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
