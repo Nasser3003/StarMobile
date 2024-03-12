@@ -49,7 +49,7 @@
     box-shadow: 0 10px 20px 0 rgba(190, 190, 190, 0.2);
 }  
 
-section {
+/* section {
     width: 512px;
     height: 512px;
     border-radius: 30px;
@@ -61,7 +61,7 @@ section {
 
 section:hover {
     box-shadow: 0 0 20px 20px rgba(122, 117, 173, 0.2);
-}
+} */
 
 H1 {
     text-align: center;

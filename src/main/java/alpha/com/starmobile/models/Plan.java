@@ -4,11 +4,20 @@ import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor
 public class Plan {
 
-//    @Setter(AccessLevel.NONE)
+    public Plan(PlanTypes planType) {
+        this.planType = planType;
+        setDefaultsForPlanType();
+    }
+
+    @Setter(AccessLevel.NONE)
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -17,13 +26,51 @@ public class Plan {
 
     private int price;
 
-    private int quota; // dataLimit (gigabyte megabyte or terabyte in the future) :D
+    private int quota;
 
     @Column(name = "signal_range")
-    private String signalRange; // aka (galactic, solar,  universal)
+    private String signalRange;
 
-    @OneToOne
-    @JoinColumn(name = "device_id")
-    private Device device;
-    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Line> lines = new HashSet<>();
+
+    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public void addLine(Line line) {
+        lines.add(line);
+        line.setPlan(this);
+    }
+    public void removeLine(Line line) {
+        lines.remove(line);
+        line.setPlan(null);
+    }
+
+
+    private void setDefaultsForPlanType() {
+        String planTypeString = planType.name().toLowerCase();
+        switch (planTypeString) {
+            case "universal":
+                this.price = 300;
+                this.quota = 30;
+                this.signalRange = "Universal";
+                break;
+            case "galactic":
+                this.price = 200;
+                this.quota = 20;
+                this.signalRange = "Galactic";
+                break;
+            case "solar":
+                this.price = 100;
+                this.quota = 10;
+                this.signalRange = "Solar";
+                break;
+        }
+    }
+
 }

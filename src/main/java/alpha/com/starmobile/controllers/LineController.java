@@ -20,14 +20,12 @@ public class LineController {
 
     private LineService service;
 
-    // Endpoint to retrieve all lines
     @GetMapping
     public ResponseEntity<List<Line>> getAllLines() {
         List<Line> lines = service.findAll();
         return new ResponseEntity<>(lines, HttpStatus.OK);
     }
 
-    // Endpoint to retrieve a line by ID
     @GetMapping("/{id}")
     public ResponseEntity<Line> getLineById(@PathVariable("id") Long id) {
         Optional<Line> lineOptional = service.findById(id);
@@ -35,7 +33,6 @@ public class LineController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Endpoint to retrieve a line by number
     @GetMapping("/{number}")
     public ResponseEntity<Line> getLineByNumber(@PathVariable("number") String number) {
         Optional<Line> lineOptional = service.findByNumber(number);
@@ -43,22 +40,18 @@ public class LineController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Endpoint to create a new line
     @PostMapping
     public ResponseEntity<Line> createLine(@RequestBody Line line) {
         Line newLine = service.save(line);
         return new ResponseEntity<>(newLine, HttpStatus.CREATED);
     }
 
-    // Endpoint to update an existing line
     @PutMapping("/{id}")
     public ResponseEntity<Line> updateLine(@PathVariable("id") Long id, @RequestBody Line line) {
-        line.setId(id); // Ensure the ID matches the path variable
         Line updatedLine = service.save(line);
         return new ResponseEntity<>(updatedLine, HttpStatus.OK);
     }
 
-    // Endpoint to delete a line
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLine(@PathVariable("id") Long id) {
         service.deleteById(id);
