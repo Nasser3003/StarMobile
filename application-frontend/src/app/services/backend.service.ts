@@ -50,10 +50,17 @@ export class BackendService {
 //   // getPlan = new Plan(0,"",0,0,'');
 //   // putPlan = new Plan(0,"",0,0,'');
 //   // deletedPlan = new Plan(0,"",0,0,'');
-//   // allPlans: Plan[] = [];
+  allPlans: Plan[] = [];
 
 
   constructor(private http: HttpClient, private auth: AuthService) { }
+
+  getHeader() {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(`${this.currentUser?.email}:${this.currentUser?.password}`)
+    }
+  }
 
 //   ///////////////
 //   /////USERS/////
@@ -141,13 +148,17 @@ export class BackendService {
 //   /**
 //    * GET /device
 //    */
-//   getAllDevices() {
-//     this.http.get<any>(this.baseURL + 'device', {observe: 'response'}).subscribe({
-//       next : data => this.allDevices = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('All devices retrieved')
-//     });
-//   }
+  getAllDevices() {
+    const headers = this.getHeader();
+    this.http.get<any>(this.baseURL + 'device', {observe: 'response'}).subscribe({
+      next : data => {
+        this.allDevices = data.body;
+        console.log(this.allDevices);
+      },
+      error: err => console.log(err),
+      complete: () => console.log('All devices list retrieved')
+    });
+  }
 
 //   /**
 //    * GET /device/{id}
@@ -270,13 +281,13 @@ export class BackendService {
 //   /**
 //    * GET /plan
 //    */
-//   getAllPlans() {
-//     this.http.get<any>(this.baseURL + 'plan', {observe: 'response'}).subscribe({
-//       next : data => this.allPlans = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('All plans retrieved')
-//     });
-//   }
+  getAllPlans() {
+    this.http.get<any>(this.baseURL + 'plan', {observe: 'response'}).subscribe({
+      next : data => this.allPlans = data.body.data,
+      error: err => console.log(err),
+      complete: () => console.log('All plans retrieved')
+    });
+  }
 
 //   /**
 //    * GET /plan/{id}

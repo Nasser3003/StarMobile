@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-// import { BackendService } from '../services/backend.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../models/user';
 import * as bcrypt from 'bcryptjs';
@@ -19,7 +18,7 @@ export class RegisterComponent {
   newUser: User = new User('','','','')
   hashedPw: string = '';
 
-  constructor (private formBuilder: FormBuilder,/* private backend: BackendService, */private auth: AuthService) {
+  constructor (private formBuilder: FormBuilder, private auth: AuthService) {
     this.registerForm = this.formBuilder.group({
       registerEmail: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.email])],
       registerPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(25)])],
