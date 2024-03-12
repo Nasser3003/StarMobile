@@ -2,7 +2,7 @@
     <h2>ACCOUNT</h2>
     
     <section>
-        <h2>Welcome, {{this.currentUser.first_name + ' ' + this.currentUser.last_name}}!</h2>
+        <h2>Welcome, {{this.currentUser.firstName + ' ' + this.currentUser.lastName}}!</h2>
 
         <section *ngIf="this.currentUser.devices!.length === 0">
             <h2>You have no devices on your account.</h2>
@@ -27,12 +27,12 @@
                         'even': e,
                         'odd': !e
                     }">
-                        <td>{{device.brand + ' ' + device.model}}</td>
-                        <td>{{device.price | currency}}</td>
-                        <td>{{device.line.number | phone}}</td>
-                        <td>{{device.plan.planType}}</td>
-                        <td>{{device.plan.price | currency}}</td>
-                        <td>{{device.price + device.plan.price | currency}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td><button (click)="removeDevice(device, i)">Remove Device</button></td>
                         <td><button>Change Plan</button></td>
                         <td><button>Change Line</button></td>
@@ -69,9 +69,9 @@
         </div>
     </section>
     
-    <!-- <section id="loginroute" *ngIf="!isLoggedIn">
+    <section id="loginroute" *ngIf="!isLoggedIn">
         <p>Please click the button to log into your account or create a new one.</p>
         <button type="button" routerLink="/login">LOGIN/REGISTER</button>
-    </section> -->
+    </section>
 
 </main>

@@ -13,11 +13,11 @@ export class AuthService {
 
   protected isLoggedIn = false;
 
-//   isLoggedInRaw: boolean = false;
-//   isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject(this.isLoggedInRaw)
-//   isLoggedIn = this.isLoggedInSubject.asObservable();
+  // isLoggedInRaw: boolean = false;
+  // isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject(this.isLoggedInRaw)
+  // isLoggedIn = this.isLoggedInSubject.asObservable();
 
-  responseUser = new User('','','','');
+  storedUser = new User('','','','');
 
   apiUrl: string = environment.apiURL;
   loginRedirectUrl: string | null = null;
@@ -26,26 +26,62 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   register(user: User) {
-    this.http.post<any>(this.apiUrl + 'user', user, {observe: 'response'}).subscribe({
-      next : data => this.responseUser = data.body.data,
+    this.storedUser = user;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'No Auth'
+    }
+    this.http.post<any>(this.apiUrl + '/auth' + '/register', user, {observe: 'response', headers}).subscribe({
+      next : data => {
+        console.log(data.body.data);
+        this.storedUser = data.body.data;
+      },
       error: err => console.log(err),
-      complete: () => console.log('User registered')
+      complete: () => {
+        console.log('User registered')
+        this.isLoggedIn = true;
+      }
     });
   }
 
-  login(email: string, hashedpw: string) {
-
+  /**
+   * Pass in email and password from login component
+   * @param email 
+   * @param password 
+   */
+  login(email: string, password: string) {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(`${email}:${password}`)
+    }
+    this.http.post<any>(this.apiUrl + '/auth' + '/login', {'email': email, 'password': password}, {observe: 'response', headers}).subscribe({
+      next : data => {
+        // log and store user returned from API
+        console.log(data.body.data);
+        this.storedUser = data.body.data;
+      },
+      error: err => console.log(err),
+      complete: () => {
+        console.log('User registered')
+        // set status to logged in
+        this.isLoggedIn = true;
+      }
+    });
   }
 
+  /**
+   * Sets AuthService logged in status to false / logs user out
+   */
   logout(): void {
-    this.isLoggedInRaw = false;
+    this.isLoggedIn = false;
   }
 
-
+  /**
+   * 
+   * @returns AuthService login state to other components when called
+   */
   getIsLoggedIn() : boolean {
     return this.isLoggedIn;
   }
-
-  constructor(private http: HttpClient) { }
 
 }

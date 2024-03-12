@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Login } from '../interfaces/login';
 import * as bcrypt from 'bcryptjs';
-import { BackendService } from '../services/backend.service';
+// import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router, private backend: BackendService) {
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router,/* private backend: BackendService*/) {
     // build the login form with validators
     this.loginForm = this.formBuilder.group({
       loginEmail: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.email])],
@@ -42,37 +42,16 @@ export class LoginComponent {
   login() {
     // login logic here, call backend
     if(this.loginForm.valid) {
-
-        // hash the password
-        bcrypt.hash(this.loginPassword!.value, 10, (err, hash) => {
-
-          // check if err is truthy
-          if (err) {
-            // handle error
-            console.error(err); // log the error to the console
-
-            // uncomment this if we get time to add a messageService
-            // display a message to the user
-            // this.messageService.add({severity:'error', summary:'Error', detail:'Something went wrong. Please try again.'});
-
-            // throw an exception
-            throw new Error('Bcrypt hashing failed');
-          } else {
             // send login info to authentication service
-            this.auth.login(this.loginEmail!.value, hash);
-          }
-        });
-
-        if (this.authService.getIsLoggedIn()) {
-          const redirectUrl = this.authService.accountRedirectUrl
-          ? this.authService.accountRedirectUrl: '/account';
-          this.router.navigate([redirectUrl])
-        };
-      // this.authService.login().subscribe(() => {
-      // });
-
-      console.log('Login sent to auth!', this.loginForm.value);
+            this.auth.login(this.loginEmail!.value, this.loginPassword!.value);
+            console.log('Login sent to auth!', this.loginForm.value);
     }
-  }
 
+    if (this.auth.getIsLoggedIn()) {
+      const redirectUrl = this.auth.accountRedirectUrl
+      ? this.auth.accountRedirectUrl: '/account';
+      this.router.navigate([redirectUrl])
+    };
+
+    }
 }
