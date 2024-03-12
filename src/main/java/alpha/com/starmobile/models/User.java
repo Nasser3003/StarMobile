@@ -8,10 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 @Entity
-
 @Data @NoArgsConstructor
 public class User implements UserDetails {
-
 
     // LoadUserByUsername can only fetch by username, I want to use email as username;
     public User(String firstName, String lastName, String email, String password) {
