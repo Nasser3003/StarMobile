@@ -47,7 +47,28 @@
 
 .add-a-card:hover {
     box-shadow: 0 10px 20px 0 rgba(190, 190, 190, 0.2);
-}  
+}
+
+dialog {
+    position: absolute;
+    justify-self: center;
+    padding: 1%;
+    top: 50%;
+    margin-top: -75px;
+    text-align: center;
+}
+
+dialog::backdrop {
+    background: rgb(65, 108, 126);
+    opacity: 45%;
+}
+
+button {
+    /* padding: 1%; */
+    background-color:rgb(107, 26, 182);
+    /* background-color: var(--card-color); */
+    margin: 1%;
+}
 
 /* section {
     width: 512px;
@@ -67,3 +88,5 @@ H1 {
     text-align: center;
     padding: 12px;
 }
+
+

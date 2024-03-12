@@ -4,18 +4,20 @@
         <li *ngFor="let line of lineList">{{line | phone}}</li>
     </ul>
 </section> -->
-<!-- <section *ngIf="LoginStatus.getIsLoggedIn">
-    <h1>Your Plans</h1>
 
+
+<section *ngIf="LoginStatus.getIsLoggedIn">
+    <h1>Your Plans</h1>
+    
     <div class="flex-container">
-        <div class="add-a-card">
-            <div>Add a plan?</div>
-        </div>
         <div class="card">
             <div class="card-head">Citizen Plan</div>
             <div class="card-details">
                 <div>Device: </div>
-                <div>Cost</div>
+                <div>Number: </div>
+                <div>DataCap: </div>
+                <div>Signal Range: </div>
+                <div>Cost: </div>
             </div>
         </div>
     </div>
@@ -30,9 +32,26 @@
             <div class="card-details">
                 <div>Cost: {{plan.price}}</div>
                 <div>Signal Range: {{plan.signalRange}}</div>
-                <div>Data Cap: {{plan.dataCap}} Gb</div>
+                <div>Data Cap: {{plan.quota}} Gb</div>
+                <button (click)="myDialog.showModal()">Add this plan to your account</button>
+                
+                <dialog #myDialog>
+                    <div>
+                        <h3>{{plan.planType}} Plan</h3>
+                        <div>Choose a Device</div>
+                        <ng-container *ngFor="let plan2 of listOfAvailablePlansDefault">
+                            <button (click)="myDialog.close">{{plan2.planType}}</button>
+                        </ng-container>
+                        <!-- <select>...</select> -->
+                    </div>
+                    <div>
+                        <div>...</div>
+                        <button (click)="myDialog.close()">Close</button>
+                        <!-- <button ng-click="closeThisDialog(0)">Close</button> -->
+                    </div>
+                </dialog>
             </div>
         </div>
     </ng-container>
-</div> -->
+</div>
 
