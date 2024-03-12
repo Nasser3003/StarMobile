@@ -1,6 +1,7 @@
 package alpha.com.starmobile.models;
 
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,6 +35,7 @@ public class Plan {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonManagedReference
     private Set<Line> lines = new HashSet<>();
 
     @ManyToOne
@@ -44,11 +46,9 @@ public class Plan {
 
     public void addLine(Line line) {
         lines.add(line);
-        line.setPlan(this);
     }
     public void removeLine(Line line) {
         lines.remove(line);
-        line.setPlan(null);
     }
 
 

@@ -23,14 +23,8 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public Optional<Plan> findByPlanType(PlanTypes planType) {
-        return repo.findByPlanType(planType);
-    }
-
-    @Override
-    public Optional<Plan> findById(long id) {
-
-        return repo.findById(id);
+    public Optional<Plan> findByPlanType(String planType) {
+        return repo.findByPlanType(PlanTypes.valueOf(planType));
     }
 
     @Override
