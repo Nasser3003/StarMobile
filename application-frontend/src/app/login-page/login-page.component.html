@@ -1,3 +1,8 @@
-<app-login></app-login>
-<app-register></app-register>
+<app-login *ngIf="!this.isLoggedIn"></app-login>
+<app-register *ngIf="!this.isLoggedIn"></app-register>
+
+<section *ngIf="this.isLoggedIn">
+<h2>You're logged in!</h2>
+<button (click)="this.logout()">Logout</button>
+</section>
   

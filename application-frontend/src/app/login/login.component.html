@@ -18,8 +18,6 @@
         </span>
         <input type="password" placeholder="Enter your password" formControlName="loginPassword" name="loginPassword" id="loginPassword" required>
       </div>
-      <button type="submit" [disabled]="!loginForm.valid">Login</button>
+      <button (click)="login()" type="submit" [disabled]="!loginForm.valid">Login</button>
     </form>
-    <!-- Might not use this message -->
-    <!-- <div *ngIf="message" class="alert">{{ message }}</div> -->
   </section>

@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Login } from '../interfaces/login';
 import * as bcrypt from 'bcryptjs';
+import { User } from '../models/user';
 // import { BackendService } from '../services/backend.service';
 
 @Component({
@@ -18,18 +19,27 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
+  // current logged in user and login state
+  currentUser: User | null = null;
+  isLoggedIn: boolean = false;
+
+  // subscribe to auth service's stored current user and logged in status
+  ngOnInit(): void {
+    this.auth.currentUser.subscribe(user => {
+      if(user !== null) {
+        this.currentUser = user;
+      }
+    });
+    this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+  }
+
   constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router,/* private backend: BackendService*/) {
     // build the login form with validators
     this.loginForm = this.formBuilder.group({
       loginEmail: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.email])],
       loginPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(25)])]
     });
-    // If user is logged in, redirect to account page
-    // if (auth.isLoggedIn) {
-    //   const redirectUrl = this.auth.accountRedirectUrl
-    //   ? this.auth.accountRedirectUrl: '/account';
-    //   this.router.navigate([redirectUrl]);
-    // }
+
   }
 
   get loginEmail() {
@@ -47,7 +57,9 @@ export class LoginComponent {
             console.log('Login sent to auth!', this.loginForm.value);
     }
 
-    if (this.auth.getIsLoggedIn()) {
+
+
+    if (this.isLoggedIn) {
       const redirectUrl = this.auth.accountRedirectUrl
       ? this.auth.accountRedirectUrl: '/account';
       this.router.navigate([redirectUrl])

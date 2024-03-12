@@ -32,3 +32,17 @@ li:hover {
 h1 img {
     height: 1em;
 }
+
+button {
+    margin: 1em;
+    height: 3.5em;
+    width: 5em;
+    justify-self: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+button:hover {
+    box-shadow: 0 0 20px 20px rgba(122, 117, 173, 0.2);
+    transform: translateY(-5px);
+}
