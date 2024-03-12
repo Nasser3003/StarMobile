@@ -26,13 +26,12 @@ public class Runner implements CommandLineRunner {
 
             myService.addPlan("GALACTIC");
         }
-        myService.addPlan("GALACTIC");
+//        myService.addPlan("GALACTIC");
 
 
+//        myService.addLine("GALACTIC","+1(347) 207 7039");
+//        myService.addDevice("+1(347) 207 7039", "apple", "iphone se");
 
-        myService.addLine("GALACTIC","+1(347) 207 7039");
-
-        myService.addDevice("+1(347) 207 7039", "apple", "iphone se");
 //        myService.removeDevice("+1(347) 207 7039", "apple", "iphone se");
 //        myService.removeLine("GALACTIC","+1(347) 207 7039");
 //        myService.removePlan("GALACTIC");
