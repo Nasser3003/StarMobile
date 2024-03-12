@@ -51,6 +51,7 @@ public class MyService {
         String userEmail = SecurityConfig.getAuthenticatedUsername();
         User user = userRepository.findByEmail(userEmail).orElseThrow(IllegalArgumentException::new);
         Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType)).orElseThrow(IllegalArgumentException::new);
+
         Line line = new Line(phoneNumber, plan);
         plan.addLine(line);
         return plan;
