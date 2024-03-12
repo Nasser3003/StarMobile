@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PhonePipe } from '../pipes/phone.pipe';
-import { AccountPageComponent } from '../account-page/account-page.component';
+import { AuthService } from '../services/auth.service';
+import { Plan } from '../models/plan';
 
 @Component({
     selector: 'app-plan-card',
@@ -11,7 +12,15 @@ import { AccountPageComponent } from '../account-page/account-page.component';
     imports: [CommonModule, PhonePipe]
 })
 export class PlanCardComponent {
+  LoginStatus: AuthService = inject(AuthService);
 
-  lineList: string[] = ['5096270952', '0983427547']
+  citPlan: Plan = new Plan(23, "Citizen", 25, 150, "galactic")
+  starPlan: Plan = new Plan(24, "Starfighter", 20, 150, "universal")
+  droidPlan: Plan = new Plan(25, "Droid", 100, 10000, "galactic")
+  larvaPlan: Plan = new Plan(26, "Larval", 5, 10, "system")
+
+  listOfAvailablePlansDefault: Plan[] = [this.citPlan, this.starPlan, this.droidPlan, this.larvaPlan];
+
+  lineList: string[] = ['5096270952', '0983427547'] //Removable. was for HW, same for phonePipe above
 
 }

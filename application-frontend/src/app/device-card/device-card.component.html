@@ -7,3 +7,15 @@
         <li>Device Description</li>
     </ul>
 </section>
+
+<div class="flex-container">
+    <ng-container *ngFor="let device of listOfDefaultDevices">
+        <div class="card">
+            <div class="card-head">{{device.brand}} {{device.model}}</div>
+            <div class="card-details">
+                <div>Cost: {{device.price}}$</div>
+                <div>{{device.description}}</div>
+            </div>
+        </div>
+    </ng-container>
+</div>

@@ -10,12 +10,14 @@ import { User } from '../models/user';
 })
 export class AuthService {
 
-  isLoggedInRaw: boolean = false;
-  isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject(this.isLoggedInRaw)
-  isLoggedIn = this.isLoggedInSubject.asObservable();
+
+  protected isLoggedIn = false;
+
+//   isLoggedInRaw: boolean = false;
+//   isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject(this.isLoggedInRaw)
+//   isLoggedIn = this.isLoggedInSubject.asObservable();
 
   responseUser = new User('','','','');
-
 
   apiUrl: string = environment.apiURL;
   loginRedirectUrl: string | null = null;
@@ -38,5 +40,12 @@ export class AuthService {
   logout(): void {
     this.isLoggedInRaw = false;
   }
+
+
+  getIsLoggedIn() : boolean {
+    return this.isLoggedIn;
+  }
+
+  constructor(private http: HttpClient) { }
 
 }
