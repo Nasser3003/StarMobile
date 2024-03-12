@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../models/user';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { Device } from '../models/device';
 import { PhonePipe } from '../pipes/phone.pipe';
@@ -25,7 +25,7 @@ export class AccountPageComponent {
   plansTotal: number = 0;
   billTotal: number = 0
   
-  constructor(private auth: AuthService, private backend: BackendService) {
+  constructor(private auth: AuthService, private backend: BackendService, private router: Router) {
     this.auth.isLoggedIn.subscribe(data => {
       this.isLoggedIn = data;
     })
@@ -64,12 +64,20 @@ export class AccountPageComponent {
   }
 
   removeDevice(device: Device, index: number) {
+    // remove device from user
     this.currentUser.devices?.splice(index, 1);
+
+    // send user edit to backend
     this.backend.editUser(this.currentUser.id!, this.currentUser);
+
+    // update bill totals
+    this.devicesTotal -= device.price;
+    this.plansTotal -= device.plan.price;
+    this.billTotal = this.devicesTotal + this.plansTotal;
   }
 
   changePlan(device: Device) {
-  
+    
   }
 
   changeLine() {

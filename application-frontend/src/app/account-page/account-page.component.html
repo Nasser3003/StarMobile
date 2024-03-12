@@ -6,7 +6,8 @@
 
         <section *ngIf="this.currentUser.devices!.length === 0">
             <h2>You have no devices on your account.</h2>
-            <button>Shop Devices</button>
+            <button type="button" routerLink="/devices">Shop Devices</button>
+            <button type="button" routerLink="/plans">Shop Plans</button>
         </section>
         
         <table *ngIf="!(this.currentUser.devices!.length === 0)">

@@ -99,7 +99,11 @@ export class BackendService {
    * PUT /user/{id}
    */
   editUser(id: number, user: User) {
-    this.http.put<any>(this.baseURL + 'user/' + id, user, {observe: 'response'}).subscribe({
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(`${this.auth.userName}:${this.auth.password}`)
+    }
+    this.http.put<any>(this.baseURL + 'user/' + id, user, {observe: 'response', headers}).subscribe({
       next : data => this.putUser = data.body.data,
       error: err => console.log(err),
       complete: () => console.log('User edited')

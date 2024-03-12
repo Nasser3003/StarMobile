@@ -1,11 +1,12 @@
 * {
     margin: 0;
     padding: 0;
+    transition: 0.5s ease;
 }
 
 html {
-  background-image: url('./assets/imgs/galaxy-bg.jpg');
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.76), rgb(0, 0, 0)), url('./assets/imgs/galaxy-bg.jpg');
+  /* background-image: url('./assets/imgs/galaxy-bg.jpg');
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.76), rgb(0, 0, 0)), url('./assets/imgs/galaxy-bg.jpg'); */
 }
 
 body {
@@ -47,4 +48,8 @@ button {
 
   button[disabled] {
     background-color: #ccc;
+  }
+
+  section {
+    transition: all 0.5s ease;
   }

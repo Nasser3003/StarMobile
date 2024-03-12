@@ -9,25 +9,25 @@ export class Device {
     model: string;
     price: number;
     line: Line;
-    plan: Plan;
-
+    picturePath: string;
+    
     constructor(
+        picturePath: string,
         brand: string,
         description: string,
         id: number,
         model: string,
         price: number,
         line: Line,
-        plan: Plan
 
     ) {
+        this.picturePath = picturePath;
         this.brand = brand;
         this.description = description;
         this.id = id;
         this.model = model;
         this.price = price;
         this.line = line;
-        this.plan = plan;
     }
 
 }
