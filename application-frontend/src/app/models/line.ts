@@ -1,11 +1,13 @@
+import { Device } from "./device";
+
 export class Line {
-    deviceID: number;
+    device: Device;
     id: number;
     number: string;
 
-    constructor(deviceID: number, id: number, number: string) {
-        this.deviceID = deviceID;
+    constructor(device: Device, id: number, number: string) {
         this.id = id;
+        this.device = device;
         this.number = number;
     }
 }

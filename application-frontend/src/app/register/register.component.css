@@ -8,7 +8,7 @@
     margin-bottom: 2em;
     padding: 20px;
     border-radius: 30px;
-    background-color: var(--accent-color);
+    background-color: var(--card-color);
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
   }
 

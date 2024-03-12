@@ -25,11 +25,11 @@ export class LoginComponent {
       loginPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(25)])]
     });
     // If user is logged in, redirect to account page
-    if (auth.isLoggedIn) {
-      const redirectUrl = this.auth.accountRedirectUrl
-      ? this.auth.accountRedirectUrl: '/account';
-      this.router.navigate([redirectUrl]);
-    }
+    // if (auth.isLoggedIn) {
+    //   const redirectUrl = this.auth.accountRedirectUrl
+    //   ? this.auth.accountRedirectUrl: '/account';
+    //   this.router.navigate([redirectUrl]);
+    // }
   }
 
   get loginEmail() {
@@ -63,12 +63,12 @@ export class LoginComponent {
           }
         });
 
-      // this.auth.login().subscribe(() => {
-      //   if (this.auth.isLoggedIn) {
-      //     const redirectUrl = this.auth.accountRedirectUrl
-      //     ? this.auth.accountRedirectUrl: '/account';
-      //     this.router.navigate([redirectUrl])
-      //   }
+        if (this.authService.getIsLoggedIn()) {
+          const redirectUrl = this.authService.accountRedirectUrl
+          ? this.authService.accountRedirectUrl: '/account';
+          this.router.navigate([redirectUrl])
+        };
+      // this.authService.login().subscribe(() => {
       // });
 
       console.log('Login sent to auth!', this.loginForm.value);

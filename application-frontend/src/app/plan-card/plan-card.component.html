@@ -4,7 +4,7 @@
         <li *ngFor="let line of lineList">{{line | phone}}</li>
     </ul>
 </section> -->
-<!-- <section *ngIf="isLoggedIn"> -->
+<section *ngIf="LoginStatus.getIsLoggedIn">
     <h1>Your Plans</h1>
 
     <div class="flex-container">
@@ -19,45 +19,20 @@
             </div>
         </div>
     </div>
-<!-- </section> -->
+</section>
+
 
 <h1>Available Plans</h1>
 <div class="flex-container">
-    <div class="card">
-        <div class="card-head">Citizen Plan</div>
-        <div class="card-details">
-            <div>Base Cost</div>
-            <div>Cost per line</div>
-            <div>Total cost per Month</div>
-            <div>Add a line</div>
+    <ng-container *ngFor="let plan of listOfAvailablePlansDefault">
+        <div class="card">
+            <div class="card-head">{{plan.planType}}</div>
+            <div class="card-details">
+                <div>Cost: {{plan.price}}</div>
+                <div>Signal Range: {{plan.signalRange}}</div>
+                <div>Data Cap: {{plan.dataCap}} Gb</div>
+            </div>
         </div>
-    </div>
-    <div class="card">
-        <div class="card-head">Starfighter Plan</div>
-        <div class="card-details">
-            <div>Base Cost</div>
-            <div>Cost per line</div>
-            <div>Total cost per Month</div>
-            <div>Add a line</div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-head">Child Plan</div>
-        <div class="card-details">
-            <div>Base Cost</div>
-            <div>Cost per line</div>
-            <div>Total cost per Month</div>
-            <div>Add a line</div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-head">Larval/Child Plan</div>
-        <div class="card-details">
-            <div>Base Cost</div>
-            <div>Cost per line</div>
-            <div>Total cost per Month</div>
-            <div>Add a line</div>
-        </div>
-    </div>
+    </ng-container>
 </div>
 

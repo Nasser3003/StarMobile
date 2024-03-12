@@ -31,10 +31,10 @@ export class BackendService {
   deletedLine = new Line(0,0,'');
   allLines: Line[] = [];
 
-  postPlan = new Plan(0,0,0,0,'');
-  getPlan = new Plan(0,0,0,0,'');
-  putPlan = new Plan(0,0,0,0,'');
-  deletedPlan = new Plan(0,0,0,0,'');
+  postPlan = new Plan(0,"",0,0,'');
+  getPlan = new Plan(0,"",0,0,'');
+  putPlan = new Plan(0,"",0,0,'');
+  deletedPlan = new Plan(0,"",0,0,'');
   allPlans: Plan[] = [];
 
 
@@ -99,7 +99,11 @@ export class BackendService {
    * PUT /user/{id}
    */
   editUser(id: number, user: User) {
-    this.http.put<any>(this.baseURL + 'user/' + id, user, {observe: 'response'}).subscribe({
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(`${this.auth.userName}:${this.auth.password}`)
+    }
+    this.http.put<any>(this.baseURL + 'user/' + id, user, {observe: 'response', headers}).subscribe({
       next : data => this.putUser = data.body.data,
       error: err => console.log(err),
       complete: () => console.log('User edited')

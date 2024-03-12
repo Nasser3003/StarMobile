@@ -1,14 +1,14 @@
 
 export class Plan {
     id: number;
-    planType: number;
+    planType: string;
     price: number;
     quota: number;
     signalRange: string;
 
     constructor (
         id: number,
-        planType: number,
+        planType: string,
         price: number,
         quota: number,
         signalRange: string

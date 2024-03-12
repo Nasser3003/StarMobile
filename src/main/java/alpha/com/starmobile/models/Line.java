@@ -22,6 +22,7 @@ public class Line {
     private String number;
 
     @OneToOne(cascade = CascadeType.ALL)
+
     @JoinColumn(name = "device_id")
     private Device device;
 
