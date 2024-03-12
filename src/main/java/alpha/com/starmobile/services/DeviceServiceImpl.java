@@ -23,10 +23,14 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Optional<Device> findById(long id) {
-
-        return repo.findById(id);
+    public List<Device> findAllByBrandAndModel(String Brand, String model) {
+        return null;
     }
+
+//    @Override
+//    public Optional<Device> findByBrandAndModel(String brand, String model) {
+//        return repo.findDeviceByBrandAndModel(brand, model);
+//    }
 
     @Override
     public List<Device> findAllByBrand(String brand) {

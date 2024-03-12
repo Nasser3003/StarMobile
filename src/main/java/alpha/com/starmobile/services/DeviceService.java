@@ -9,8 +9,7 @@ public interface DeviceService {
 
     List<Device> findAll();
 
-    Optional<Device> findById(long id);
-
+    List<Device> findAllByBrandAndModel(String Brand, String model);
 
     List<Device> findAllByBrand(String brand);
 
