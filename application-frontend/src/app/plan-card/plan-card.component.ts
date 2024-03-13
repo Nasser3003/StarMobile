@@ -37,7 +37,7 @@ export class PlanCardComponent {
 
   addPlanWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
     this.DefaultValues.addPlan(chosenPlan.planType)
-    this.DefaultValues.addLine(chosenPlan.planType, 1234567)
+    this.DefaultValues.addLine(chosenPlan.planType)
     this.DefaultValues.addDevice(1234567, chosenDevice.brand, chosenDevice.model)
   }
 
