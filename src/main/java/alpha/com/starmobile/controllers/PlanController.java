@@ -1,16 +1,16 @@
 package alpha.com.starmobile.controllers;
 
-import java.util.List;
-import java.util.Optional;
-
+import alpha.com.starmobile.dto.AddOrRemoveLineDTO;
+import alpha.com.starmobile.models.Plan;
+import alpha.com.starmobile.services.MyService;
+import alpha.com.starmobile.services.PlanService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import alpha.com.starmobile.models.Plan;
-import alpha.com.starmobile.services.PlanService;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -18,36 +18,29 @@ import alpha.com.starmobile.services.PlanService;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PlanController {
 
-    private PlanService service;
+    private PlanService planService;
+    private MyService myService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Plan>> getAllPlans() {
-        List<Plan> plans = service.findAll();
+        List<Plan> plans = planService.findAll();
         return new ResponseEntity<>(plans, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Plan> getPlanById(@PathVariable("id") Long id) {
-        Optional<Plan> planOptional = service.findById(id);
-        return planOptional.map(plan -> new ResponseEntity<>(plan, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping
+    public ResponseEntity<List<Plan>> getMyPlans() {
+        return new ResponseEntity<>(myService.getUserPlans(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Plan> createPlan(@RequestBody Plan plan) {
-        Plan newPlan = service.save(plan);
-        return new ResponseEntity<>(newPlan, HttpStatus.CREATED);
+    @PostMapping("/add")
+    public ResponseEntity<Plan> addLine(@RequestBody AddOrRemoveLineDTO addOrRemoveLineDTO) {
+        Plan updatedPlan = myService.addLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
+        return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Plan> updatePlan(@PathVariable("id") Long id, @RequestBody Plan plan) {
-        Plan updatedPlan = service.save(plan);
-        return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePlan(@PathVariable("id") Long id) {
-        service.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @PostMapping("/remove")
+    public ResponseEntity<Plan> removeLine(@RequestBody AddOrRemoveLineDTO addOrRemoveLineDTO) {
+        Plan updatedPlan = myService.removeLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
+        return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
     }
 }

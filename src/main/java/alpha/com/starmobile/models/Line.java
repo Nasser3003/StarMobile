@@ -1,5 +1,6 @@
 package alpha.com.starmobile.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,6 @@ public class Line {
 
     public Line(String number, Plan plan) {
         this.number = number;
-        this.plan = plan;
     }
 
     @Setter(AccessLevel.NONE)
@@ -23,13 +23,8 @@ public class Line {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id")
+    @JsonManagedReference
     private Device device;
-
-    @ManyToOne
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JoinColumn(name = "plan_id")
-    private Plan plan;
 
     private void linkDevice(Device device) {
         this.device = device;

@@ -20,24 +20,24 @@ import java.util.Optional;
 public class DeviceController {
     private DeviceService service;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Device>> getAllDevices() {
         List<Device> devices = service.findAll();
         return new ResponseEntity<>(devices, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Device> getDeviceById(@PathVariable("id") Long id) {
-        Optional<Device> deviceOptional = service.findById(id);
-        return deviceOptional.map(device -> new ResponseEntity<>(device, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping("/{brand}")
+    public ResponseEntity<List<Device>> getAllByBrand(@PathVariable String brand) {
+        List<Device> devices = service.findAllByBrand(brand);
+        return new ResponseEntity<>(devices, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Device> createDevice(@RequestBody Device device) {
-        Device newDevice = service.save(device);
-        return new ResponseEntity<>(newDevice, HttpStatus.CREATED);
-    }
+//    @GetMapping("/{brand}/{model}")
+//    public ResponseEntity<Device> getDeviceByBrandAndModel(@PathVariable String brand, @PathVariable String model) {
+//        Optional<Device> deviceOptional = service.findByBrandAndModel(brand, model);
+//        return deviceOptional.map(device -> new ResponseEntity<>(device, HttpStatus.OK))
+//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Device> updateDevice(@PathVariable("id") Long id, @RequestBody Device device) {

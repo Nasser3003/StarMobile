@@ -4,20 +4,22 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  currentUser = this.currentUserSubject.asObservable();
 
-  protected isLoggedIn = false;
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn = this.isLoggedInSubject.asObservable();
 
-  // isLoggedInRaw: boolean = false;
-  // isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject(this.isLoggedInRaw)
-  // isLoggedIn = this.isLoggedInSubject.asObservable();
+  // protected isLoggedIn = false;
 
-  storedUser = new User('','','','');
+  router = inject(Router);
 
   apiUrl: string = environment.apiURL;
   loginRedirectUrl: string | null = null;
@@ -26,20 +28,26 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   register(user: User) {
-    this.storedUser = user;
+    this.setCurrentUser(user);
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'No Auth'
     }
     this.http.post<any>(this.apiUrl + '/auth' + '/register', user, {observe: 'response', headers}).subscribe({
       next : data => {
-        console.log(data.body.data);
-        this.storedUser = data.body.data;
+        console.log(data.body);
+        this.setCurrentUser(data.body);
       },
       error: err => console.log(err),
       complete: () => {
         console.log('User registered')
-        this.isLoggedIn = true;
+
+        //  set status to logged in
+        this.setIsLoggedIn(true);
+
+        // redirect to account page
+        const redirectUrl = this.accountRedirectUrl ? this.accountRedirectUrl: '/account';
+        this.router.navigate([redirectUrl])
       }
     });
   }
@@ -57,31 +65,38 @@ export class AuthService {
     this.http.post<any>(this.apiUrl + '/auth' + '/login', {'email': email, 'password': password}, {observe: 'response', headers}).subscribe({
       next : data => {
         // log and store user returned from API
-        console.log(data.body.data);
-        this.storedUser = data.body.data;
+        console.log('data returned from API login: ')
+        console.log(data.body);
+        this.setCurrentUser(data.body);
       },
       error: err => console.log(err),
       complete: () => {
-        console.log('User registered')
+        console.log('User logged in!')
+        console.log(this.currentUserSubject);
         // set status to logged in
-        this.isLoggedIn = true;
+        this.setIsLoggedIn(true);
+        // redirect to account page
+        const redirectUrl = this.accountRedirectUrl ? this.accountRedirectUrl: '/account';
+        this.router.navigate([redirectUrl])
       }
     });
+  }
+
+  // Call these methods to update the current user and login state
+  setCurrentUser(user: User | null): void {
+    this.currentUserSubject.next(user);
+  }
+
+  setIsLoggedIn(isLoggedIn: boolean): void {
+    this.isLoggedInSubject.next(isLoggedIn);
   }
 
   /**
    * Sets AuthService logged in status to false / logs user out
    */
   logout(): void {
-    this.isLoggedIn = false;
-  }
-
-  /**
-   * 
-   * @returns AuthService login state to other components when called
-   */
-  getIsLoggedIn() : boolean {
-    return this.isLoggedIn;
+    this.setIsLoggedIn(false);
+    this.setCurrentUser(null);
   }
 
 }

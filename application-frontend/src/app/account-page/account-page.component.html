@@ -1,15 +1,14 @@
 <main>
-    <h2>Welcome, {{this.currentUser.firstName + ' ' + this.currentUser.lastName}}!</h2>
-    <section class="account-section">
+    <h2 *ngIf="this.isLoggedIn">Welcome, {{this.currentUser!.firstName! + ' ' + this.currentUser!.lastName!}}!</h2>
+    <section *ngIf="this.isLoggedIn" class="account-section">
 
-        <section *ngIf="this.currentUser.plans!.length === 0">
+        <section *ngIf="this.currentUser!.plans!.length === 0">
             <h2>You have no plans on your account.</h2>
-            <!-- <button type="button" routerLink="/devices">Shop Devices</button> -->
             <button type="button" routerLink="/plans">Shop Plans</button>
         </section>
         
-        <ng-container class="plans" *ngIf="!(this.currentUser.plans!.length === 0)">
-            <section class="plan" *ngFor="let plan of this.currentUser.plans; let planIndex = index">
+        <ng-container class="plans" *ngIf="!(this.currentUser!.plans!.length === 0)">
+            <section class="plan" *ngFor="let plan of this.currentUser!.plans; let planIndex = index">
                 <h2>{{plan.planType}} Plan</h2>
                 <table class="plan-devices-table">
                     <thead >
@@ -23,11 +22,12 @@
                                 'even': e,
                                 'odd': !e
                             }">
-                                <td>{{line.device.model}}</td>
-                                <td>{{line.device.price}}</td>
-                                <td>{{line.number | phone}}</td>
-                                <td><button (click)="this.removeLine(planIndex, lineIndex)">Remove Line</button></td>
-                                <td><button>Change Device</button></td>
+                            <td>{{line.device.model}}</td>
+                            <td>{{line.device.price}}</td>
+                            <td>{{line.number | phone}}</td>
+                            <td><button (click)="this.removeLine(planIndex, lineIndex)">Remove Line</button></td>
+                            <td *ngIf="line.device !== null"><button>Change Device</button></td>
+                            <button *ngIf="line.device === null" type="button" routerLink="/devices">Shop Devices</button>
                             </tr>
 
                         </ng-container>
@@ -38,7 +38,7 @@
             </section>
         </ng-container>
 
-        <div>
+        <div *ngIf="this.isLoggedIn">
             <h2>Monthly Bill</h2>
             <table>
                 <thead>
@@ -64,9 +64,9 @@
         </div>
     </section>
     
-    <!-- <section id="loginroute" *ngIf="!isLoggedIn">
+    <section id="loginroute" *ngIf="!this.isLoggedIn">
         <p>Please click the button to log into your account or create a new one.</p>
         <button type="button" routerLink="/login">LOGIN/REGISTER</button>
-    </section> -->
+    </section>
 
 </main>

@@ -52,6 +52,15 @@ button:hover {
     transform: translateY(-5px);
 }
 
+#loginroute button {
+    margin: 1em;
+    width: 16em;
+    justify-self: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+}
+
 th, td{
     text-align: left;
     padding-right: 16px;

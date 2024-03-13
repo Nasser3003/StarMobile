@@ -1,17 +1,32 @@
-// import { Injectable } from '@angular/core';
-// import { environment } from '../../environments/environment';
-// import { HttpClient } from '@angular/common/http';
-// import { User } from '../models/user';
-// import { Device } from '../models/device';
-// import { Line } from '../models/line';
-// import { Plan } from '../models/plan';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../models/user';
+import { Device } from '../models/device';
+import { Line } from '../models/line';
+import { Plan } from '../models/plan';
+import { AuthService } from './auth.service';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class BackendService {
+@Injectable({
+  providedIn: 'root'
+})
+export class BackendService {
 
-//   baseURL = environment.apiURL;
+  baseURL = environment.apiURL;
+
+  // current user and logged in status from auth service
+  currentUser: User | null = null;
+  isLoggedIn: boolean = false;
+
+    // subscribe to auth service's stored current user and logged in status
+    ngOnInit(): void {
+        this.auth.currentUser.subscribe(user => {
+          if(user !== null) {
+            this.currentUser = user;
+          }
+        });
+        this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+      }
 
 //   // postUser = new User('','','','');
 //   // getUser = new User('','','','');
@@ -23,7 +38,7 @@
 //   // getDevice = undefined;
 //   // putDevice = undefined;
 //   // deletedDevice = undefined;
-//   // allDevices: Device[] = [];
+  allDevices: Device[] = [];
 
 //   // postLine = new Line(0,0,'');
 //   // getLine = new Line(0,0,'');
@@ -38,7 +53,7 @@
 //   // allPlans: Plan[] = [];
 
 
-//   constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
 //   ///////////////
 //   /////USERS/////
@@ -95,9 +110,9 @@
 //     });
 //   }
 
-//   /**
-//    * PUT /user/{id}
-//    */
+  /**
+   * PUT /user/{id}
+   */
 //   editUser(id: number, user: User) {
 //     const headers = {
 //       'Content-Type': 'application/json',
@@ -307,4 +322,4 @@
 //     });
 //   }
 
-// }
+}

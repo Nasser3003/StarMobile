@@ -3,6 +3,7 @@ package alpha.com.starmobile.services;
 import java.util.List;
 import java.util.Optional;
 
+import alpha.com.starmobile.configuration.SecurityConfig;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class PlanServiceImpl implements PlanService {
 
     private PlanRepository repo;
+    private MyService myService;
 
     @Override
     public List<Plan> findAll() {
@@ -23,13 +25,12 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public Optional<Plan> findByPlanType(PlanTypes planType) {
-        return repo.findByPlanType(planType);
+    public Optional<Plan> findByPlanType(String planType) {
+        return repo.findByPlanType(PlanTypes.valueOf(planType));
     }
 
     @Override
-    public Optional<Plan> findById(long id) {
-
+    public Optional<Plan> findPlanById(long id) {
         return repo.findById(id);
     }
 
@@ -45,4 +46,5 @@ public class PlanServiceImpl implements PlanService {
     public void deleteById(long id) {
         repo.deleteById(id);
     }
+
 }

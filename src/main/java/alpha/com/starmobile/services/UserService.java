@@ -16,4 +16,6 @@ public interface UserService {
 
     User register(RegistrationDTO registrationDTO);
 
+    Optional<User> getMyUser();
+
 }
