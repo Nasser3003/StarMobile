@@ -1,7 +1,6 @@
 package alpha.com.starmobile.controllers;
 
 import alpha.com.starmobile.models.User;
-import alpha.com.starmobile.services.MyService;
 import alpha.com.starmobile.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import java.util.Optional;
 public class UserController {
 
     private UserService userService;
-    private MyService myService;
 
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
