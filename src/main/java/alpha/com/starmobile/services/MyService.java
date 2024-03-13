@@ -67,7 +67,7 @@ public class MyService {
     public Plan removeLine(String planType, long phoneNumber) {
         User user = fetchAuthenticatedUser();
         Plan plan = user.getPlans().stream()
-                .filter(p -> p.getPlanType().equals(PlanTypes.valueOf(planType)))
+                .filter(p -> p.getPlanType().equals(PlanTypes.valueOf(planType.toUpperCase())))
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
 
