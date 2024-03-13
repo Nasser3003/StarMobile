@@ -15,8 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -48,7 +52,7 @@ public class MyService {
     }
 
     @Transactional
-    public Plan addLine(String planType, long phoneNumber) {
+    public Plan addLine(String planType) {
         User user = fetchAuthenticatedUser();
         planType = planType.toUpperCase();
         Optional<Plan> plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType));
@@ -58,9 +62,15 @@ public class MyService {
 
         plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType));
 
-        Line line = new Line(phoneNumber);
+        Line line = new Line();
+        line.setNumber(generatePhoneNumber());
         plan.get().addLine(line);
         return plan.get();
+    }
+
+    private long generatePhoneNumber() {
+        Random random = new Random();
+        return 1000000000L + random.nextInt(900000000);
     }
 
     @Transactional

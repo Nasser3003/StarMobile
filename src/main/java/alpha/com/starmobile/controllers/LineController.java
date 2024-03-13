@@ -45,13 +45,13 @@ public class LineController {
 
     @PostMapping("/add")
     public ResponseEntity<Plan> addLine(@RequestBody AddOrRemoveLineDTO addOrRemoveLineDTO) {
-        Plan updatedPlan = myService.addLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
+        Plan updatedPlan = myService.addLine(addOrRemoveLineDTO.planType());
         return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/remove")
     public ResponseEntity<Plan> removeLine(@RequestBody AddOrRemoveLineDTO addOrRemoveLineDTO) {
         Plan updatedPlan = myService.removeLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
-        return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
+        return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
     }
 }

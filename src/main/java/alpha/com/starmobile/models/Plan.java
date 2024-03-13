@@ -57,21 +57,25 @@ public class Plan {
     private void setDefaultsForPlanType() {
         String planTypeString = planType.name().toLowerCase();
         switch (planTypeString) {
-            case "universal":
-                this.price = 300;
-                this.quota = 30;
-                this.signalRange = "Universal";
-                break;
-            case "galactic":
-                this.price = 200;
-                this.quota = 20;
+            case "citizen":
+                this.price = 20;
+                this.quota = 150;
                 this.signalRange = "Galactic";
                 break;
-            case "solar":
-                this.price = 100;
-                this.quota = 10;
-                this.signalRange = "Solar";
+            case "starfighter":
+                this.price = 25;
+                this.quota = 150;
+                this.signalRange = "Universal";
                 break;
+            case "droid":
+                this.price = 100;
+                this.quota = 10_000;
+                this.signalRange = "Galactic";
+                break;
+            case "larval":
+                this.price = 5;
+                this.quota = 10;
+                this.signalRange = "System";
         }
     }
 

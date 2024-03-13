@@ -1,7 +1,8 @@
 package alpha.com.starmobile.models.ENUMS;
 
 public enum PlanTypes {
-    SOLAR,
-    GALACTIC,
-    UNIVERSAL
+    CITIZEN,
+    STARFIGHTER,
+    DROID,
+    LARVAL
 }
