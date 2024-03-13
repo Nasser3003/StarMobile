@@ -327,7 +327,7 @@ getAllPlans() {
 //   /**
 //    * POST /plan
 //    */
-  addPlan() {
+  // addPlan() {
   //   this.http.post<any>(this.baseURL + '/plan' + '/add', {observe: 'response'}).subscribe({
   //     next : data => this.postPlan = data.body.data,
   //     error: err => console.log(err),
