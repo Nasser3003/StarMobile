@@ -55,7 +55,7 @@
                         <h3>{{plan.planType}} Plan</h3>
                         <div>Choose a Device</div>
                         <ng-container *ngFor="let device of DefaultValues.allDevices">
-                            <button (click)="myDialog.close">{{device.brand}} {{device.model}}</button>
+                            <button (click)="addPlanWithDevice(plan, device)" (click)="myDialog.close()">{{device.brand}} {{device.model}}</button>
                         </ng-container>
                         <!-- <select>...</select> -->
                     </div>

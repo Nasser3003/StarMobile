@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { Plan } from '../models/plan';
 import { User } from '../models/user';
 import { BackendService } from '../services/backend.service';
+import { Device } from '../models/device';
 
 @Component({
     selector: 'app-plan-card',
@@ -32,6 +33,12 @@ export class PlanCardComponent {
       }
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+  }
+
+  addPlanWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
+    this.DefaultValues.addPlan(chosenPlan.planType)
+    this.DefaultValues.addLine(chosenPlan.planType, 1234567)
+    this.DefaultValues.addDevice(1234567, chosenDevice.brand, chosenDevice.model)
   }
 
   // listOfAvailablePlansDefault: Plan[] = [this.citPlan, this.starPlan, this.droidPlan, this.larvaPlan];
