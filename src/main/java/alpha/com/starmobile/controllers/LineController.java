@@ -1,9 +1,9 @@
 package alpha.com.starmobile.controllers;
 
-import java.util.List;
-import java.util.Optional;
-
-import alpha.com.starmobile.dto.AddOrRemoveDeviceDTO;
+import alpha.com.starmobile.dto.AddOrRemoveLineDTO;
+import alpha.com.starmobile.models.Line;
+import alpha.com.starmobile.models.Plan;
+import alpha.com.starmobile.services.LineService;
 import alpha.com.starmobile.services.MyService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import alpha.com.starmobile.models.Line;
-import alpha.com.starmobile.services.LineService;
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -37,20 +37,21 @@ public class LineController {
     }
 
     @GetMapping("/{number}")
-    public ResponseEntity<Line> getLineByNumber(@PathVariable("number") String number) {
+    public ResponseEntity<Line> getLineByNumber(@PathVariable("number") long number) {
         Optional<Line> lineOptional = lineService.findByNumber(number);
         return lineOptional.map(line -> new ResponseEntity<>(line, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/remove")
-    public ResponseEntity<Line> removeDevice(@RequestBody AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
-        Line updatedLine = myService.removeDevice(
-                addOrRemoveDeviceDTO.phoneNumber(),
-                addOrRemoveDeviceDTO.brand(),
-                addOrRemoveDeviceDTO.model()
-        );
-        return new ResponseEntity<>(updatedLine, HttpStatus.CREATED);
+    @PostMapping("/add")
+    public ResponseEntity<Plan> addLine(@RequestBody AddOrRemoveLineDTO addOrRemoveLineDTO) {
+        Plan updatedPlan = myService.addLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
+        return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/remove")
+    public ResponseEntity<Plan> removeLine(@RequestBody AddOrRemoveLineDTO addOrRemoveLineDTO) {
+        Plan updatedPlan = myService.removeLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
+        return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
+    }
 }
