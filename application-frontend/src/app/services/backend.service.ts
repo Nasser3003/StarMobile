@@ -41,9 +41,20 @@ export class BackendService {
 //   // getDevice = undefined;
 //   // putDevice = undefined;
 //   // deletedDevice = undefined;
-  allDevices: Device[] = [];
+
+  // allDevices: Device[] = [];
+  dev1: Device = new Device("Ploklok", "Ashen Nightmare 3", "Starliner class phone from Ploklok.", 1300, "")
+  dev2: Device = new Device("Ploklok", "Ashen Daydream 3", "Liner class phone from Ploklok.", 300, "")
+  dev3: Device = new Device("Quantum", "1x", "A singular phone from Quantum.", 1200, "")
+  dev4: Device = new Device("Quantum", "1", "Another singular phone from Quantum.", 400, "")
+  dev5: Device = new Device("BlackHoleBerry", "3 pro", "BlackHoleBerry from beyond the horizon", 700, "")
+  dev6: Device = new Device("BlackHoleBerry", "3 no", "BlackHoleBerry at the cutting edge.", 450, "")
+  dev7: Device = new Device("Hive", "Billion 8", "Say Hive to a billion.", 1300, "")
+  dev8: Device = new Device("Hive", "Million 8", "Say Hive to a million.", 1300, "")
+  allDevices: Device[] = [this.dev1, this.dev2, this.dev3, this.dev4, this.dev5, this.dev6, this.dev7, this.dev8]
 
   updatedLine: Line | undefined = undefined;
+
 //   // postLine = new Line(0,0,'');
 //   // getLine = new Line(0,0,'');
 //   // putLine = new Line(0,0,'');
@@ -54,7 +65,13 @@ export class BackendService {
 //   // getPlan = new Plan(0,"",0,0,'');
 //   // putPlan = new Plan(0,"",0,0,'');
 //   // deletedPlan = new Plan(0,"",0,0,'');
-  allPlans: Plan[] = [];
+
+  // allPlans: Plan[] = [];
+  citPlan: Plan = new Plan("Citizen", 25, 150, "galactic")
+  starPlan: Plan = new Plan("Starfighter", 20, 150, "universal")
+  droidPlan: Plan = new Plan("Droid", 100, 10000, "galactic")
+  larvaPlan: Plan = new Plan("Larval", 5, 10, "system")
+  allPlans: Plan[] = [this.citPlan, this.starPlan, this.droidPlan, this.larvaPlan];
 
 
   constructor(private http: HttpClient, private auth: AuthService) {

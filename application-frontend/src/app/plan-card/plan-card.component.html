@@ -41,7 +41,7 @@
 
 <h1>Available Plans</h1>
 <div class="flex-container">
-    <ng-container *ngFor="let plan of listOfAvailablePlansDefault">
+    <ng-container *ngFor="let plan of DefaultValues.allPlans">
         <div class="card">
             <div class="card-head">{{plan.planType}}</div>
             <div class="card-details">
@@ -54,8 +54,8 @@
                     <div>
                         <h3>{{plan.planType}} Plan</h3>
                         <div>Choose a Device</div>
-                        <ng-container *ngFor="let plan2 of listOfAvailablePlansDefault">
-                            <button (click)="myDialog.close">{{plan2.planType}}</button>
+                        <ng-container *ngFor="let device of DefaultValues.allDevices">
+                            <button (click)="myDialog.close">{{device.brand}} {{device.model}}</button>
                         </ng-container>
                         <!-- <select>...</select> -->
                     </div>
