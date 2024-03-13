@@ -8,10 +8,6 @@ import lombok.*;
 @Data @NoArgsConstructor
 public class Line {
 
-    public Line(long number) {
-        this.number = number;
-    }
-
     @Setter(AccessLevel.NONE)
     @EqualsAndHashCode.Include
     @Id

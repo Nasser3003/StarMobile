@@ -42,7 +42,6 @@ public class DeviceController {
         );
         return new ResponseEntity<>(updatedLine, HttpStatus.CREATED);
     }
-
     @DeleteMapping("/remove")
     public ResponseEntity<Line> removeDevice(@RequestBody AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
         Line updatedLine = myService.removeDevice(
@@ -50,6 +49,6 @@ public class DeviceController {
                 addOrRemoveDeviceDTO.brand(),
                 addOrRemoveDeviceDTO.model()
         );
-        return new ResponseEntity<>(updatedLine, HttpStatus.CREATED);
+        return new ResponseEntity<>(updatedLine, HttpStatus.OK);
     }
 }
