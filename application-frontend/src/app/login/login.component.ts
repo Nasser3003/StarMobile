@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Login } from '../interfaces/login';
 import * as bcrypt from 'bcryptjs';
 import { User } from '../models/user';
-// import { BackendService } from '../services/backend.service';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +18,7 @@ import { User } from '../models/user';
 export class LoginComponent {
 
   loginForm: FormGroup;
+  backend = inject(BackendService);
 
   // current logged in user and login state
   currentUser: User | null = null;
