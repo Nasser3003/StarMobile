@@ -4,6 +4,7 @@ import { PhonePipe } from '../pipes/phone.pipe';
 import { AuthService } from '../services/auth.service';
 import { Plan } from '../models/plan';
 import { User } from '../models/user';
+import { BackendService } from '../services/backend.service';
 
 @Component({
     selector: 'app-plan-card',
@@ -13,7 +14,7 @@ import { User } from '../models/user';
     imports: [CommonModule, PhonePipe]
 })
 export class PlanCardComponent {
-  // LoginStatus: AuthService = inject(AuthService);
+  DefaultValues: BackendService = inject(BackendService);
 
   citPlan: Plan = new Plan("Citizen", 25, 150, "galactic")
   starPlan: Plan = new Plan("Starfighter", 20, 150, "universal")
@@ -32,7 +33,8 @@ export class PlanCardComponent {
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
   }
 
-  listOfAvailablePlansDefault: Plan[] = [this.citPlan, this.starPlan, this.droidPlan, this.larvaPlan];
+  // listOfAvailablePlansDefault: Plan[] = [this.citPlan, this.starPlan, this.droidPlan, this.larvaPlan];
+  listOfAvailablePlansDefault: Plan[] = this.DefaultValues.allPlans;
 
   constructor(private auth: AuthService) {
 
