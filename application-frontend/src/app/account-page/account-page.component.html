@@ -20,7 +20,7 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let line of plan.lines; let lineIndex = index; let e = even">
-                            <tr [ngClass]="{
+                            <tr *ngIf="line.device" [ngClass]="{
                                 'even': e,
                                 'odd': !e
                             }">
