@@ -6,6 +6,7 @@ import { Device } from '../models/device';
 import { Line } from '../models/line';
 import { Plan } from '../models/plan';
 import { AuthService } from './auth.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,8 @@ export class BackendService {
 //   // getDevice = undefined;
 //   // putDevice = undefined;
 //   // deletedDevice = undefined;
-  allDevices: Device[] = [];
+  private allDevicesSubject = new BehaviorSubject<Device[]>([]);
+  allDevices = this.allDevicesSubject.asObservable();
 
 //   // postLine = new Line(0,0,'');
 //   // getLine = new Line(0,0,'');
@@ -50,7 +52,8 @@ export class BackendService {
 //   // getPlan = new Plan(0,"",0,0,'');
 //   // putPlan = new Plan(0,"",0,0,'');
 //   // deletedPlan = new Plan(0,"",0,0,'');
-  allPlans: Plan[] = [];
+  private allPlansSubject = new BehaviorSubject<Plan[]>([]);
+  allPlans = this.allPlansSubject.asObservable();
 
 
   constructor(private http: HttpClient, private auth: AuthService) { }
@@ -164,10 +167,12 @@ export class BackendService {
       next : data => {
         console.log("Requesting all devices");
         console.log(data.body);
-        this.allDevices = data.body,
+        this.allDevicesSubject = data.body;
       },
       error: err => console.log(err),
-      complete: () => console.log('All devices retrieved')
+      complete: () => {
+        console.log('All devices retrieved');
+      }
     });
   }
 
@@ -292,13 +297,20 @@ export class BackendService {
 //   /**
 //    * GET /plan
 //    */
-  getAllPlans() {
-    this.http.get<any>(this.baseURL + 'plan', {observe: 'response'}).subscribe({
-      next : data => this.allPlans = data.body.data,
-      error: err => console.log(err),
-      complete: () => console.log('All plans retrieved')
-    });
-  }
+getAllPlans() {
+  const headers = this.getHeader();
+  this.http.get<any>(this.baseURL + 'plan/' + 'all', {headers, observe: 'response'}).subscribe({
+    next : data => {
+      console.log("Requesting all plans");
+      console.log(data.body);
+      this.allPlansSubject = data.body;
+    },
+    error: err => console.log(err),
+    complete: () => {
+      console.log('All plans retrieved');
+    }
+  });
+}
 
 //   /**
 //    * GET /plan/{id}
