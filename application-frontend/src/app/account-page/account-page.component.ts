@@ -8,7 +8,7 @@ import { PhonePipe } from '../pipes/phone.pipe';
 import { Plan } from '../models/plan';
 import { Line } from '../models/line';
 import { OnInit } from '@angular/core';
-// import { BackendService } from '../services/backend.service';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'app-account-page',
@@ -42,7 +42,7 @@ export class AccountPageComponent {
       this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
     }
     
-  constructor(private auth: AuthService, /*private backend: BackendService, */private router: Router) {
+  constructor(private auth: AuthService, private backend: BackendService, private router: Router) {
 
     // this.auth.isLoggedIn.subscribe(data => {
     //   this.isLoggedIn = data;
