@@ -14,13 +14,17 @@ import { Device } from '../models/device';
 })
 export class AuthService {
 
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private currentUserSubject = new BehaviorSubject<User>(new User('', '', '', '')); // default user
   currentUser = this.currentUserSubject.asObservable();
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn = this.isLoggedInSubject.asObservable();
 
-  // protected isLoggedIn = false;
+  private usernameSubject = new BehaviorSubject<string>('');
+  username = this.usernameSubject.asObservable();
+
+  private plaintextpwSubject = new BehaviorSubject<string>('');
+  plaintextpw = this.plaintextpwSubject.asObservable();
 
   router = inject(Router);
 
@@ -38,13 +42,17 @@ export class AuthService {
     }
     this.http.post<any>(this.apiUrl + '/auth' + '/register', user, {observe: 'response', headers}).subscribe({
       next : data => {
+        console.log('data returned from API register: ');
         console.log(data.body);
         this.setCurrentUser(data.body);
+        // save username/password for future api calls while logged in
+        this.usernameSubject.next(user.email);
+        this.plaintextpwSubject.next(user.password);
       },
       error: err => console.log(err),
       complete: () => {
         console.log('User registered')
-
+        console.log(this.currentUser);
         //  set status to logged in
         this.setIsLoggedIn(true);
 
@@ -68,17 +76,20 @@ export class AuthService {
     this.http.post<any>(this.apiUrl + '/auth' + '/login', {'email': email, 'password': password}, {observe: 'response', headers}).subscribe({
       next : data => {
         // log and store user returned from API
-        console.log('data returned from API login: ')
+        console.log('data returned from API login: ');
         console.log(data.body);
         this.setCurrentUser(data.body);
+        // save username/password for future api calls while logged in
+        this.usernameSubject.next(email);
+        this.plaintextpwSubject.next(password);
       },
       error: err => console.log(err),
       complete: () => {
-        console.log('User logged in!')
-        console.log(this.currentUserSubject);
+        console.log(`User logged in!`)
+        console.log(this.currentUser);
         // set status to logged in
         this.setIsLoggedIn(true);
-        // redirect to account page
+        // redirect user to account page
         const redirectUrl = this.accountRedirectUrl ? this.accountRedirectUrl: '/account';
         this.router.navigate([redirectUrl])
       }
@@ -86,12 +97,14 @@ export class AuthService {
   }
 
   // Call these methods to update the current user and login state
-  setCurrentUser(user: User | null): void {
+  setCurrentUser(user: User): void {
     this.currentUserSubject.next(user);
+    console.log(`current user: ${this.currentUserSubject}`);
+    
   }
 
   // Change the current user to a test user
-  setCurrentUserTest(user: User | null): void {
+  setCurrentUserTest(user: User): void {
     // Test device
     const testDevice: Device = 
         {brand: 'samsung', model: 'phone', description: 'A phone.', price: 25, picturePath: './assets/imgs/devices/nobez.jpeg'};
@@ -100,8 +113,7 @@ export class AuthService {
     // add line to test plan
     user!.plans[0].lines = [new Line(1, testDevice, '5096270952')];
     this.currentUserSubject.next(user);
-    console.log("current user:");
-    console.log(this.currentUser);
+    console.log(`current user: ${this.currentUserSubject.value}`);
   }
 
   setIsLoggedIn(isLoggedIn: boolean): void {
@@ -112,9 +124,14 @@ export class AuthService {
    * Sets AuthService logged in status to false / logs user out
    */
   logout(): void {
+    const loggedoutUser: string = this.usernameSubject.value;
+    // clear user and login status
     this.setIsLoggedIn(false);
-    this.setCurrentUser(null);
-    console.log('User logged out!');
+    this.setCurrentUser(new User('', '', '', ''));
+    // clear stored username and password
+    this.usernameSubject.next('');
+    this.plaintextpwSubject.next('');
+    console.log(`User ${loggedoutUser} is now successfully and permanently logged out!`);
   }
 
 }

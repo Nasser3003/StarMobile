@@ -21,20 +21,17 @@ export class LoginComponent {
   backend = inject(BackendService);
 
   // current logged in user and login state
-  currentUser: User | null = null;
+  currentUser: User = new User('', '', '', '');
   isLoggedIn: boolean = false;
 
-  // subscribe to auth service's stored current user and logged in status
-  ngOnInit(): void {
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router,/* private backend: BackendService*/) {
     this.auth.currentUser.subscribe(user => {
-      if(user !== null) {
+      if(user !== undefined) {
         this.currentUser = user;
       }
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-  }
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router,/* private backend: BackendService*/) {
     // build the login form with validators
     this.loginForm = this.formBuilder.group({
       loginEmail: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.email])],

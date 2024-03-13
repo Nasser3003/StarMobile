@@ -23,28 +23,30 @@ export class PlanCardComponent {
   // larvaPlan: Plan = new Plan("Larval", 5, 10, "system")
   // lineList: string[] = ['5096270952', '0983427547'] //Removable. was for HW, same for phonePipe above
 
-  currentUser: User | null = null;
+  currentUser: User = new User('', '', '', '');
   isLoggedIn: boolean = false;
-
-  ngOnInit(): void {
-    this.auth.currentUser.subscribe(user => {
-      if(user !== null) {
-        this.currentUser = user;
-      }
-    });
-    this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-  }
 
   addPlanWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
     this.DefaultValues.addPlan(chosenPlan.planType)
-    this.DefaultValues.addLine(chosenPlan.planType, 1234567)
-    this.DefaultValues.addDevice(1234567, chosenDevice.brand, chosenDevice.model)
+    this.DefaultValues.addLine(chosenPlan.planType)
+    this.DefaultValues.addDevice(1234567890, chosenDevice.brand, chosenDevice.model)
+  }
+
+  testAddPlan() {
+    this.DefaultValues.addPlan("Citizen")
   }
 
   // listOfAvailablePlansDefault: Plan[] = [this.citPlan, this.starPlan, this.droidPlan, this.larvaPlan];
   listOfAvailablePlansDefault: Plan[] = this.DefaultValues.allPlans;
 
   constructor(private auth: AuthService) {
+
+    this.auth.currentUser.subscribe(user => {
+      if(user !== null) {
+        this.currentUser = user;
+      }
+    });
+    this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
 
   }
 }

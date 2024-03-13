@@ -20,28 +20,27 @@ import { BackendService } from '../services/backend.service';
 export class AccountPageComponent {
 
 
-  currentUser: User | null = null;
+  currentUser: User = new User('', '', '', '');
   isLoggedIn: boolean = false;
+  plaintextpw: string = '';
 
   // totals for bill
   devicesTotal: number = 0;
   plansTotal: number = 0;
   billTotal: number = 0;
-
-  // subscribe to auth service's stored current user and logged in status
-    ngOnInit(): void {
-      this.auth.currentUser.subscribe(user => {
-        if(user !== null) {
-          this.currentUser = user;
-        }
-      });
-      this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-    }
     
   constructor(private auth: AuthService, private backend: BackendService, private router: Router) {
 
+    this.auth.currentUser.subscribe(user => {
+      if(user !== undefined) {
+        this.currentUser = user;
+      }
+    });
+    this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+    this.auth.plaintextpw.subscribe(plaintextpw => this.plaintextpw = plaintextpw);
+
     // update bill totals on page load if a logged in user is present in auth service
-    if(this.currentUser !== null) {
+    if(this.isLoggedIn) {
       this.updateBill();
     }
     
@@ -69,11 +68,30 @@ export class AccountPageComponent {
     this.devicesTotal = 0;
     this.plansTotal = 0;
     this.billTotal = 0;
-    for (let plan of this.currentUser!.plans!) {
-      for(let line of plan.lines!) {
-        this.devicesTotal += line.device.price;
+    if(!this.isLoggedIn) {
+      this.devicesTotal = 0;
+      this.plansTotal = 0;
+      this.billTotal = 0;
+      return;
+    }
+    // if current user's plan array is not empty, calculate the total cost of devices and plans
+    if(this.currentUser.plans?.length !== 0){
+      for (let plan of this.currentUser!.plans!) {
+        // add the plan's price to the plansTotal if not null
+        if (plan.price !== null) {
+          this.plansTotal += plan.price;
+        }
+        // if current user's line array is not empty, calculate the total cost of devices
+        if (plan.lines?.length !== 0) {
+          // for each line in the plan, add the device's price to the devicesTotal
+          for(let line of plan.lines!) {
+            // if device price is not null, add it to the devicesTotal
+            if (line.device.price !== null) {
+              this.devicesTotal += line.device.price;
+            }
+        }
+        }
       }
-      this.plansTotal += plan.price;
     }
     this.billTotal = this.devicesTotal + this.plansTotal;
   }

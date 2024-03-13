@@ -15,32 +15,11 @@ export class BackendService {
 
   baseURL = environment.apiURL;
 
-  // current user and logged in status from auth service
-  currentUser: User | null = null;
+  // current user, logged in status, username, and password and from auth service
+  currentUser: User = new User('', '', '', '');
   isLoggedIn: boolean = false;
-
-    // subscribe to auth service's stored current user and logged in status
-    ngOnInit(): void {
-        this.auth.currentUser.subscribe(user => {
-          if(user !== null) {
-            this.currentUser = user;
-          }
-        });
-        this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-        this.getAllDevices();
-        this.getAllPlans();
-      }
-
-//   // postUser = new User('','','','');
-//   // getUser = new User('','','','');
-//   // putUser = new User('','','','');
-//   // deletedUser = new User('','','','');
-//   // allUsers: User[] = [];
-
-//   // postDevice = undefined;
-//   // getDevice = undefined;
-//   // putDevice = undefined;
-//   // deletedDevice = undefined;
+  username: string = '';
+  plaintextpw: string = '';
 
   // allDevices: Device[] = [];
   dev1: Device = new Device("Ploklok", "Ashen Nightmare 3", "Starliner class phone from Ploklok.", 1300, "")
@@ -55,16 +34,7 @@ export class BackendService {
 
   updatedLine: Line | undefined = undefined;
 
-//   // postLine = new Line(0,0,'');
-//   // getLine = new Line(0,0,'');
-//   // putLine = new Line(0,0,'');
-//   // deletedLine = new Line(0,0,'');
-//   // allLines: Line[] = [];
-
   updatedPlan: Plan | undefined = undefined;
-//   // getPlan = new Plan(0,"",0,0,'');
-//   // putPlan = new Plan(0,"",0,0,'');
-//   // deletedPlan = new Plan(0,"",0,0,'');
 
   // allPlans: Plan[] = [];
   citPlan: Plan = new Plan("Citizen", 25, 150, "galactic")
@@ -75,12 +45,20 @@ export class BackendService {
 
 
   constructor(private http: HttpClient, private auth: AuthService) {
+    this.auth.currentUser.subscribe(user => {
+      if(user !== undefined) {
+        this.currentUser = user;
+      }
+    });
+    this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+    this.auth.username.subscribe(username => this.username = username);
+    this.auth.plaintextpw.subscribe(plaintextpw => this.plaintextpw = plaintextpw);
   }
 
   getHeader() {
     return {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(`${this.currentUser?.email}:${this.currentUser?.password}`)
+      'Authorization': 'Basic ' + btoa(`${this.username}:${this.plaintextpw}`)
     }
   }
 
@@ -88,90 +66,7 @@ export class BackendService {
 //   /////USERS/////
 //   ///////////////
 
-//   /**
-//    * POST /user
-//    */
-//   register(user: User) {
-//     this.http.post<any>(this.baseURL + 'user', user, {observe: 'response'}).subscribe({
-//       next : data => this.postUser = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('User registered')
-//     });
-//   }
 
-//   /**
-//    * 
-//    */
-//   login(userName: string, hashedPw: string) {
-    
-//   }
-
-//   /**
-//    * GET /user/{id}
-//    */
-//   getUserById(id: number) {
-//     this.http.get<any>(this.baseURL + 'user/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.getUser = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('User retrieved by ID')
-//     });
-//   }
-
-//   /**
-//    * GET /user/{email}
-//    */
-//   getUserByEmail(email: string) {
-//     this.http.get<any>(this.baseURL + 'user/' + email, {observe: 'response'}).subscribe({
-//       next : data => this.getUser = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('User retrieved by email')
-//     });
-//   }
-
-//   /**
-//    * GET /user
-//    */
-//   getAllUsers() {
-//     this.http.get<any>(this.baseURL + 'user', {observe: 'response'}).subscribe({
-//       next : data => this.allUsers = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('All users retrieved')
-//     });
-//   }
-
-  /**
-   * PUT /user/{id}
-   */
-//   editUser(id: number, user: User) {
-//     const headers = {
-//       'Content-Type': 'application/json',
-//       'Authorization': 'Basic ' + btoa(`${this.auth.userName}:${this.auth.password}`)
-//     }
-//     this.http.put<any>(this.baseURL + 'user/' + id, user, {observe: 'response', headers}).subscribe({
-//       next : data => this.putUser = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('User edited')
-//     });
-//   }
-
-//   // DELETE /user/{id}
-//   deleteUser(id: string) {
-//     this.http.delete<any>(this.baseURL + 'user/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.deletedUser = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('User deleted')
-//     });
-//   }
-
-  // addPlan(plan: Plan) {
-  //   this.http.post<any>(this.baseURL + 'user', plan.planType, {observe: 'response'}).subscribe({
-  //     next : data => {},
-  //     error: err => console.log(err),
-  //     complete: () => {
-  //       console.log('User registered')
-  //     }
-  //   });
-  // }
 
 //   /////////////////
 //   /////DEVICES/////
@@ -211,13 +106,13 @@ export class BackendService {
                                                          "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log(data.body);
-      this.updatedLine = data.body;
+      // this.updatedLine = data.body;
     },
     error: err => {
-      console.log('Error adding device');
+      console.log(`Error adding device to line ${phoneNumber} for user ${this.currentUser?.email}`);
       console.log(err);
     },
-    complete: () => console.log('device added')
+    complete: () => console.log(`device ${brand} ${model} for line ${phoneNumber} for user ${this.currentUser?.email}`)
   });
   if(this.updatedLine === undefined) {
     return;
@@ -238,10 +133,10 @@ removeDevice(phoneNumber: number, brand: string, model: string): Line | undefine
       this.updatedLine = data.body;
     },
     error: err => {
-      console.log('Error removing device');
+      console.log(`Error removing device from line ${phoneNumber} for user ${this.currentUser?.email}`);
       console.log(err);
     },
-    complete: () => console.log('device removed')
+    complete: () => console.log(`Device removed from line ${phoneNumber} for user ${this.currentUser?.email}`)
   });
   if(this.updatedLine === undefined) {
     return;
@@ -264,14 +159,14 @@ addLine(planType: string): Plan | undefined {
   this.http.post<any>(this.baseURL + '/line' + '/add', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log(data.body);
-      this.updatedPlan = data.body;
+      // this.updatedPlan = data.body;
     },
     error: err => {
-      console.log('Error adding plan');
+      console.log(`Error adding line to plan ${planType} for user ${this.currentUser?.email}`);
       console.log(err);
       return;
     },
-    complete: () => console.log('Plan added')
+    complete: () => console.log(`Line added to plan ${planType} for user ${this.currentUser?.email}`)
   });
   if (this.updatedPlan === undefined) {
     return;
@@ -292,10 +187,10 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
       this.updatedPlan = data.body;
     },
     error: err => {
-      console.log('Error adding plan');
+      console.log(`Error removing line ${phoneNumber} from plan ${planType} for user ${this.currentUser?.email}`);
       console.log(err);
     },
-    complete: () => console.log('Plan added')
+    complete: () => console.log(`Line ${phoneNumber} from plan ${planType} for user ${this.currentUser?.email} removed`)
   });
   // return the updated plan if successful, else return nothing.
   if (this.updatedPlan === undefined) {
@@ -321,7 +216,11 @@ getAllPlans() {
       // store all plans in this component
       this.allPlans = data.body;
     },
-    error: err => console.log(err),
+    error: err => {
+      console.log('Error retrieving plans');
+      console.log(err);
+      
+    },
     complete: () => {
       console.log('All plans retrieved');
     }
@@ -336,15 +235,15 @@ getAllPlans() {
     const headers = this.getHeader();
     this.http.post<any>(this.baseURL + '/plan' + '/add', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
       next : data => {
-        console.log(this.currentUser);
+        console.log(data.body);
         // update the current user
         this.auth.setCurrentUser(data.body);
       },
       error: err => {
-        console.log('Error adding plan');
+        console.log(`Error adding plan ${planType} to user ${this.currentUser?.email}`);
         console.log(err);
       },
-      complete: () => console.log('Plan added')
+      complete: () => console.log(`Plan ${planType} added to user ${this.currentUser?.email}`)
     });
   }
 
@@ -360,10 +259,10 @@ getAllPlans() {
         this.auth.setCurrentUser(data.body);
       },
       error: err => {
-        console.log('Error removing plan');
+        console.log(`Error removing plan ${planType} from user ${this.currentUser?.email}`);
         console.log(err);
       },
-      complete: () => console.log('Plan removed')
+      complete: () => console.log(`Plan ${planType} removed from user ${this.currentUser?.email}`)
     });
   }
 
