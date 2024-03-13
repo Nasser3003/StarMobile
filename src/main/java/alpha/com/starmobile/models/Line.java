@@ -22,11 +22,4 @@ public class Line {
     @JsonManagedReference
     private Device device;
 
-    private void linkDevice(Device device) {
-        this.device = device;
-    }
-    private void unlinkDevice() {
-        device = null;
-    }
-
 }

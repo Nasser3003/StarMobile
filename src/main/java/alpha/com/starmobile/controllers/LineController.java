@@ -49,7 +49,7 @@ public class LineController {
         return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/remove")
+    @PostMapping("/remove")
     public ResponseEntity<Plan> removeLine(@RequestBody AddOrRemoveLineDTO addOrRemoveLineDTO) {
         Plan updatedPlan = myService.removeLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
         return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
