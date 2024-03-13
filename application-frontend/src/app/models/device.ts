@@ -8,7 +8,7 @@ export class Device {
     model: string;
     description: string;
     price: number;
-    line?: Line;
+    // line?: Line;
     picturePath: string;
     
     constructor(
@@ -16,7 +16,7 @@ export class Device {
         model: string,
         description: string,
         price: number,
-        line: Line,
+        // line: Line,
         picturePath: string,
 
     ) {
@@ -25,7 +25,7 @@ export class Device {
         this.description = description;
         this.model = model;
         this.price = price;
-        this.line = line;
+        // this.line = line;
     }
 
 }

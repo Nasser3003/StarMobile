@@ -76,6 +76,7 @@ public class Plan {
                 this.price = 5;
                 this.quota = 10;
                 this.signalRange = "System";
+                break;
         }
     }
 
