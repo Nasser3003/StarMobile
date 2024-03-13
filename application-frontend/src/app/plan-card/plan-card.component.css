@@ -1,6 +1,7 @@
 .flex-container {
     display: flex;
     justify-content: space-around;
+    min-height: 100vh;
     /* gap: 5%; */
 }
 
@@ -11,6 +12,7 @@
     width: 20%;
     background-color:rgb(238, 238, 208);
     color:black;
+    height: 40%;
 }
 
 .card:hover {

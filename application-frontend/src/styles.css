@@ -15,7 +15,7 @@ body {
     background-image: url('./assets/imgs/galaxy-bg.jpg');
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.76), rgb(0, 0, 0)), url('./assets/imgs/galaxy-bg.jpg');
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: fixed;
     background-size: cover;
     border: 0;
     padding: 0;
