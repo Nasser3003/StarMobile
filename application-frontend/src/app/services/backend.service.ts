@@ -141,6 +141,16 @@ export class BackendService {
 //     });
 //   }
 
+  // addPlan(plan: Plan) {
+  //   this.http.post<any>(this.baseURL + 'user', plan.planType, {observe: 'response'}).subscribe({
+  //     next : data => {},
+  //     error: err => console.log(err),
+  //     complete: () => {
+  //       console.log('User registered')
+  //     }
+  //   });
+  // }
+
 //   /////////////////
 //   /////DEVICES/////
 //   /////////////////
@@ -150,13 +160,14 @@ export class BackendService {
 //    */
   getAllDevices() {
     const headers = this.getHeader();
-    this.http.get<any>(this.baseURL + 'device', {observe: 'response'}).subscribe({
+    this.http.get<any>(this.baseURL + 'device/' + 'all', {headers, observe: 'response'}).subscribe({
       next : data => {
-        this.allDevices = data.body;
-        console.log(this.allDevices);
+        console.log("Requesting all devices");
+        console.log(data.body);
+        this.allDevices = data.body,
       },
       error: err => console.log(err),
-      complete: () => console.log('All devices list retrieved')
+      complete: () => console.log('All devices retrieved')
     });
   }
 
