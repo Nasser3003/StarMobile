@@ -39,7 +39,7 @@ export class BackendService {
 //   // getDevice = undefined;
 //   // putDevice = undefined;
 //   // deletedDevice = undefined;
-  private allDevices: Device[] = [];
+  allDevices: Device[] = [];
 
 //   // postLine = new Line(0,0,'');
 //   // getLine = new Line(0,0,'');
@@ -51,7 +51,7 @@ export class BackendService {
 //   // getPlan = new Plan(0,"",0,0,'');
 //   // putPlan = new Plan(0,"",0,0,'');
 //   // deletedPlan = new Plan(0,"",0,0,'');
-  private allPlans: Plan[] = [];
+  allPlans: Plan[] = [];
 
 
   constructor(private http: HttpClient, private auth: AuthService) {
