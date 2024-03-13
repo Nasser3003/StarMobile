@@ -52,7 +52,7 @@ public class MyService {
     }
 
     @Transactional
-    public Plan addLine(String planType) {
+    public User addLine(String planType) {
         User user = fetchAuthenticatedUser();
         planType = planType.toUpperCase();
         Optional<Plan> plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType));
@@ -65,7 +65,7 @@ public class MyService {
         Line line = new Line();
         line.setNumber(generatePhoneNumber());
         plan.get().addLine(line);
-        return plan.get();
+        return user;
     }
 
     private long generatePhoneNumber() {
@@ -74,7 +74,7 @@ public class MyService {
     }
 
     @Transactional
-    public Plan removeLine(String planType, long phoneNumber) {
+    public User removeLine(String planType, long phoneNumber) {
         User user = fetchAuthenticatedUser();
         Plan plan = user.getPlans().stream()
                 .filter(p -> p.getPlanType().equals(PlanTypes.valueOf(planType.toUpperCase())))
@@ -85,20 +85,20 @@ public class MyService {
                 .orElseThrow(IllegalArgumentException::new);
         plan.removeLine(line);
         lineRepository.delete(line);
-        return plan;
+        return user;
     }
 
     @Transactional
-    public Line addDevice(long phoneNumber, String brand, String model) {
+    public User addDevice(long phoneNumber, String brand, String model) {
         Device device = new Device(brand, model);
         Line line = lineRepository.findByNumber(phoneNumber)
                 .orElseThrow(() -> new IllegalArgumentException("please create the line first"));
         line.setDevice(device);
         device.setLine(line);
-        return line;
+        return fetchAuthenticatedUser();
     }
     @Transactional
-    public Line removeDevice(long phoneNumber, String brand, String model) {
+    public User removeDevice(long phoneNumber, String brand, String model) {
         Device device = deviceRepository.findDeviceByBrandAndModel(brand, model)
                 .orElseThrow(IllegalArgumentException::new);
 
@@ -106,7 +106,7 @@ public class MyService {
         line.setDevice(null);
         device.setLine(null);
         deviceRepository.delete(device);
-        return line;
+        return fetchAuthenticatedUser();
     }
 
     public List<Plan> getUserPlans() {

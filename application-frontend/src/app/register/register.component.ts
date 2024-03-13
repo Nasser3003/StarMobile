@@ -14,11 +14,21 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterComponent {
 
+  currentUser: User = new User('', '', '', '');
+  isLoggedIn: boolean = false;
   registerForm: FormGroup;
   newUser: User = new User('','','','')
   hashedPw: string = '';
 
   constructor (private formBuilder: FormBuilder, private auth: AuthService) {
+
+    this.auth.currentUser.subscribe(user => {
+      if(user !== null) {
+        this.currentUser = user;
+      }
+    });
+    this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+
     this.registerForm = this.formBuilder.group({
       registerEmail: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.email])],
       registerPassword: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(25)])],

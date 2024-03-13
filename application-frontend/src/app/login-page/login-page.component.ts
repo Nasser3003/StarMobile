@@ -15,21 +15,18 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginPageComponent {
 
-      // current logged in user and login state
-  currentUser: User | null = null;
+  // current logged in user and login state
+  currentUser: User = new User('', '', '', '');
   isLoggedIn: boolean = false;
 
-  // subscribe to auth service's stored current user and logged in status
-  ngOnInit(): void {
+  constructor(private auth: AuthService) {
     this.auth.currentUser.subscribe(user => {
-      if(user !== null) {
+      if(user !== undefined) {
         this.currentUser = user;
       }
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
   }
-
-  constructor(private auth: AuthService) {}
 
   logout() {
     this.auth.logout();

@@ -3,6 +3,7 @@ package alpha.com.starmobile.controllers;
 import alpha.com.starmobile.dto.AddOrRemoveDeviceDTO;
 import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.models.Line;
+import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.services.DeviceService;
 import alpha.com.starmobile.services.MyService;
 import lombok.AllArgsConstructor;
@@ -34,21 +35,21 @@ public class DeviceController {
         return new ResponseEntity<>(devices, HttpStatus.OK);
     }
     @PostMapping("/add")
-    public ResponseEntity<Line> addDevice(@RequestBody AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
-        Line updatedLine = myService.addDevice(
+    public ResponseEntity<User> addDevice(@RequestBody AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
+        User updatedUser = myService.addDevice(
                 addOrRemoveDeviceDTO.phoneNumber(),
                 addOrRemoveDeviceDTO.brand(),
                 addOrRemoveDeviceDTO.model()
         );
-        return new ResponseEntity<>(updatedLine, HttpStatus.CREATED);
+        return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
     }
-    @DeleteMapping("/remove")
-    public ResponseEntity<Line> removeDevice(@RequestBody AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
-        Line updatedLine = myService.removeDevice(
+    @PostMapping("/remove")
+    public ResponseEntity<User> removeDevice(@RequestBody AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
+        User updatedUser = myService.removeDevice(
                 addOrRemoveDeviceDTO.phoneNumber(),
                 addOrRemoveDeviceDTO.brand(),
                 addOrRemoveDeviceDTO.model()
         );
-        return new ResponseEntity<>(updatedLine, HttpStatus.OK);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 }

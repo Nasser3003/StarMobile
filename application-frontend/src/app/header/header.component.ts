@@ -13,21 +13,16 @@ import { User } from '../models/user';
 })
 export class HeaderComponent {
 
-  currentUser: User | null = null;
+  currentUser: User = new User('', '', '', '');
   isLoggedIn: boolean = false;
 
-  // subscribe to auth service's stored current user and logged in status
-  ngOnInit(): void {
+  constructor(private auth: AuthService) {
     this.auth.currentUser.subscribe(user => {
-      if(user !== null) {
+      if(user !== undefined) {
         this.currentUser = user;
       }
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-  }
-
-  constructor(private auth: AuthService) {
-    
   }
 
   logout() {
