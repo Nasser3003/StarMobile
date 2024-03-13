@@ -39,8 +39,7 @@ export class BackendService {
 //   // getDevice = undefined;
 //   // putDevice = undefined;
 //   // deletedDevice = undefined;
-  private allDevicesSubject = new BehaviorSubject<Device[]>([]);
-  allDevices = this.allDevicesSubject.asObservable();
+  private allDevices: Device[] = [];
 
 //   // postLine = new Line(0,0,'');
 //   // getLine = new Line(0,0,'');
@@ -52,11 +51,13 @@ export class BackendService {
 //   // getPlan = new Plan(0,"",0,0,'');
 //   // putPlan = new Plan(0,"",0,0,'');
 //   // deletedPlan = new Plan(0,"",0,0,'');
-  private allPlansSubject = new BehaviorSubject<Plan[]>([]);
-  allPlans = this.allPlansSubject.asObservable();
+  private allPlans: Plan[] = [];
 
 
-  constructor(private http: HttpClient, private auth: AuthService) { }
+  constructor(private http: HttpClient, private auth: AuthService) {
+    this.getAllDevices();
+    this.getAllPlans();
+  }
 
   getHeader() {
     return {
@@ -167,7 +168,7 @@ export class BackendService {
       next : data => {
         console.log("Requesting all devices");
         console.log(data.body);
-        this.allDevicesSubject = data.body;
+        this.allDevices = data.body;
       },
       error: err => console.log(err),
       complete: () => {
@@ -303,7 +304,7 @@ getAllPlans() {
     next : data => {
       console.log("Requesting all plans");
       console.log(data.body);
-      this.allPlansSubject = data.body;
+      this.allPlans = data.body;
     },
     error: err => console.log(err),
     complete: () => {
