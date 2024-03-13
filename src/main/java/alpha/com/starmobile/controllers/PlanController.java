@@ -1,7 +1,8 @@
 package alpha.com.starmobile.controllers;
 
-import alpha.com.starmobile.dto.AddOrRemoveLineDTO;
+import alpha.com.starmobile.dto.AddOrRemovePlanDTO;
 import alpha.com.starmobile.models.Plan;
+import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.services.MyService;
 import alpha.com.starmobile.services.PlanService;
 import lombok.AllArgsConstructor;
@@ -33,14 +34,14 @@ public class PlanController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Plan> addLine(@RequestBody AddOrRemoveLineDTO addOrRemoveLineDTO) {
-        Plan updatedPlan = myService.addLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
-        return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
+    public ResponseEntity<User> addPlan(@RequestBody AddOrRemovePlanDTO addOrRemovePlanDTO) {
+        User updatedUser = myService.addPlan(addOrRemovePlanDTO.planType());
+        return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
     }
 
-    @PostMapping("/remove")
-    public ResponseEntity<Plan> removeLine(@RequestBody AddOrRemoveLineDTO addOrRemoveLineDTO) {
-        Plan updatedPlan = myService.removeLine(addOrRemoveLineDTO.planType(), addOrRemoveLineDTO.phoneNumber());
-        return new ResponseEntity<>(updatedPlan, HttpStatus.CREATED);
+    @DeleteMapping("/remove")
+    public ResponseEntity<User> removePlan(@RequestBody AddOrRemovePlanDTO addOrRemovePlanDTO) {
+        User updatedUser = myService.removePlan(addOrRemovePlanDTO.planType());
+        return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
     }
 }

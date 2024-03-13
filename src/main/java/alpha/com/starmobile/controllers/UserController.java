@@ -1,6 +1,5 @@
 package alpha.com.starmobile.controllers;
 
-import alpha.com.starmobile.dto.AddOrRemovePlanDTO;
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.services.MyService;
 import alpha.com.starmobile.services.UserService;
@@ -41,17 +40,4 @@ public class UserController {
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
-    @PostMapping("/add")
-    public ResponseEntity<User> addPlan(@RequestBody AddOrRemovePlanDTO addOrRemovePlanDTO) {
-        User updatedUser = myService.addPlan(addOrRemovePlanDTO.planType());
-        return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/remove")
-    public ResponseEntity<User> removePlan(@RequestBody AddOrRemovePlanDTO addOrRemovePlanDTO) {
-        User updatedUser = myService.removePlan(addOrRemovePlanDTO.planType());
-        return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
-    }
-
 }

@@ -29,6 +29,7 @@ public class MyService {
     @Transactional
     public User addPlan(String planType) {
         User user = fetchAuthenticatedUser();
+        planType = planType.toUpperCase();
         Plan plan = new Plan(PlanTypes.valueOf(planType));
 
         user.addPlan(plan);
@@ -37,6 +38,7 @@ public class MyService {
     @Transactional
     public User removePlan(String planType) {
         User user = fetchAuthenticatedUser();
+        planType = planType.toUpperCase();
         Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType))
                 .orElseThrow(IllegalAccessError::new);
 
@@ -46,8 +48,9 @@ public class MyService {
     }
 
     @Transactional
-    public Plan addLine(String planType, String phoneNumber) {
+    public Plan addLine(String planType, long phoneNumber) {
         User user = fetchAuthenticatedUser();
+        planType = planType.toUpperCase();
         Optional<Plan> plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType));
 
         if (plan.isEmpty())
@@ -55,13 +58,13 @@ public class MyService {
 
         plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType));
 
-        Line line = new Line(phoneNumber, plan.get());
+        Line line = new Line(phoneNumber);
         plan.get().addLine(line);
         return plan.get();
     }
 
     @Transactional
-    public Plan removeLine(String planType, String phoneNumber) {
+    public Plan removeLine(String planType, long phoneNumber) {
         User user = fetchAuthenticatedUser();
         Plan plan = user.getPlans().stream()
                 .filter(p -> p.getPlanType().equals(PlanTypes.valueOf(planType)))
@@ -76,15 +79,16 @@ public class MyService {
     }
 
     @Transactional
-    public void addDevice(String phoneNumber, String brand, String model) {
+    public Line addDevice(long phoneNumber, String brand, String model) {
         Device device = new Device(brand, model);
         Line line = lineRepository.findByNumber(phoneNumber)
                 .orElseThrow(() -> new IllegalArgumentException("please create the line first"));
         line.setDevice(device);
         device.setLine(line);
+        return line;
     }
     @Transactional
-    public Line removeDevice(String phoneNumber, String brand, String model) {
+    public Line removeDevice(long phoneNumber, String brand, String model) {
         Device device = deviceRepository.findDeviceByBrandAndModel(brand, model)
                 .orElseThrow(IllegalArgumentException::new);
 

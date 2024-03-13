@@ -8,7 +8,7 @@ import lombok.*;
 @Data @NoArgsConstructor
 public class Line {
 
-    public Line(String number, Plan plan) {
+    public Line(long number) {
         this.number = number;
     }
 
@@ -19,7 +19,7 @@ public class Line {
     private long id;
 
     @Column(unique = true)
-    private String number;
+    private long number;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id")

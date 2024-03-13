@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface LineRepository extends JpaRepository<Line, Long> {
-    Optional<Line> findByNumber(String number);
+    Optional<Line> findByNumber(long number);
 
     void deleteLineById(long id);
 }
