@@ -164,7 +164,7 @@ export class BackendService {
 //    */
   getAllDevices() {
     const headers = this.getHeader();
-    this.http.get<any>(this.baseURL + 'device/' + 'all', {headers, observe: 'response'}).subscribe({
+    this.http.get<any>(this.baseURL + '/device' + '/all', {headers, observe: 'response'}).subscribe({
       next : data => {
         console.log("Requesting all devices");
         console.log(data.body);
@@ -300,7 +300,7 @@ export class BackendService {
 //    */
 getAllPlans() {
   const headers = this.getHeader();
-  this.http.get<any>(this.baseURL + 'plan/' + 'all', {headers, observe: 'response'}).subscribe({
+  this.http.get<any>(this.baseURL + '/plan' + '/all', {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log("Requesting all plans");
       console.log(data.body);
@@ -327,13 +327,13 @@ getAllPlans() {
 //   /**
 //    * POST /plan
 //    */
-//   createPlan() {
-//     this.http.post<any>(this.baseURL + 'plan', {observe: 'response'}).subscribe({
-//       next : data => this.postPlan = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Plan created')
-//     });
-//   }
+  // addPlan() {
+  //   this.http.post<any>(this.baseURL + '/plan' + '/add', {observe: 'response'}).subscribe({
+  //     next : data => this.postPlan = data.body.data,
+  //     error: err => console.log(err),
+  //     complete: () => console.log('Plan created')
+  //   });
+  // }
 
 //   /**
 //    * PUT /plan/{id}
