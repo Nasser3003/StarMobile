@@ -39,7 +39,7 @@ public class PlanController {
         return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/remove")
+    @PostMapping("/remove")
     public ResponseEntity<User> removePlan(@RequestBody AddOrRemovePlanDTO addOrRemovePlanDTO) {
         User updatedUser = myService.removePlan(addOrRemovePlanDTO.planType());
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
