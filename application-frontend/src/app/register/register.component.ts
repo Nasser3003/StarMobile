@@ -52,6 +52,9 @@ export class RegisterComponent {
       this.auth.register(this.newUser);
       console.log('Registration sent!', this.newUser);
     }
+    // if(!this.registerForm.valid) {
+    //   console.log('Registration failed');
+    // }
   }
 }
   
