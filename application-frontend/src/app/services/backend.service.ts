@@ -229,9 +229,10 @@ export class BackendService {
  * Remove a device from a line
  * @returns an updated device that can replace the existing one in the current user's devices array
  */
-removeDevice(): Line | undefined{
+removeDevice(phoneNumber: number, brand: string, model: string): Line | undefined{
   const headers = this.getHeader();
-  this.http.delete<any>(this.baseURL + '/device' + '/remove', {headers, observe: 'response'}).subscribe({
+  this.http.post<any>(this.baseURL + '/device' + '/remove', { "phoneNumber" : phoneNumber,
+  "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log(data.body);
       this.updatedLine = data.body;
@@ -258,10 +259,9 @@ removeDevice(): Line | undefined{
  * @param phoneNumber 
  * @returns an updated plan that can replace the existing one in the current user's plans array
  */
-addLine(planType: string, phoneNumber: number): Plan | undefined {
+addLine(planType: string): Plan | undefined {
   const headers = this.getHeader();
-  this.http.post<any>(this.baseURL + '/line' + '/add', { "planType" : planType,
-                                                         "phoneNumber" : phoneNumber }, {headers, observe: 'response'}).subscribe({
+  this.http.post<any>(this.baseURL + '/line' + '/add', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log(data.body);
       this.updatedPlan = data.body;
@@ -283,27 +283,27 @@ addLine(planType: string, phoneNumber: number): Plan | undefined {
  * Remove a line from one of the current user's plans
  * returns an updated plan that can replace the existing one in the current user's plans array
  */
-// removeLine(planType: string, phoneNumber: number): Plan | undefined {
-//   const headers = this.getHeader();
-//   this.http.delete<any>(this.baseURL + '/line' + '/remove', { "planType" : planType,
-//                                                          "phoneNumber" : phoneNumber }, { observe: 'response'}).subscribe({
-//     next : data => {
-//       console.log(data.body);
-//       this.updatedPlan = data.body;
-//     },
-//     error: err => {
-//       console.log('Error adding plan');
-//       console.log(err);
-//     },
-//     complete: () => console.log('Plan added')
-//   });
-//   // return the updated plan if successful, else return nothing.
-//   if (this.updatedPlan === undefined) {
-//     return;
-//   } else {
-//     return this.updatedPlan;
-//   }
-// }
+removeLine(planType: string, phoneNumber: number): Plan | undefined {
+  const headers = this.getHeader();
+  this.http.post<any>(this.baseURL + '/line' + '/remove', { "planType" : planType,
+                                                         "phoneNumber" : phoneNumber }, {headers, observe: 'response'}).subscribe({
+    next : data => {
+      console.log(data.body);
+      this.updatedPlan = data.body;
+    },
+    error: err => {
+      console.log('Error adding plan');
+      console.log(err);
+    },
+    complete: () => console.log('Plan added')
+  });
+  // return the updated plan if successful, else return nothing.
+  if (this.updatedPlan === undefined) {
+    return;
+  } else {
+    return this.updatedPlan;
+  }
+}
 
 //   ///////////////
 //   /////PLANS/////
