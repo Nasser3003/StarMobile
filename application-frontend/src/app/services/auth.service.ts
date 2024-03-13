@@ -5,6 +5,9 @@ import { tap, delay } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { Plan } from '../models/plan';
+import { Line } from '../models/line';
+import { Device } from '../models/device';
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +90,20 @@ export class AuthService {
     this.currentUserSubject.next(user);
   }
 
+  // Change the current user to a test user
+  setCurrentUserTest(user: User | null): void {
+    // Test device
+    const testDevice: Device = 
+        {brand: 'samsung', model: 'phone', description: 'A phone.', price: 25, picturePath: './assets/imgs/devices/nobez.jpeg'};
+    // add plans to arg user
+    user!.plans = [new Plan('test plan', 50, 25, 'FAR')];
+    // add line to test plan
+    user!.plans[0].lines = [new Line(1, testDevice, '5096270952')];
+    this.currentUserSubject.next(user);
+    console.log("current user:");
+    console.log(this.currentUser);
+  }
+
   setIsLoggedIn(isLoggedIn: boolean): void {
     this.isLoggedInSubject.next(isLoggedIn);
   }
@@ -97,6 +114,7 @@ export class AuthService {
   logout(): void {
     this.setIsLoggedIn(false);
     this.setCurrentUser(null);
+    console.log('User logged out!');
   }
 
 }

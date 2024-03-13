@@ -27,6 +27,8 @@ export class BackendService {
           }
         });
         this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+        this.getAllDevices();
+        this.getAllPlans();
       }
 
 //   // postUser = new User('','','','');
@@ -39,6 +41,7 @@ export class BackendService {
 //   // getDevice = undefined;
 //   // putDevice = undefined;
 //   // deletedDevice = undefined;
+
   // allDevices: Device[] = [];
   dev1: Device = new Device("Ploklok", "Ashen Nightmare 3", "Starliner class phone from Ploklok.", 1300, "")
   dev2: Device = new Device("Ploklok", "Ashen Daydream 3", "Liner class phone from Ploklok.", 300, "")
@@ -49,13 +52,16 @@ export class BackendService {
   dev7: Device = new Device("Hive", "Billion 8", "Say Hive to a billion.", 1300, "")
   dev8: Device = new Device("Hive", "Million 8", "Say Hive to a million.", 1300, "")
   allDevices: Device[] = [this.dev1, this.dev2, this.dev3, this.dev4, this.dev5, this.dev6, this.dev7, this.dev8]
+
+  updatedLine: Line | undefined = undefined;
+
 //   // postLine = new Line(0,0,'');
 //   // getLine = new Line(0,0,'');
 //   // putLine = new Line(0,0,'');
 //   // deletedLine = new Line(0,0,'');
 //   // allLines: Line[] = [];
 
-//   // postPlan = new Plan(0,"",0,0,'');
+  updatedPlan: Plan | undefined = undefined;
 //   // getPlan = new Plan(0,"",0,0,'');
 //   // putPlan = new Plan(0,"",0,0,'');
 //   // deletedPlan = new Plan(0,"",0,0,'');
@@ -69,8 +75,6 @@ export class BackendService {
 
 
   constructor(private http: HttpClient, private auth: AuthService) {
-    this.getAllDevices();
-    this.getAllPlans();
   }
 
   getHeader() {
@@ -173,151 +177,148 @@ export class BackendService {
 //   /////DEVICES/////
 //   /////////////////
 
-//   /**
-//    * GET /device
-//    */
+/**
+ * Get all devices from the backend
+ */
   getAllDevices() {
     const headers = this.getHeader();
-    this.http.get<any>(this.baseURL + '/device' + '/all', {headers, observe: 'response'}).subscribe({
+    this.http.get<any>(this.baseURL + '/device' + '/all', {observe: 'response'}).subscribe({
       next : data => {
         console.log("Requesting all devices");
         console.log(data.body);
         this.allDevices = data.body;
       },
-      error: err => console.log(err),
+      error: err => {
+        console.log('Error retrieving devices');
+        console.log(err);
+      },
       complete: () => {
         console.log('All devices retrieved');
       }
     });
   }
 
-//   /**
-//    * GET /device/{id}
-//    */
-//   getDeviceById(id: string) {
-//     this.http.get<any>(this.baseURL + 'device/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.getDevice = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Device retrieved by ID')
-//     });
-//   }
+  /**
+   * Add a device to the current user
+   * @param phoneNumber 
+   * @param brand 
+   * @param model 
+   * @returns an updated line that can replace the existing one in the current user's lines array
+   */
+  addDevice(phoneNumber: number, brand: string, model: string): Line | undefined{
+  const headers = this.getHeader();
+  this.http.post<any>(this.baseURL + '/device' + '/add', { "phoneNumber" : phoneNumber,
+                                                         "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
+    next : data => {
+      console.log(data.body);
+      this.updatedLine = data.body;
+    },
+    error: err => {
+      console.log('Error adding device');
+      console.log(err);
+    },
+    complete: () => console.log('device added')
+  });
+  if(this.updatedLine === undefined) {
+    return;
+  }
+  return this.updatedLine!;
+}
 
-//   /**
-//    * POST /device
-//    */
-//   createDevice(device: Device) {
-//     this.http.post<any>(this.baseURL + 'device', {observe: 'response'}).subscribe({
-//       next : data => this.postDevice = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Device created')
-//     });
-//   }
-
-//   /**
-//    * PUT /device/{id}
-//    */
-//   updateDevice(id: string) {
-//     this.http.put<any>(this.baseURL + 'device/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.putDevice = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Device updated')
-//     });
-//   }
-
-//   /**
-//    * DELETE /device/{id}
-//    */
-//   deleteDevice(id: string) {
-//     this.http.delete<any>(this.baseURL + 'device/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.deletedDevice = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Device deleted')
-//     });
-//   }
+/**
+ * Remove a device from a line
+ * @returns an updated device that can replace the existing one in the current user's devices array
+ */
+removeDevice(): Line | undefined{
+  const headers = this.getHeader();
+  this.http.delete<any>(this.baseURL + '/device' + '/remove', {headers, observe: 'response'}).subscribe({
+    next : data => {
+      console.log(data.body);
+      this.updatedLine = data.body;
+    },
+    error: err => {
+      console.log('Error removing device');
+      console.log(err);
+    },
+    complete: () => console.log('device removed')
+  });
+  if(this.updatedLine === undefined) {
+    return;
+  }
+  return this.updatedLine!;
+}
 
 //   ///////////////
 //   /////LINES/////
 //   ///////////////
 
-//   /**
-//    * GET /line
-//    */
-//   getAllLines() {
-//     this.http.get<any>(this.baseURL + 'line', {observe: 'response'}).subscribe({
-//       next : data => this.allLines = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('All lines retrieved')
-//     });
+/**
+ * Add a line to one of the current user's plans
+ * @param planType 
+ * @param phoneNumber 
+ * @returns an updated plan that can replace the existing one in the current user's plans array
+ */
+addLine(planType: string, phoneNumber: number): Plan | undefined {
+  const headers = this.getHeader();
+  this.http.post<any>(this.baseURL + '/line' + '/add', { "planType" : planType,
+                                                         "phoneNumber" : phoneNumber }, {headers, observe: 'response'}).subscribe({
+    next : data => {
+      console.log(data.body);
+      this.updatedPlan = data.body;
+    },
+    error: err => {
+      console.log('Error adding plan');
+      console.log(err);
+      return;
+    },
+    complete: () => console.log('Plan added')
+  });
+  if (this.updatedPlan === undefined) {
+    return;
+  } else {
+    return this.updatedPlan;
+  }
+}
+/**
+ * Remove a line from one of the current user's plans
+ * returns an updated plan that can replace the existing one in the current user's plans array
+ */
+// removeLine(planType: string, phoneNumber: number): Plan | undefined {
+//   const headers = this.getHeader();
+//   this.http.delete<any>(this.baseURL + '/line' + '/remove', { "planType" : planType,
+//                                                          "phoneNumber" : phoneNumber }, { observe: 'response'}).subscribe({
+//     next : data => {
+//       console.log(data.body);
+//       this.updatedPlan = data.body;
+//     },
+//     error: err => {
+//       console.log('Error adding plan');
+//       console.log(err);
+//     },
+//     complete: () => console.log('Plan added')
+//   });
+//   // return the updated plan if successful, else return nothing.
+//   if (this.updatedPlan === undefined) {
+//     return;
+//   } else {
+//     return this.updatedPlan;
 //   }
-
-//   /**
-//    * GET /line/{id}
-//    */
-//   getLineById(id: string) {
-//     this.http.get<any>(this.baseURL + 'line/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.getLine = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Line retrieved by ID')
-//     });
-//   }
-
-//   /**
-//    * GET /line/{number}
-//    */
-//   getLineByNumber(num: number) {
-//     this.http.get<any>(this.baseURL + 'line/' + num, {observe: 'response'}).subscribe({
-//       next : data => this.getLine = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Line retrieved by phone number')
-//     });
-//   }
-
-//   /**
-//    * POST /line
-//    */
-//   createLine() {
-//     this.http.post<any>(this.baseURL + 'line', {observe: 'response'}).subscribe({
-//       next : data => this.postLine = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Line created')
-//     });
-//   }
-
-//   /**
-//    * PUT /line/{id}
-//    */
-//   updateLine(id: string) {
-//     this.http.put<any>(this.baseURL + 'line/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.putLine = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Line updated')
-//     });
-//   }
-
-//   /**
-//    * DELETE /line/{id}
-//    */
-//   deleteLine(id: string) {
-//     this.http.delete<any>(this.baseURL + 'line/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.deletedLine = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Line deleted')
-//     });
-//   }
+// }
 
 //   ///////////////
 //   /////PLANS/////
 //   ///////////////
 
-//   /**
-//    * GET /plan
-//    */
+/**
+ * Get all plans from the backend
+ */
 getAllPlans() {
   const headers = this.getHeader();
-  this.http.get<any>(this.baseURL + '/plan' + '/all', {headers, observe: 'response'}).subscribe({
+  this.http.get<any>(this.baseURL + '/plan' + '/all', {observe: 'response'}).subscribe({
     next : data => {
       console.log("Requesting all plans");
       console.log(data.body);
+      // store all plans in this component
       this.allPlans = data.body;
     },
     error: err => console.log(err),
@@ -327,48 +328,43 @@ getAllPlans() {
   });
 }
 
-//   /**
-//    * GET /plan/{id}
-//    */
-//   getPlanById(id: string) {
-//     this.http.get<any>(this.baseURL + 'plan/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.getPlan = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Plan retrieved by ID')
-//     });
-//   }
+/**
+ * Add a plan to the current user
+ * @param planType
+ */
+  addPlan(planType: string) {
+    const headers = this.getHeader();
+    this.http.post<any>(this.baseURL + '/plan' + '/add', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
+      next : data => {
+        console.log(this.currentUser);
+        // update the current user
+        this.auth.setCurrentUser(data.body);
+      },
+      error: err => {
+        console.log('Error adding plan');
+        console.log(err);
+      },
+      complete: () => console.log('Plan added')
+    });
+  }
 
-//   /**
-//    * POST /plan
-//    */
-  // addPlan() {
-  //   this.http.post<any>(this.baseURL + '/plan' + '/add', {observe: 'response'}).subscribe({
-  //     next : data => this.postPlan = data.body.data,
-  //     error: err => console.log(err),
-  //     complete: () => console.log('Plan created')
-  //   });
-  // }
-
-//   /**
-//    * PUT /plan/{id}
-//    */
-//   updatePlan(id: string) {
-//     this.http.put<any>(this.baseURL + 'plan/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.putPlan = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Plan updated')
-//     });
-//   }
-
-//   /**
-//    * DELETE /plan/{id}
-//    */
-//   deletePlan(id: string) {
-//     this.http.delete<any>(this.baseURL + 'plan/' + id, {observe: 'response'}).subscribe({
-//       next : data => this.deletedPlan = data.body.data,
-//       error: err => console.log(err),
-//       complete: () => console.log('Plan deleted')
-//     });
-//   }
+  /**
+   * Remove a plan from the current user
+   * @param planType 
+   */
+  removePlan(planType: string) {
+    const headers = this.getHeader();
+    this.http.post<any>(this.baseURL + '/plan' + '/remove', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
+      next : data => {
+        console.log(this.currentUser);
+        this.auth.setCurrentUser(data.body);
+      },
+      error: err => {
+        console.log('Error removing plan');
+        console.log(err);
+      },
+      complete: () => console.log('Plan removed')
+    });
+  }
 
 }

@@ -26,11 +26,7 @@ export class AccountPageComponent {
   // totals for bill
   devicesTotal: number = 0;
   plansTotal: number = 0;
-  billTotal: number = 0
-
-  // TEST OBJECTS///////////////////////////////////////////////////////
-  // testDevice: Device = 
-  //   {brand: 'samsung', model: 'phone', description: 'A phone.', price: 25, picturePath: './assets/imgs/devices/nobez.jpeg'};
+  billTotal: number = 0;
 
   // subscribe to auth service's stored current user and logged in status
     ngOnInit(): void {
@@ -44,39 +40,6 @@ export class AccountPageComponent {
     
   constructor(private auth: AuthService, private backend: BackendService, private router: Router) {
 
-    // this.auth.isLoggedIn.subscribe(data => {
-    //   this.isLoggedIn = data;
-    // })
-
-    // INITIALIZE TEST OBJECTS///////////////////////////////////////////////////////
-    // this.currentUser.id = 1;
-    // this.currentUser.plans = [
-    //   {
-    //   planType: 'Galactic',
-    //   price: 50,
-    //   quota: 100,
-    //   signalRange: '100Mbps',
-    //   user: this.currentUser,
-    //   lines: [
-    //     {number: '1234567890', device: this.testDevice},
-    //     {number: '1234567890', device: this.testDevice}
-    //   ]
-    //   },
-    //   {
-    //   planType: 'Galactic',
-    //   price: 50,
-    //   quota: 100,
-    //   signalRange: '100Mbps',
-    //   user: this.currentUser,
-    //   lines: [
-    //     {number: '1234567890', device: this.testDevice},
-    //     {number: '1234567890', device: this.testDevice}
-    //   ]
-    //   }
-    // ];
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
-
     // update bill totals on page load if a logged in user is present in auth service
     if(this.currentUser !== null) {
       this.updateBill();
@@ -84,12 +47,9 @@ export class AccountPageComponent {
     
   }
 
-  removePlan(i: number) {
-    // remove plan from user
-    this.currentUser!.plans?.splice(i, 1);
-    // send user edit to backend
-
-  
+  removePlan(plan: Plan) {
+    // send planType to backend to remove plan from user
+    this.backend.removePlan(plan.planType);
 
     // update bill totals
     this.updateBill();
@@ -120,6 +80,13 @@ export class AccountPageComponent {
 
   changeLine() {
 
+  }
+
+  createTestUser() {
+        // TEST OBJECTS///////////////////////////////////////////////////////
+        this.auth.setCurrentUserTest(new User('XXXXXXXXXXXXX', 'Test', 'User', 'test'));
+        //////////////////////////////////////////////////////////////////////////////////////////////
+        this.updateBill();
   }
 
 }
