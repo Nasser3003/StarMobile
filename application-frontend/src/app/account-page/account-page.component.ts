@@ -86,7 +86,7 @@ export class AccountPageComponent {
           // for each line in the plan, add the device's price to the devicesTotal
           for(let line of plan.lines!) {
             // if device price is not null, add it to the devicesTotal
-            if (line.device.price !== null) {
+            if (line.device !== null && line.device.price !== null) {
               this.devicesTotal += line.device.price;
             }
         }
