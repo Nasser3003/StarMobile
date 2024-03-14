@@ -100,7 +100,7 @@ export class BackendService {
    */
   addDevice(phoneNumber: string, brand: string, model: string): Line | undefined{
   const headers = this.getHeader();
-  this.http.post<any>(this.baseURL + '/device' + '/add', { "number" : phoneNumber,
+  this.http.post<any>(this.baseURL + '/device' + '/add', { "phoneNumber" : phoneNumber,
                                                          "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log('IN ADD DEVICE');

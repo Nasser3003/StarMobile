@@ -1,20 +1,25 @@
 <main>
-    <h2 *ngIf="this.isLoggedIn && this.currentUser.firstName && this.currentUser.lastName">
-        Welcome, {{this.currentUser!.firstName! + ' ' + this.currentUser!.lastName!}}!
-    </h2>
-    <br>
-    <h5 *ngIf="this.isLoggedIn">Email: {{this.currentUser.email}}</h5>
-    <!-- <h2>{{this.plaintextpw}}</h2> -->
+    <!-- WELCOME MESSAGE AND CURRENT USER'S EMAIL -->
+    <div *ngIf="this.isLoggedIn">
+        <h2 *ngIf="this.isLoggedIn && this.currentUser.firstName && this.currentUser.lastName">
+            Welcome, {{this.currentUser!.firstName! + ' ' + this.currentUser!.lastName!}}!
+        </h2>
+        <br>
+        <h5 *ngIf="this.isLoggedIn">Email: {{this.currentUser.email}}</h5>
+    </div>
     <section *ngIf="this.isLoggedIn" class="account-section">
 
+        <!-- NO PLANS MESSAGE - SHOWS IF USER HAS NO PLANS -->
         <section *ngIf="this.currentUser!.plans!.length === 0">
             <h2>You have no plans on your account.</h2>
             <button type="button" routerLink="/plans">Shop Plans</button>
         </section>
         
+        <!-- PLANS CONTAINER - SHOWS IF USER HAS PLANS -->
         <ng-container class="plans" *ngIf="!(this.currentUser!.plans!.length === 0)">
             <section class="plan" *ngFor="let plan of this.currentUser!.plans; let planIndex = index">
                 <h2>{{plan.planType}} Plan</h2>
+                <!-- TABLE FOR ALL LINES ON EACH PLAN -->
                 <table class="plan-devices-table">
                     <thead >
                         <th>Device</th>
@@ -38,7 +43,8 @@
                         </ng-container>
                     </tbody>
                 </table>
-                <h3>Plan Price: {{plan.price | currency}}</h3>
+                <!-- TOTAL PRICE OF THIS PLAN DISPLAYS HERE -->
+                <h3>Plan Price: {{plan.price * plan.lines!.length | currency}}</h3>
                 <div class="planbuttonsarea">
                     <button type="button" (click)="this.removePlan(plan)">Remove Plan</button>
                     <button type="button" (click)="this.addLine(plan)">Add a line</button>
@@ -46,6 +52,7 @@
             </section>
         </ng-container>
 
+        <!-- MONTHLY BILL TABLE - SHOWS ONLY IF USER IS LOGGED IN -->
         <div *ngIf="this.isLoggedIn">
             <h2>Monthly Bill</h2>
             <table>
