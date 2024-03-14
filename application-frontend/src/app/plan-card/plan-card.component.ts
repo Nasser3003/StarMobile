@@ -6,6 +6,7 @@ import { Plan } from '../models/plan';
 import { User } from '../models/user';
 import { BackendService } from '../services/backend.service';
 import { Device } from '../models/device';
+import { Line } from '../models/line';
 
 @Component({
     selector: 'app-plan-card',
@@ -39,7 +40,17 @@ export class PlanCardComponent {
   addLineWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
     this.DefaultValues.addPlan(chosenPlan.planType)
     this.DefaultValues.addLine(chosenPlan.planType)
-    this.DefaultValues.addDevice(1234567890, chosenDevice.brand, chosenDevice.model)
+    const linesArray = chosenPlan.getLinesArray;
+    let lineDeviceGoesIn: Line;
+    let lineNumber: string = "";
+    for (let i = 0; i < linesArray.length; i++) {
+      let a: Line = linesArray[i as keyof typeof linesArray];
+      if (a.device !== null && a.device !== undefined) {
+        lineNumber = (a.number: String);
+      }
+    }
+   
+    this.DefaultValues.addDevice(lineNumber, chosenDevice.brand, chosenDevice.model)
   }
 
   testAddPlan() {
