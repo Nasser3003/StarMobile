@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { PhonePipe } from '../pipes/phone.pipe';
 import { AuthService } from '../services/auth.service';
@@ -27,6 +27,16 @@ export class PlanCardComponent {
   isLoggedIn: boolean = false;
 
   addPlanWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
+    if(this.DefaultValues.allPlans.includes(chosenPlan)){
+      this.addLineWithDevice(chosenPlan, chosenDevice)
+    }
+    else {
+      this.DefaultValues.addPlan(chosenPlan.planType)
+      this.addLineWithDevice(chosenPlan, chosenDevice)
+    }
+  }
+
+  addLineWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
     this.DefaultValues.addPlan(chosenPlan.planType)
     this.DefaultValues.addLine(chosenPlan.planType)
     this.DefaultValues.addDevice(1234567890, chosenDevice.brand, chosenDevice.model)

@@ -2,7 +2,21 @@ img {
     width: 100%;
 }
 
-section {
+.flex-container {
+    display: flex;
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    align-self: center;
+    align-content: center;
+    /* justify-self: center; */
+    flex-direction: column;
+    /* flex-grow: 1; */
+}
+
+.card {
+    align-self: center;
+
+    margin-top: 15px;
     width: 512px;
     border-radius: 30px;
     text-align: center;
@@ -11,41 +25,12 @@ section {
     transition: .5s;
 }
 
-section:hover {
+.card:hover {
     box-shadow: 0 0 20px 20px rgba(122, 117, 173, 0.2);
 }
 
-section img {
+.card img {
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
 }
 
-.flex-container {
-    display: flex;
-    justify-content: space-around;
-    /* gap: 5%; */
-}
-
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px; /* 5px rounded corners */
-    width: 20%;
-    background-color:rgb(238, 238, 208);
-    color:black;
-}
-
-.card:hover {
-    box-shadow: 0 10px 20px 0 rgba(190, 190, 190, 0.2);
-}  
-
-.card-head {
-    padding: 12px;
-    border-bottom: 1px dotted
-    hsl(0deg 0% 0% / 0.2);
-    text-align: center;
-}
-
-.card-details {
-    padding: 12px;
-}

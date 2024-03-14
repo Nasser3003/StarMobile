@@ -1,21 +1,13 @@
-<section>
-    <img src="assets\imgs\devices\chonk.jpeg" alt="">
-    <ul>
-        <li>Device Make</li>
-        <li>Device Model</li>
-        <li>Device Price</li>
-        <li>Device Description</li>
-    </ul>
-</section>
-
 <div class="flex-container">
-    <ng-container *ngFor="let device of DefaultValues.allDevices">
-        <div class="card">
-            <div class="card-head">{{device.brand}} {{device.model}}</div>
-            <div class="card-details">
-                <div>Cost: {{device.price}}$</div>
-                <div>{{device.description}}</div>
-            </div>
+    <div class="card" *ngFor="let device of DefaultValues.allDevices">
+        <img src="assets\imgs\devices\chonk.jpeg" alt="">
+        <div>
+            <div>Make: {{device.brand}}</div>
+            <div>Model: {{device.model}}</div>
+            <div>Price: {{device.price}}$</div>
+            <div>Description: {{device.description}}</div>
         </div>
-    </ng-container>
+    </div>
 </div>
+
+
