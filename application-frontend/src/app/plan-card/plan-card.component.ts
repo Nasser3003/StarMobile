@@ -38,7 +38,6 @@ export class PlanCardComponent {
   }
 
   addLineWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
-    this.DefaultValues.addPlan(chosenPlan.planType);
     this.DefaultValues.addLine(chosenPlan.planType);
     const linesArray = chosenPlan.getLinesArray;
     let lineDeviceGoesIn: Line;
