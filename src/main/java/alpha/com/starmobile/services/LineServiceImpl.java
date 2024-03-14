@@ -29,7 +29,7 @@ public class LineServiceImpl implements LineService {
     }
 
     @Override
-    public Optional<Line> findByNumber(long number) {
+    public Optional<Line> findByNumber(String number) {
         return repo.findByNumber(number);
     }
 

@@ -2,7 +2,6 @@ package alpha.com.starmobile.controllers;
 
 import alpha.com.starmobile.dto.AddOrRemoveLineDTO;
 import alpha.com.starmobile.models.Line;
-import alpha.com.starmobile.models.Plan;
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.services.LineService;
 import alpha.com.starmobile.services.MyService;
@@ -38,7 +37,7 @@ public class LineController {
     }
 
     @GetMapping("/{number}")
-    public ResponseEntity<Line> getLineByNumber(@PathVariable("number") long number) {
+    public ResponseEntity<Line> getLineByNumber(@PathVariable("number") String number) {
         Optional<Line> lineOptional = lineService.findByNumber(number);
         return lineOptional.map(line -> new ResponseEntity<>(line, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

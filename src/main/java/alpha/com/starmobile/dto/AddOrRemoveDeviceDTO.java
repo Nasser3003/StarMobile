@@ -1,4 +1,4 @@
 package alpha.com.starmobile.dto;
 
-    public record AddOrRemoveDeviceDTO(long phoneNumber, String brand, String model) {
+    public record AddOrRemoveDeviceDTO(String phoneNumber, String brand, String model) {
 }
