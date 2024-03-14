@@ -23,13 +23,13 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let line of plan.lines; let lineIndex = index; let e = even">
-                            <tr *ngIf="line.device" [ngClass]="{
+                            <tr [ngClass]="{
                                 'even': e,
                                 'odd': !e
                             }">
+                            <td>{{line.number}}</td>
                             <td *ngIf="line.device">{{line.device.brand}} {{line.device.model}}</td><td *ngIf="!line.device">no device</td>
                             <td *ngIf="line.device">{{line.device.price}}</td><td *ngIf="!line.device">no device</td>
-                            <td>{{line.number}}</td>
                             <td><button (click)="this.removeLine(planIndex, lineIndex)">Remove Line</button></td>
                             <td *ngIf="line.device !== null"><button>Change Device</button></td>
                             <button *ngIf="line.device === null" type="button" routerLink="/devices">Shop Devices</button>

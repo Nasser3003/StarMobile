@@ -20,7 +20,7 @@ import { BackendService } from '../services/backend.service';
 export class AccountPageComponent {
 
 
-  currentUser: User = new User('', '', '', '');
+  currentUser: User = new User('', '', '', '','', '', []);
   isLoggedIn: boolean = false;
   plaintextpw: string = '';
 
@@ -104,6 +104,7 @@ export class AccountPageComponent {
     }
     this.billTotal = this.devicesTotal + this.plansTotal;
   }
+
 
   changeLine() {
 

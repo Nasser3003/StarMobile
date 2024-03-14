@@ -16,7 +16,7 @@ export class BackendService {
   baseURL = environment.apiURL;
 
   // current user, logged in status, username, and password and from auth service
-  currentUser: User = new User('', '', '', '');
+  currentUser: User = new User('', '', '', '','', '', []);
   isLoggedIn: boolean = false;
   username: string = '';
   plaintextpw: string = '';
@@ -37,18 +37,16 @@ export class BackendService {
   updatedPlan: Plan | undefined = undefined;
 
   // allPlans: Plan[] = [];
-  citPlan: Plan = new Plan("Citizen", 25, 150, "galactic")
-  starPlan: Plan = new Plan("Starfighter", 20, 150, "universal")
-  droidPlan: Plan = new Plan("Droid", 100, 10000, "galactic")
-  larvaPlan: Plan = new Plan("Larval", 5, 10, "system")
+  citPlan: Plan = new Plan("CITIZEN", 25, 150, "galactic")
+  starPlan: Plan = new Plan("STARFIGHTER", 20, 150, "universal")
+  droidPlan: Plan = new Plan("DROID", 100, 10000, "galactic")
+  larvaPlan: Plan = new Plan("LARVAL", 5, 10, "system")
   allPlans: Plan[] = [this.citPlan, this.starPlan, this.droidPlan, this.larvaPlan];
 
 
   constructor(private http: HttpClient, private auth: AuthService) {
     this.auth.currentUser.subscribe(user => {
-      if(user !== undefined) {
         this.currentUser = user;
-      }
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
     this.auth.username.subscribe(username => this.username = username);
@@ -108,7 +106,7 @@ export class BackendService {
       console.log('IN ADD DEVICE');
       console.log(data.body);
       // update the current user
-      this.auth.setCurrentUser(data.body);
+      this.auth.setCurrentUser(this.auth.constructUserFromResponse(data.body));
     },
     error: err => {
       console.log(`Error adding device to line ${phoneNumber} for user ${this.currentUser?.email}`);
@@ -134,7 +132,7 @@ removeDevice(phoneNumber: string, brand: string, model: string): Line | undefine
       console.log('IN REMOVE DEVICE');
       console.log(data.body);
       // update the current user
-      this.auth.setCurrentUser(data.body);
+      this.auth.setCurrentUser(this.auth.constructUserFromResponse(data.body));
     },
     error: err => {
       console.log(`Error removing device from line ${phoneNumber} for user ${this.currentUser?.email}`);
@@ -159,13 +157,14 @@ removeDevice(phoneNumber: string, brand: string, model: string): Line | undefine
  * @returns an updated plan that can replace the existing one in the current user's plans array
  */
 addLine(planType: string): Plan | undefined {
+  console.log('IN ADD LINE API CALL, plantype argument : ' + planType);
   const headers = this.getHeader();
   this.http.post<any>(this.baseURL + '/line' + '/add', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
     next : data => {
-      console.log('IN ADD LINE');
       console.log(data.body);
       // update the current user
-      this.auth.setCurrentUser(data.body);
+      this.auth.setCurrentUser(this.auth.constructUserFromResponse(data.body));
+      // console.log("Current User:" + JSON.stringify(this.currentUser));
     },
     error: err => {
       console.log(`Error adding line to plan ${planType} for user ${this.currentUser?.email}`);
@@ -186,7 +185,7 @@ addLine(planType: string): Plan | undefined {
  * Remove a line from one of the current user's plans
  * returns an updated plan that can replace the existing one in the current user's plans array
  */
-removeLine(planType: string, phoneNumber: number): Plan | undefined {
+removeLine(planType: string, phoneNumber: string): Plan | undefined {
   const headers = this.getHeader();
   this.http.post<any>(this.baseURL + '/line' + '/remove', { "planType" : planType,
                                                          "phoneNumber" : phoneNumber }, {headers, observe: 'response'}).subscribe({
@@ -194,7 +193,8 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
       console.log('IN REMOVE LINE');
       console.log(data.body);
       // update the current user
-      this.auth.setCurrentUser(data.body);
+      this.auth.setCurrentUser(this.auth.constructUserFromResponse(data.body));
+      // console.log("Current User:" + JSON.stringify(this.currentUser));
     },
     error: err => {
       console.log(`Error removing line ${phoneNumber} from plan ${planType} for user ${this.currentUser?.email}`);
@@ -251,7 +251,8 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
         console.log('IN ADD PLAN');
         console.log(data.body);
         // update the current user
-        this.auth.setCurrentUser(data.body);
+        this.auth.setCurrentUser(this.auth.constructUserFromResponse(data.body));
+        // console.log("Current User:" + JSON.stringify(this.currentUser));
       },
       error: err => {
         console.log(`Error adding plan ${planType} to user ${this.currentUser?.email}`);
@@ -272,7 +273,8 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
         console.log('IN REMOVE PLAN');
         console.log(this.currentUser);
         // update the current user
-      this.auth.setCurrentUser(data.body);
+        this.auth.setCurrentUser(this.auth.constructUserFromResponse(data.body));
+      // console.log("Current User:" + JSON.stringify(this.currentUser));
       },
       error: err => {
         console.log(`Error removing plan ${planType} from user ${this.currentUser?.email}`);

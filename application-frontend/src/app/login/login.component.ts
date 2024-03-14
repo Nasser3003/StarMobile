@@ -21,7 +21,7 @@ export class LoginComponent {
   backend = inject(BackendService);
 
   // current logged in user and login state
-  currentUser: User = new User('', '', '', '');
+  currentUser: User = new User('', '', '', '','', '', []);
   isLoggedIn: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router,/* private backend: BackendService*/) {

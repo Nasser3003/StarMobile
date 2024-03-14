@@ -14,10 +14,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterComponent {
 
-  currentUser: User = new User('', '', '', '');
+  currentUser: User = new User('','','','','', '', []);
   isLoggedIn: boolean = false;
   registerForm: FormGroup;
-  newUser: User = new User('','','','')
+  newUser: User = new User('','','','','', '', [])
   hashedPw: string = '';
 
   constructor (private formBuilder: FormBuilder, private auth: AuthService) {

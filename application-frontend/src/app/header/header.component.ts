@@ -13,7 +13,7 @@ import { User } from '../models/user';
 })
 export class HeaderComponent {
 
-  currentUser: User = new User('', '', '', '');
+  currentUser: User = new User('', '', '', '','', '', []);
   isLoggedIn: boolean = false;
 
   constructor(private auth: AuthService) {
