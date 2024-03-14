@@ -22,14 +22,14 @@ export class BackendService {
   plaintextpw: string = '';
 
   // allDevices: Device[] = [];
-  dev1: Device = new Device("Ploklok", "Ashen Nightmare 3", "Starliner class phone from Ploklok.", 1300, "")
-  dev2: Device = new Device("Ploklok", "Ashen Daydream 3", "Liner class phone from Ploklok.", 300, "")
-  dev3: Device = new Device("Quantum", "1x", "A singular phone from Quantum.", 1200, "")
-  dev4: Device = new Device("Quantum", "1", "Another singular phone from Quantum.", 400, "")
-  dev5: Device = new Device("BlackHoleBerry", "3 pro", "BlackHoleBerry from beyond the horizon", 700, "")
-  dev6: Device = new Device("BlackHoleBerry", "3 no", "BlackHoleBerry at the cutting edge.", 450, "")
-  dev7: Device = new Device("Hive", "Billion 8", "Say Hive to a billion.", 1300, "")
-  dev8: Device = new Device("Hive", "Million 8", "Say Hive to a million.", 1300, "")
+  dev1: Device = new Device("Ploklok", "Ashen Nightmare 3", "Starliner class phone from Ploklok.", 1300, "./assets/imgs/devices/ashen_nightmare_3.jfif")
+  dev2: Device = new Device("Ploklok", "Ashen Daydream 3", "Liner class phone from Ploklok.", 300, "./assets/imgs/devices/ashen_daydream_3.jfif")
+  dev3: Device = new Device("Quantum", "1x", "A singular phone from Quantum.", 1200, "./assets/imgs/devices/1x.jfif")
+  dev4: Device = new Device("Quantum", "1x0", "Another singular phone from Quantum.", 400, "./assets/imgs/devices/1.jpeg")
+  dev5: Device = new Device("BlackHoleBerry", "3 pro", "BlackHoleBerry from beyond the horizon", 700, "./assets/imgs/devices/3_pro.jpg")
+  dev6: Device = new Device("BlackHoleBerry", "3 no", "BlackHoleBerry at the cutting edge.", 450, "./assets/imgs/devices/3_no.jpeg")
+  dev7: Device = new Device("Hive", "Billion 8", "Say Hive to a billion.", 1300, "./assets/imgs/devices/billion_8.jpg")
+  dev8: Device = new Device("Hive", "Million 8", "Say Hive to a million.", 1300, "./assets/imgs/devices/million_7.png")
   allDevices: Device[] = [this.dev1, this.dev2, this.dev3, this.dev4, this.dev5, this.dev6, this.dev7, this.dev8]
 
   updatedLine: Line | undefined = undefined;

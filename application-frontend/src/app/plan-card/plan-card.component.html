@@ -48,9 +48,11 @@
                 <div>Cost: {{plan.price}}</div>
                 <div>Signal Range: {{plan.signalRange}}</div>
                 <div>Data Cap: {{plan.quota}} Gb</div>
-                <button (click)="myDialog.showModal()">Add this plan to your account</button>
+                <button (click)="addJustPlan(plan)">Add this plan to your account</button>
                 
-                <dialog #myDialog>
+                <!-- myDialog.showModal() -->
+
+                <!-- <dialog #myDialog>
                     <div>
                         <h3>{{plan.planType}} Plan</h3>
                         <div>Choose a Device</div>
@@ -62,7 +64,7 @@
                         <div>...</div>
                         <button (click)="myDialog.close()">Close</button>
                     </div>
-                </dialog>
+                </dialog> -->
             </div>
         </div>
     </ng-container>

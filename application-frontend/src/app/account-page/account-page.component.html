@@ -3,7 +3,7 @@
         Welcome, {{this.currentUser!.firstName! + ' ' + this.currentUser!.lastName!}}!
     </h2>
     <br>
-    <h5>Email: {{this.currentUser.email}}</h5>
+    <h5 *ngIf="this.isLoggedIn">Email: {{this.currentUser.email}}</h5>
     <!-- <h2>{{this.plaintextpw}}</h2> -->
     <section *ngIf="this.isLoggedIn" class="account-section">
 
@@ -30,9 +30,9 @@
                             <td>{{line.number}}</td>
                             <td *ngIf="line.device">{{line.device.brand}} {{line.device.model}}</td><td *ngIf="!line.device">no device</td>
                             <td *ngIf="line.device">{{line.device.price}}</td><td *ngIf="!line.device">no device</td>
-                            <td><button (click)="this.removeLine(planIndex, lineIndex)">Remove Line</button></td>
-                            <td *ngIf="line.device !== null"><button>Change Device</button></td>
-                            <button *ngIf="line.device === null" type="button" routerLink="/devices">Shop Devices</button>
+                            <td><button (click)="this.removeLine(plan.planType, line.number)">Remove Line</button></td>
+                            <td><button *ngIf="line.device !== null">Change Device</button><button *ngIf="line.device !== null" (click)="this.removeDevice(line)">Remove Device</button><button *ngIf="line.device === null" routerLink="/devices">Shop Devices</button></td>
+                            <!-- <button *ngIf="line.device === null" type="button" routerLink="/devices">Shop Devices</button> -->
                             </tr>
 
                         </ng-container>

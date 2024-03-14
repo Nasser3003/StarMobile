@@ -65,7 +65,7 @@ public class Device {
                     this.description = "Flagship phone from BlackHoleBerry.";
                     this.picturePath = "application-frontend/src/assets/imgs/devices/3_pro.jpg";
                     break;
-                case "pixel 6a":
+                case "3":
                     this.price = 450;
                     this.description = "Budget phone from BlackHoleBerry.";
                     this.picturePath = "application-frontend/src/assets/imgs/devices/3_no.jpeg";

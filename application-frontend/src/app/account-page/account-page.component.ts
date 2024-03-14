@@ -57,20 +57,33 @@ export class AccountPageComponent {
   addLine(plan: Plan) {
     // send planType to backend to add line to plan
     this.backend.addLine(plan.planType);
-  }
-
-  removeLine(planIndex: number, lineIndex: number) {
-    // remove line from plan
-    this.currentUser!.plans![planIndex].lines?.splice(lineIndex, 1);
-    // send plan edit to backend
-
 
     // update bill totals
     this.updateBill();
   }
 
-  removeDevice() {
+  removeLine(planType: string, phoneNumber: string) {
+    // remove line from plan
+    // this.currentUser!.plans![planIndex].lines?.splice(lineIndex, 1); // this line will only remove the line in the frontend until an update happens
 
+    // send plan edit to backend
+    this.backend.removeLine(planType, phoneNumber);
+
+    // update bill totals
+    this.updateBill();
+  }
+
+  removeDevice(line: Line) {
+    // Retrieve the phone number of the line
+    let phoneNumber = line.number;
+    // Retrieve the brand of the device
+    let deviceBrand = line.device?.brand;
+    // Retrieve the model of the device
+    let deviceModel = line.device?.model;
+    // Remove the device from the line with a call to the backend
+    this.backend.removeDevice(phoneNumber, deviceBrand, deviceModel);
+    // update the bill totals
+    this.updateBill();
   }
 
   updateBill() {
