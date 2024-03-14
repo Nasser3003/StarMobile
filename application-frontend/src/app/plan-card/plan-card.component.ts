@@ -46,7 +46,7 @@ export class PlanCardComponent {
     for (let i = 0; i < linesArray.length; i++) {
       let a: Line = linesArray[i as keyof typeof linesArray];
       if (a.device !== null && a.device !== undefined) {
-        lineNumber = (a.number: String);
+        lineNumber = (a.number);
       }
     }
    
