@@ -101,10 +101,11 @@ public class MyService {
 
     @Transactional
     public User removeDevice(String phoneNumber, String brand, String model) {
-        Device device = deviceRepository.findDeviceByBrandAndModel(brand, model)
+        Line line = lineRepository.findByNumber(phoneNumber).orElseThrow(IllegalArgumentException::new);
+
+        Device device = deviceRepository.findDeviceByBrandAndModelAndLine(brand, model, line)
                 .orElseThrow(IllegalArgumentException::new);
 
-        Line line = lineRepository.findByNumber(phoneNumber).orElseThrow(IllegalArgumentException::new);
         line.setDevice(null);
         device.setLine(null);
         deviceRepository.delete(device);

@@ -3,7 +3,7 @@ package alpha.com.starmobile.controllers;
 import alpha.com.starmobile.dto.LoginDTO;
 import alpha.com.starmobile.dto.RegistrationDTO;
 import alpha.com.starmobile.models.User;
-import alpha.com.starmobile.services.AuthenticationService;
+import alpha.com.starmobile.services.AuthenticationServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationService authService;
+    private final AuthenticationServiceImpl authService;
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody RegistrationDTO registrationDTO) {
