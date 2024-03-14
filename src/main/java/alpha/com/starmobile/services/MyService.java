@@ -39,6 +39,7 @@ public class MyService {
         user.addPlan(plan);
         return user;
     }
+
     @Transactional
     public User removePlan(String planType) {
         User user = fetchAuthenticatedUser();
@@ -55,7 +56,8 @@ public class MyService {
     public User addLine(String planType) {
         User user = fetchAuthenticatedUser();
         planType = planType.toUpperCase();
-        Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType)).orElseThrow(IllegalArgumentException::new);
+        Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType))
+                .orElseThrow(IllegalArgumentException::new);
 
         Line line = new Line();
         line.setNumber(generatePhoneNumber());
@@ -63,9 +65,9 @@ public class MyService {
         return user;
     }
 
-    private long generatePhoneNumber() {
+    private String generatePhoneNumber() {
         Random random = new Random();
-        return 1000000000L + random.nextInt(900000000);
+        return String.valueOf(1000000000L + random.nextInt(900000000));
     }
 
     @Transactional
@@ -92,6 +94,7 @@ public class MyService {
         device.setLine(line);
         return fetchAuthenticatedUser();
     }
+
     @Transactional
     public User removeDevice(long phoneNumber, String brand, String model) {
         Device device = deviceRepository.findDeviceByBrandAndModel(brand, model)
@@ -115,4 +118,3 @@ public class MyService {
                 .orElseThrow(IllegalArgumentException::new);
     }
 }
-
