@@ -21,4 +21,8 @@ export class Plan {
         this.quota = quota;
         this.signalRange = signalRange;
     }
+
+    getLinesArray() {
+        return this.lines;
+    }
 }
