@@ -23,12 +23,13 @@ export class PlanCardComponent {
   // droidPlan: Plan = new Plan("Droid", 100, 10000, "galactic")
   // larvaPlan: Plan = new Plan("Larval", 5, 10, "system")
   // lineList: string[] = ['5096270952', '0983427547'] //Removable. was for HW, same for phonePipe above
-  
-  currentUser: User = new User('', '', '', '');
+
+  currentUser: User = new User('', '', '', '','', '', []);
+
   isLoggedIn: boolean = false;
   
   addJustPlan(chosenPlan: Plan) {
-    if(this.DefaultValues.allPlans.includes(chosenPlan)){
+    if(this.currentUser?.plans?.includes(chosenPlan)){
       console.log("addJustPlan: Plan already found")
     }
     else {
@@ -38,16 +39,25 @@ export class PlanCardComponent {
   }
 
   addPlanWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
-    if(this.DefaultValues.allPlans.includes(chosenPlan)){
+    if(this.currentUser!.plans!.includes(chosenPlan)){
       this.addLineWithDevice(chosenPlan, chosenDevice)
+      // console.log('Plan already exists on current user');
+      
     }
     else {
-      this.DefaultValues.addPlan(chosenPlan.planType)
-      this.addLineWithDevice(chosenPlan, chosenDevice)
+      console.log('Plan does not exist on current user');
+      // await this.DefaultValues.addPlan(chosenPlan.planType)
+      setTimeout(() => {
+         this.DefaultValues.addPlan(chosenPlan.planType);
+      }, 500);
+      this.addLineWithDevice(chosenPlan, chosenDevice) // are we creating 2 plans here?
+      
     }
   }
 
   addLineWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
+    console.log('IN BEGINNING OF ADD LINE WITH DEVICES' + chosenPlan.planType);
+    
     this.DefaultValues.addLine(chosenPlan.planType);
     const linesArray = chosenPlan.getLinesArray;
     let lineDeviceGoesIn: Line;
@@ -73,7 +83,7 @@ export class PlanCardComponent {
     //     lineNumber = (a.number);
     //   }
     // }
-   console.log('IN ADD LINE WITH DEVICES' + lineNumber + chosenDevice.brand + chosenDevice.model);
+   console.log('IN END OF ADD LINE WITH DEVICES' + lineNumber + chosenDevice.brand + chosenDevice.model);
    
     // this.DefaultValues.addDevice(lineNumber, chosenDevice.brand, chosenDevice.model)
   }

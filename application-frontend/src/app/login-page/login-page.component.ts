@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class LoginPageComponent {
 
   // current logged in user and login state
-  currentUser: User = new User('', '', '', '');
+  currentUser: User = new User('', '', '', '','', '', []);
   isLoggedIn: boolean = false;
 
   constructor(private auth: AuthService) {

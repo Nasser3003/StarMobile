@@ -14,16 +14,20 @@ import { Device } from '../models/device';
 })
 export class AuthService {
 
-  private currentUserSubject = new BehaviorSubject<User>(new User('', '', '', '')); // default user
+  currentUserRaw: User = new User('', '', '', '','', '', []);
+  currentUserSubject = new BehaviorSubject<User>(this.currentUserRaw); // default user
   currentUser = this.currentUserSubject.asObservable();
 
-  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedInRaw: boolean = false;
+  isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedInRaw);
   isLoggedIn = this.isLoggedInSubject.asObservable();
 
-  private usernameSubject = new BehaviorSubject<string>('');
+  usernameRaw: string = '';
+  usernameSubject = new BehaviorSubject<string>(this.usernameRaw);
   username = this.usernameSubject.asObservable();
 
-  private plaintextpwSubject = new BehaviorSubject<string>('');
+  plaintextpwRaw: string = '';
+  plaintextpwSubject = new BehaviorSubject<string>(this.plaintextpwRaw);
   plaintextpw = this.plaintextpwSubject.asObservable();
 
   router = inject(Router);
@@ -35,7 +39,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   register(user: User) {
-    this.setCurrentUser(user);
+    // this.setCurrentUser(user);
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'No Auth'
@@ -44,15 +48,15 @@ export class AuthService {
       next : data => {
         console.log('data returned from API register: ');
         console.log(data.body);
-        this.setCurrentUser(data.body);
+        this.setCurrentUser(this.constructUserFromResponse(data.body));
         // save username/password for future api calls while logged in
         this.usernameSubject.next(user.email);
         this.plaintextpwSubject.next(user.password);
       },
       error: err => console.log(err),
       complete: () => {
-        console.log('User registered')
-        console.log(this.currentUser);
+        console.log('User registered');
+        // console.log("Current User:" + JSON.stringify(this.currentUser));
         //  set status to logged in
         this.setIsLoggedIn(true);
 
@@ -78,7 +82,7 @@ export class AuthService {
         // log and store user returned from API
         console.log('data returned from API login: ');
         console.log(data.body);
-        this.setCurrentUser(data.body);
+        this.setCurrentUser(this.constructUserFromResponse(data.body));
         // save username/password for future api calls while logged in
         this.usernameSubject.next(email);
         this.plaintextpwSubject.next(password);
@@ -86,7 +90,7 @@ export class AuthService {
       error: err => console.log(err),
       complete: () => {
         console.log(`User logged in!`)
-        console.log(this.currentUser);
+        // console.log("Current User:" + JSON.stringify(this.currentUser));
         // set status to logged in
         this.setIsLoggedIn(true);
         // redirect user to account page
@@ -98,9 +102,46 @@ export class AuthService {
 
   // Call these methods to update the current user and login state
   setCurrentUser(user: User): void {
-    this.currentUserSubject.next(user);
-    console.log(`current user: ${this.currentUserSubject}`);
+    console.log('Current user before change: ' +
+          'email: ' + this.currentUserRaw.email +
+          'firstname: ' + this.currentUserRaw.firstName +
+          'lastname: ' + this.currentUserRaw.lastName+
+          'id: ' + this.currentUserRaw.id+
+          'password: ' + this.currentUserRaw.password+
+          'username: ' + this.currentUserRaw.username);
     
+    this.logUserPlans();
+    
+    
+    console.log('Setting current user to: ' +
+          'email: ' + user.email +
+          'firstname: ' + user.firstName +
+          'lastname: ' + user.lastName+
+          'id: ' + user.id+
+          'password: ' + user.password+
+          'username: ' + user.username);
+
+          this.currentUserRaw = user;
+          this.currentUserSubject.next(this.currentUserRaw);
+
+          console.log('Current user after: ' +
+                'email: ' + this.currentUserRaw.email +
+                'firstname: ' + this.currentUserRaw.firstName +
+                'lastname: ' + this.currentUserRaw.lastName+
+                'id: ' + this.currentUserRaw.id+
+                'password: ' + this.currentUserRaw.password+
+                'username: ' + this.currentUserRaw.username);
+          this.logUserPlans;
+          
+    
+  }
+
+  logUserPlans() {
+    for(let plan of this.currentUserRaw.plans!) {
+      console.log(plan.planType);
+      console.log(`Number of lines on ${plan.planType}: ${plan.lines?.length}`);
+      
+    }
   }
 
   // updateCurrentUser() {
@@ -128,7 +169,8 @@ export class AuthService {
   // }
 
   setIsLoggedIn(isLoggedIn: boolean): void {
-    this.isLoggedInSubject.next(isLoggedIn);
+    this.isLoggedInRaw = isLoggedIn;
+    this.isLoggedInSubject.next(this.isLoggedInRaw);
   }
 
   /**
@@ -138,11 +180,28 @@ export class AuthService {
     const loggedoutUser: string = this.usernameSubject.value;
     // clear user and login status
     this.setIsLoggedIn(false);
-    this.setCurrentUser(new User('', '', '', ''));
+    this.setCurrentUser(new User('', '', '', '','', '', []));
     // clear stored username and password
-    this.usernameSubject.next('');
-    this.plaintextpwSubject.next('');
+    this.usernameRaw = '';
+    this.usernameSubject.next(this.usernameRaw);
+    this.plaintextpwRaw = '';
+    this.plaintextpwSubject.next(this.plaintextpwRaw);
     console.log(`User ${loggedoutUser} is now successfully and permanently logged out!`);
   }
+
+  constructUserFromResponse(responseBody: any): User {
+    // Extract the properties you need from responseBody
+    const { id, firstName, lastName, email, username, password, plans } = responseBody;
+  
+    // Construct a User object
+    const user = new User(id, firstName, lastName, email, username, password, plans);
+  
+    return user;
+  }
+
+  // logCurrentUser() {
+  //   console.log(this.currentUserSubject.);
+    
+  // }
 
 }

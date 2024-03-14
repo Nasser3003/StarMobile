@@ -1,5 +1,5 @@
 import { Line } from "./line";
-import { User } from "./user";
+// import { User } from "./user";
 
 export class Plan {
     id?: number;
@@ -8,7 +8,7 @@ export class Plan {
     quota: number;
     signalRange: string;
     lines?: Line[];
-    user?: User;
+    // user?: User;
 
     constructor (
         planType: string,
