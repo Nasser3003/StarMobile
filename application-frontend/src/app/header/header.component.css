@@ -36,7 +36,7 @@ h1 img {
 button {
     margin: 1em;
     height: 3.5em;
-    width: 5em;
+    /* width: 5em; */
     justify-self: center;
     cursor: pointer;
     transition: transform 0.3s ease;
