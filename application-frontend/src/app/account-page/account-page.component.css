@@ -39,6 +39,14 @@ section.plan {
     background-color: rgba(0, 0, 0, 0.582);
 }
 
+.planbuttonsarea {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.582);
+}
+
 button {
     margin: 1em;
     width: 5em;

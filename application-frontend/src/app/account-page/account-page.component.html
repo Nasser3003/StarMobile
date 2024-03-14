@@ -1,7 +1,8 @@
 <main>
-    <button (click)="createTestUser()">Make test user</button>
-    <h2 *ngIf="this.isLoggedIn">Welcome, {{this.currentUser!.firstName! + ' ' + this.currentUser!.lastName!}}!</h2>
-    <h2>{{this.plaintextpw}}</h2>
+    <h2 *ngIf="this.isLoggedIn && this.currentUser.firstName && this.currentUser.lastName">
+        Welcome, {{this.currentUser!.firstName! + ' ' + this.currentUser!.lastName!}}!
+    </h2>
+    <!-- <h2>{{this.plaintextpw}}</h2> -->
     <section *ngIf="this.isLoggedIn" class="account-section">
 
         <section *ngIf="this.currentUser!.plans!.length === 0">
@@ -20,13 +21,13 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let line of plan.lines; let lineIndex = index; let e = even">
-                            <tr *ngIf="line.device !== null && line.device.model !== null && line.device.price !== null && line.number !== null" [ngClass]="{
+                            <tr [ngClass]="{
                                 'even': e,
                                 'odd': !e
                             }">
-                            <td>{{line.device.model}}</td>
-                            <td>{{line.device.price}}</td>
-                            <td>{{line.number | phone}}</td>
+                            <td *ngIf="line.device">{{line.device.brand}} {{line.device.model}}</td><td *ngIf="!line.device">no device</td>
+                            <td *ngIf="line.device">{{line.device.price}}</td><td *ngIf="!line.device">no device</td>
+                            <td>{{line.number}}</td>
                             <td><button (click)="this.removeLine(planIndex, lineIndex)">Remove Line</button></td>
                             <td *ngIf="line.device !== null"><button>Change Device</button></td>
                             <button *ngIf="line.device === null" type="button" routerLink="/devices">Shop Devices</button>
@@ -36,7 +37,10 @@
                     </tbody>
                 </table>
                 <h3>Plan Price: {{plan.price | currency}}</h3>
-                <button type="button" (click)="this.removePlan(plan)">Remove Plan</button>
+                <div class="planbuttonsarea">
+                    <button type="button" (click)="this.removePlan(plan)">Remove Plan</button>
+                    <button type="button" (click)="this.addLine(plan)">Add a line</button>
+                </div>
             </section>
         </ng-container>
 

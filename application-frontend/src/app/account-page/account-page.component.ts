@@ -54,6 +54,11 @@ export class AccountPageComponent {
     this.updateBill();
   }
 
+  addLine(plan: Plan) {
+    // send planType to backend to add line to plan
+    this.backend.addLine(plan.planType);
+  }
+
   removeLine(planIndex: number, lineIndex: number) {
     // remove line from plan
     this.currentUser!.plans![planIndex].lines?.splice(lineIndex, 1);
@@ -62,6 +67,10 @@ export class AccountPageComponent {
 
     // update bill totals
     this.updateBill();
+  }
+
+  removeDevice() {
+
   }
 
   updateBill() {
@@ -98,13 +107,6 @@ export class AccountPageComponent {
 
   changeLine() {
 
-  }
-
-  createTestUser() {
-        // TEST OBJECTS///////////////////////////////////////////////////////
-        this.auth.setCurrentUserTest(new User('XXXXXXXXXXXXX', 'Test', 'User', 'test'));
-        //////////////////////////////////////////////////////////////////////////////////////////////
-        this.updateBill();
   }
 
 }

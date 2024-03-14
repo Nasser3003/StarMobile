@@ -166,7 +166,9 @@ addLine(planType: string): Plan | undefined {
       console.log(err);
       return;
     },
-    complete: () => console.log(`Line added to plan ${planType} for user ${this.currentUser?.email}`)
+    complete: () => {
+      console.log(`Line added to plan ${planType} for user ${this.currentUser?.email}`)
+    }
   });
   if (this.updatedPlan === undefined) {
     return;
@@ -190,7 +192,10 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
       console.log(`Error removing line ${phoneNumber} from plan ${planType} for user ${this.currentUser?.email}`);
       console.log(err);
     },
-    complete: () => console.log(`Line ${phoneNumber} from plan ${planType} for user ${this.currentUser?.email} removed`)
+    complete: () => {
+      console.log(`Line ${phoneNumber} from plan ${planType} for user ${this.currentUser?.email} removed`)
+
+    }
   });
   // return the updated plan if successful, else return nothing.
   if (this.updatedPlan === undefined) {

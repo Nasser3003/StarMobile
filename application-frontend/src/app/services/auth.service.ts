@@ -103,18 +103,29 @@ export class AuthService {
     
   }
 
-  // Change the current user to a test user
-  setCurrentUserTest(user: User): void {
-    // Test device
-    const testDevice: Device = 
-        {brand: 'samsung', model: 'phone', description: 'A phone.', price: 25, picturePath: './assets/imgs/devices/nobez.jpeg'};
-    // add plans to arg user
-    user!.plans = [new Plan('test plan', 50, 25, 'FAR')];
-    // add line to test plan
-    user!.plans[0].lines = [new Line(1, testDevice, '5096270952')];
-    this.currentUserSubject.next(user);
-    console.log(`current user: ${this.currentUserSubject.value}`);
-  }
+  // updateCurrentUser() {
+  //   const headers = {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Basic ' + btoa(`${this.username}:${this.plaintextpw}`)
+  //   };
+  //   this.http.get<User>(this.apiUrl + '/user', {headers, observe: 'response'}).subscribe({
+  //     next : data => {
+  //       console.log('data returned from API get user: ');
+  //       console.log(data.body);
+  //       if(data.body !== null) {
+  //         this.setCurrentUser(data.body);
+  //       }
+  //     },
+  //     error: err => {
+  //       console.log('Error updating user');
+  //       console.log(err);
+  //     },
+  //     complete: () => {
+  //       console.log('User updated');
+  //     }
+  //   }
+  //   );
+  // }
 
   setIsLoggedIn(isLoggedIn: boolean): void {
     this.isLoggedInSubject.next(isLoggedIn);
