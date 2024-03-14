@@ -42,11 +42,11 @@ export class PlanCardComponent {
     this.DefaultValues.addLine(chosenPlan.planType)
     const linesArray = chosenPlan.getLinesArray;
     let lineDeviceGoesIn: Line;
-    let lineNumber: string = ""
+    let lineNumber: string = "";
     for (let i = 0; i < linesArray.length; i++) {
       let a: Line = linesArray[i as keyof typeof linesArray];
       if (a.device !== null && a.device !== undefined) {
-        lineNumber = a.number;
+        lineNumber = (a.number: String);
       }
     }
    
