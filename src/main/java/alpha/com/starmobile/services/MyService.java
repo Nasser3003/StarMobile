@@ -65,9 +65,9 @@ public class MyService {
         return user;
     }
 
-    private String generatePhoneNumber() {
+    private long generatePhoneNumber() {
         Random random = new Random();
-        return String.valueOf(1000000000L + random.nextInt(900000000));
+        return 1000000000L + random.nextInt(900000000);
     }
 
     @Transactional

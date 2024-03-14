@@ -9,6 +9,12 @@ h2 {
     margin: 1em;
 }
 
+h5 {
+    text-align: center;
+    margin: 1em;
+
+}
+
 section {
     background-color: var(--card-color);
     margin-bottom: 2em;

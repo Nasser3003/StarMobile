@@ -16,7 +16,7 @@ public class Line {
     private long id;
 
     @Column(unique = true)
-    private String number;
+    private long number;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id")
