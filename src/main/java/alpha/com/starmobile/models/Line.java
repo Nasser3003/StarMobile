@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class Line {
 
     @Setter(AccessLevel.NONE)
@@ -15,7 +16,7 @@ public class Line {
     private long id;
 
     @Column(unique = true)
-    private long number;
+    private String number;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id")
