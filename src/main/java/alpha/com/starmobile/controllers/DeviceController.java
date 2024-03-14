@@ -1,6 +1,7 @@
 package alpha.com.starmobile.controllers;
 
 import alpha.com.starmobile.dto.AddOrRemoveDeviceDTO;
+import alpha.com.starmobile.dto.DeviceLineChangeDTO;
 import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.models.User;
 import alpha.com.starmobile.services.DeviceService;
@@ -35,20 +36,17 @@ public class DeviceController {
     }
     @PostMapping("/add")
     public ResponseEntity<User> addDevice(@RequestBody AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
-        User updatedUser = myService.addDevice(
-                addOrRemoveDeviceDTO.phoneNumber(),
-                addOrRemoveDeviceDTO.brand(),
-                addOrRemoveDeviceDTO.model()
-        );
+        User updatedUser = myService.addDevice(addOrRemoveDeviceDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
     }
     @PostMapping("/remove")
     public ResponseEntity<User> removeDevice(@RequestBody AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
-        User updatedUser = myService.removeDevice(
-                addOrRemoveDeviceDTO.phoneNumber(),
-                addOrRemoveDeviceDTO.brand(),
-                addOrRemoveDeviceDTO.model()
-        );
+        User updatedUser = myService.removeDevice(addOrRemoveDeviceDTO);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
+    @PostMapping("/changeLine")
+    public ResponseEntity<User> changeLine(@RequestBody DeviceLineChangeDTO deviceLineChangeDTO) {
+        User updatedUser = myService.changeDeviceLine(deviceLineChangeDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 }
