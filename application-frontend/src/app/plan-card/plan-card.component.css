@@ -1,7 +1,9 @@
 .flex-container {
     display: flex;
     justify-content: space-around;
-    min-height: 100vh;
+    width: 100%;
+    /* height: 100%; */
+    /* min-height: 100vh; */
     /* gap: 5%; */
 }
 
@@ -34,7 +36,7 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px; /* 5px rounded corners */
-    width: 20%;
+    /* width: 18%; */
     background-color:rgb(238, 238, 208);
     color:black;
 
@@ -62,6 +64,7 @@ dialog {
 
 dialog::backdrop {
     background: rgb(65, 108, 126);
+    width: 100%;
     opacity: 45%;
 }
 
@@ -72,17 +75,17 @@ button {
     margin: 1%;
 }
 
-/* section {
-    width: 512px;
-    height: 512px;
+section {
+    width: 100%;
+    /* height: 512px;
     border-radius: 30px;
     text-align: center;
     background-color: var(--card-color);
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
-    transition: .5s;
+    transition: .5s; */
 }
 
-section:hover {
+/* section:hover {
     box-shadow: 0 0 20px 20px rgba(122, 117, 173, 0.2);
 } */
 
