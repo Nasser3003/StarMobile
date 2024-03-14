@@ -55,16 +55,11 @@ public class MyService {
     public User addLine(String planType) {
         User user = fetchAuthenticatedUser();
         planType = planType.toUpperCase();
-        Optional<Plan> plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType));
-
-        if (plan.isEmpty())
-            addPlan(planType);
-
-        plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType));
+        Plan plan = planRepository.findByUserAndPlanType(user, PlanTypes.valueOf(planType)).orElseThrow(IllegalArgumentException::new);
 
         Line line = new Line();
         line.setNumber(generatePhoneNumber());
-        plan.get().addLine(line);
+        plan.addLine(line);
         return user;
     }
 
