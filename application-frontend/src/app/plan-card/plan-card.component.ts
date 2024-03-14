@@ -28,7 +28,7 @@ export class PlanCardComponent {
   isLoggedIn: boolean = false;
   
   addJustPlan(chosenPlan: Plan) {
-    if(this.DefaultValues.allPlans.includes(chosenPlan)){
+    if(this.currentUser?.plans?.includes(chosenPlan)){
       console.log("addJustPlan: Plan already found")
     }
     else {
