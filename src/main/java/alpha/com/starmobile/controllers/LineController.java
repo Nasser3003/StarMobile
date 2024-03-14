@@ -38,7 +38,7 @@ public class LineController {
     }
 
     @GetMapping("/{number}")
-    public ResponseEntity<Line> getLineByNumber(@PathVariable("number") long number) {
+    public ResponseEntity<Line> getLineByNumber(@PathVariable("number") String number) {
         Optional<Line> lineOptional = lineService.findByNumber(number);
         return lineOptional.map(line -> new ResponseEntity<>(line, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

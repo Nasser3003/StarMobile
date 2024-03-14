@@ -11,10 +11,8 @@ public interface LineService {
 
     Optional<Line> findById(long id);
 
-    Optional<Line> findByNumber(long number);
+    Optional<Line> findByNumber(String number);
 
     Line save(Line line);
-
-    void deleteById(long id);
 
 }

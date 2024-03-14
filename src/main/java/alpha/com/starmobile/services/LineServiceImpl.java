@@ -29,7 +29,7 @@ public class LineServiceImpl implements LineService {
     }
 
     @Override
-    public Optional<Line> findByNumber(long number) {
+    public Optional<Line> findByNumber(String number) {
         return repo.findByNumber(number);
     }
 
@@ -39,11 +39,6 @@ public class LineServiceImpl implements LineService {
             throw new IllegalArgumentException("Line must not be null");
         }
         return repo.save(line);
-    }
-
-    @Override
-    public void deleteById(long id) {
-        repo.deleteById(id);
     }
 
 }
