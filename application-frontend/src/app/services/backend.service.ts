@@ -100,7 +100,7 @@ export class BackendService {
    * @param model 
    * @returns an updated line that can replace the existing one in the current user's lines array
    */
-  addDevice(phoneNumber: number, brand: string, model: string): Line | undefined{
+  addDevice(phoneNumber: string, brand: string, model: string): Line | undefined{
   const headers = this.getHeader();
   this.http.post<any>(this.baseURL + '/device' + '/add', { "phoneNumber" : phoneNumber,
                                                          "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
@@ -125,7 +125,7 @@ export class BackendService {
  * Remove a device from a line
  * @returns an updated device that can replace the existing one in the current user's devices array
  */
-removeDevice(phoneNumber: number, brand: string, model: string): Line | undefined{
+removeDevice(phoneNumber: string, brand: string, model: string): Line | undefined{
   const headers = this.getHeader();
   this.http.post<any>(this.baseURL + '/device' + '/remove', { "phoneNumber" : phoneNumber,
   "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
