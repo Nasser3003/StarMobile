@@ -15,11 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -67,11 +63,19 @@ public class MyService {
 
     private String generatePhoneNumber() {
         Random random = new Random();
-        return String.valueOf(1000000000L + random.nextInt(900000000));
+        StringBuilder sb = new StringBuilder();
+        int firstDigit = random.nextInt(8) + 2;
+        long restOfTheNumber = (long)(random.nextDouble() * 1000000000L);
+
+        // ensuring the restOfTheNumber is 9 digits. if restOfTheNumber = 123 it will be 000000123
+        String formattedRestOfTheNumber = String.format("%09d", restOfTheNumber);
+
+        sb.append(firstDigit).append(formattedRestOfTheNumber);
+        return sb.toString();
     }
 
     @Transactional
-    public User removeLine(String planType, long phoneNumber) {
+    public User removeLine(String planType, String phoneNumber) {
         User user = fetchAuthenticatedUser();
         Plan plan = user.getPlans().stream()
                 .filter(p -> p.getPlanType().equals(PlanTypes.valueOf(planType.toUpperCase())))
@@ -86,7 +90,7 @@ public class MyService {
     }
 
     @Transactional
-    public User addDevice(long phoneNumber, String brand, String model) {
+    public User addDevice(String phoneNumber, String brand, String model) {
         Device device = new Device(brand, model);
         Line line = lineRepository.findByNumber(phoneNumber)
                 .orElseThrow(() -> new IllegalArgumentException("please create the line first"));
@@ -96,7 +100,7 @@ public class MyService {
     }
 
     @Transactional
-    public User removeDevice(long phoneNumber, String brand, String model) {
+    public User removeDevice(String phoneNumber, String brand, String model) {
         Device device = deviceRepository.findDeviceByBrandAndModel(brand, model)
                 .orElseThrow(IllegalArgumentException::new);
 

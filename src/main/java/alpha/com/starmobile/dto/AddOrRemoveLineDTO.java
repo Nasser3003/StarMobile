@@ -1,4 +1,4 @@
 package alpha.com.starmobile.dto;
 
-public record AddOrRemoveLineDTO(String planType, long phoneNumber) {
+public record AddOrRemoveLineDTO(String planType, String phoneNumber) {
 }

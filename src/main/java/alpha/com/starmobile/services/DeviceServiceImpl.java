@@ -1,15 +1,12 @@
 package alpha.com.starmobile.services;
 
-import java.util.List;
-import java.util.Optional;
-
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-
-
 import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.repository.DeviceRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -26,11 +23,6 @@ public class DeviceServiceImpl implements DeviceService {
     public List<Device> findAllByBrandAndModel(String Brand, String model) {
         return null;
     }
-
-//    @Override
-//    public Optional<Device> findByBrandAndModel(String brand, String model) {
-//        return repo.findDeviceByBrandAndModel(brand, model);
-//    }
 
     @Override
     public List<Device> findAllByBrand(String brand) {

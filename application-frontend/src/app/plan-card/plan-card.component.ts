@@ -38,19 +38,35 @@ export class PlanCardComponent {
   }
 
   addLineWithDevice(chosenPlan: Plan, chosenDevice: Device): void {
-    this.DefaultValues.addPlan(chosenPlan.planType)
-    this.DefaultValues.addLine(chosenPlan.planType)
+    this.DefaultValues.addPlan(chosenPlan.planType);
+    this.DefaultValues.addLine(chosenPlan.planType);
     const linesArray = chosenPlan.getLinesArray;
     let lineDeviceGoesIn: Line;
     let lineNumber: string = "";
-    for (let i = 0; i < linesArray.length; i++) {
-      let a: Line = linesArray[i as keyof typeof linesArray];
-      if (a.device !== null && a.device !== undefined) {
-        lineNumber = (a.number);
+
+    // iterate through currentUser's plans' lines to find the first line that does have a number property but doesn't have a device
+    for(let plan of this.currentUser!.plans!) {
+      if(plan.planType === chosenPlan.planType) {
+        for(let line of plan.lines!) {
+          if(line.number !== null && line.device === null) {
+            console.log('USER LINE NUMBER' + line.number);
+            lineDeviceGoesIn = line;
+            lineNumber = lineDeviceGoesIn.number;
+            break;
+          }
+        }
       }
     }
+
+    // for (let i = 0; i < linesArray.length; i++) {
+    //   let a: Line = linesArray[i as keyof typeof linesArray];
+    //   if (a.device !== null && a.device !== undefined) {
+    //     lineNumber = (a.number);
+    //   }
+    // }
+   console.log('IN ADD LINE WITH DEVICES' + lineNumber + chosenDevice.brand + chosenDevice.model);
    
-    this.DefaultValues.addDevice(lineNumber, chosenDevice.brand, chosenDevice.model)
+    // this.DefaultValues.addDevice(lineNumber, chosenDevice.brand, chosenDevice.model)
   }
 
   testAddPlan() {

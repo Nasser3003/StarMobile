@@ -14,8 +14,6 @@ public interface UserService {
 
     Optional<User> findByEmail(String email);
 
-    User register(RegistrationDTO registrationDTO);
-
     Optional<User> getMyUser();
 
 }

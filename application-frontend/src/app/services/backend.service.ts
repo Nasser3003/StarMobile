@@ -102,9 +102,10 @@ export class BackendService {
    */
   addDevice(phoneNumber: string, brand: string, model: string): Line | undefined{
   const headers = this.getHeader();
-  this.http.post<any>(this.baseURL + '/device' + '/add', { "phoneNumber" : phoneNumber,
+  this.http.post<any>(this.baseURL + '/device' + '/add', { "number" : phoneNumber,
                                                          "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
     next : data => {
+      console.log('IN ADD DEVICE');
       console.log(data.body);
       // update the current user
       this.auth.setCurrentUser(data.body);
@@ -130,6 +131,7 @@ removeDevice(phoneNumber: string, brand: string, model: string): Line | undefine
   this.http.post<any>(this.baseURL + '/device' + '/remove', { "phoneNumber" : phoneNumber,
   "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
     next : data => {
+      console.log('IN REMOVE DEVICE');
       console.log(data.body);
       // update the current user
       this.auth.setCurrentUser(data.body);
@@ -160,6 +162,7 @@ addLine(planType: string): Plan | undefined {
   const headers = this.getHeader();
   this.http.post<any>(this.baseURL + '/line' + '/add', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
     next : data => {
+      console.log('IN ADD LINE');
       console.log(data.body);
       // update the current user
       this.auth.setCurrentUser(data.body);
@@ -188,6 +191,7 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
   this.http.post<any>(this.baseURL + '/line' + '/remove', { "planType" : planType,
                                                          "phoneNumber" : phoneNumber }, {headers, observe: 'response'}).subscribe({
     next : data => {
+      console.log('IN REMOVE LINE');
       console.log(data.body);
       // update the current user
       this.auth.setCurrentUser(data.body);
@@ -244,6 +248,7 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
     const headers = this.getHeader();
     this.http.post<any>(this.baseURL + '/plan' + '/add', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
       next : data => {
+        console.log('IN ADD PLAN');
         console.log(data.body);
         // update the current user
         this.auth.setCurrentUser(data.body);
@@ -264,6 +269,7 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
     const headers = this.getHeader();
     this.http.post<any>(this.baseURL + '/plan' + '/remove', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
       next : data => {
+        console.log('IN REMOVE PLAN');
         console.log(this.currentUser);
         // update the current user
       this.auth.setCurrentUser(data.body);
