@@ -54,6 +54,11 @@ export class AccountPageComponent {
     this.updateBill();
   }
 
+  addLine(plan: Plan) {
+    // send planType to backend to add line to plan
+    this.backend.addLine(plan.planType);
+  }
+
   removeLine(planIndex: number, lineIndex: number) {
     // remove line from plan
     this.currentUser!.plans![planIndex].lines?.splice(lineIndex, 1);
@@ -62,6 +67,10 @@ export class AccountPageComponent {
 
     // update bill totals
     this.updateBill();
+  }
+
+  removeDevice() {
+
   }
 
   updateBill() {
@@ -78,7 +87,7 @@ export class AccountPageComponent {
     if(this.currentUser.plans?.length !== 0){
       for (let plan of this.currentUser!.plans!) {
         // add the plan's price to the plansTotal if not null
-        if (plan.price !== null) {
+        if (plan !== null && plan.price !== null) {
           this.plansTotal += plan.price;
         }
         // if current user's line array is not empty, calculate the total cost of devices
@@ -98,13 +107,6 @@ export class AccountPageComponent {
 
   changeLine() {
 
-  }
-
-  createTestUser() {
-        // TEST OBJECTS///////////////////////////////////////////////////////
-        this.auth.setCurrentUserTest(new User('XXXXXXXXXXXXX', 'Test', 'User', 'test'));
-        //////////////////////////////////////////////////////////////////////////////////////////////
-        this.updateBill();
   }
 
 }
