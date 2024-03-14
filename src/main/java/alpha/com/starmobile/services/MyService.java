@@ -61,7 +61,7 @@ public class MyService {
         return user;
     }
 
-    private String generatePhoneNumber() {
+    private long generatePhoneNumber() {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
         int firstDigit = random.nextInt(8) + 2;
