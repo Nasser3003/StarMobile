@@ -1,18 +1,23 @@
 main {
     display: flex;
     align-items: center;
-    flex-flow: column wrap;
+    flex-flow: column;
 }
 
 h2 {
     text-align: center;
-    margin: 1em;
+    /* margin: 1em; */
+    padding: 1em;
+}
+
+h3 {
+    margin-top: 1em;
 }
 
 h5 {
     text-align: center;
-    margin: 1em;
-
+    /* margin: 3em; */
+    padding: 1em;
 }
 
 section {
@@ -101,6 +106,7 @@ div {
     background-color: rgb(27, 17, 54);
     width: 80vw;
     margin: 2em;
+    border-radius: 10px;
 }
 
 div table{

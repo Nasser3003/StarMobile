@@ -22,7 +22,7 @@ export class AccountPageComponent {
 
   currentUser: User = new User('', '', '', '','', '', []);
   isLoggedIn: boolean = false;
-  plaintextpw: string = '';
+  // plaintextpw: string = '';
 
   // totals for bill
   devicesTotal: number = 0;
@@ -37,7 +37,7 @@ export class AccountPageComponent {
       }
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-    this.auth.plaintextpw.subscribe(plaintextpw => this.plaintextpw = plaintextpw);
+    // this.auth.plaintextpw.subscribe(plaintextpw => this.plaintextpw = plaintextpw);
 
     // update bill totals on page load if a logged in user is present in auth service
     if(this.isLoggedIn) {

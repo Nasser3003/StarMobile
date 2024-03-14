@@ -1,6 +1,6 @@
 <div class="flex-container">
-    <div class="card" *ngFor="let device of DefaultValues.allDevices" routerLink="/devices">
-        <img src="{{device.picturePath}}" alt="">
+    <div (click)="this.addDevice(device)" class="card" *ngFor="let device of this.DefaultValues.allDevices" routerLink="/account">
+        <img src="{{device.picturePath}}" alt="picture of {{device.brand}} {{device.model}}">
         <div>
             <div>Make: {{device.brand}}</div>
             <div>Model: {{device.model}}</div>
