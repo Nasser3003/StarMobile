@@ -75,23 +75,23 @@ export class BackendService {
 /**
  * Get all devices from the backend
  */
-  getAllDevices() {
-    const headers = this.getHeader();
-    this.http.get<any>(this.baseURL + '/device' + '/all', {observe: 'response'}).subscribe({
-      next : data => {
-        console.log("Requesting all devices");
-        console.log(data.body);
-        this.allDevices = data.body;
-      },
-      error: err => {
-        console.log('Error retrieving devices');
-        console.log(err);
-      },
-      complete: () => {
-        console.log('All devices retrieved');
-      }
-    });
-  }
+  // getAllDevices() {
+  //   const headers = this.getHeader();
+  //   this.http.get<any>(this.baseURL + '/device' + '/all', {observe: 'response'}).subscribe({
+  //     next : data => {
+  //       console.log("Requesting all devices");
+  //       console.log(data.body);
+  //       this.allDevices = data.body;
+  //     },
+  //     error: err => {
+  //       console.log('Error retrieving devices');
+  //       console.log(err);
+  //     },
+  //     complete: () => {
+  //       console.log('All devices retrieved');
+  //     }
+  //   });
+  // }
 
   /**
    * Add a device to the current user
@@ -106,7 +106,8 @@ export class BackendService {
                                                          "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log(data.body);
-      // this.updatedLine = data.body;
+      // update the current user
+      this.auth.setCurrentUser(data.body);
     },
     error: err => {
       console.log(`Error adding device to line ${phoneNumber} for user ${this.currentUser?.email}`);
@@ -130,7 +131,8 @@ removeDevice(phoneNumber: number, brand: string, model: string): Line | undefine
   "brand" : brand, "model": model }, {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log(data.body);
-      this.updatedLine = data.body;
+      // update the current user
+      this.auth.setCurrentUser(data.body);
     },
     error: err => {
       console.log(`Error removing device from line ${phoneNumber} for user ${this.currentUser?.email}`);
@@ -159,7 +161,8 @@ addLine(planType: string): Plan | undefined {
   this.http.post<any>(this.baseURL + '/line' + '/add', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log(data.body);
-      // this.updatedPlan = data.body;
+      // update the current user
+      this.auth.setCurrentUser(data.body);
     },
     error: err => {
       console.log(`Error adding line to plan ${planType} for user ${this.currentUser?.email}`);
@@ -186,7 +189,8 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
                                                          "phoneNumber" : phoneNumber }, {headers, observe: 'response'}).subscribe({
     next : data => {
       console.log(data.body);
-      this.updatedPlan = data.body;
+      // update the current user
+      this.auth.setCurrentUser(data.body);
     },
     error: err => {
       console.log(`Error removing line ${phoneNumber} from plan ${planType} for user ${this.currentUser?.email}`);
@@ -212,25 +216,25 @@ removeLine(planType: string, phoneNumber: number): Plan | undefined {
 /**
  * Get all plans from the backend
  */
-getAllPlans() {
-  const headers = this.getHeader();
-  this.http.get<any>(this.baseURL + '/plan' + '/all', {observe: 'response'}).subscribe({
-    next : data => {
-      console.log("Requesting all plans");
-      console.log(data.body);
-      // store all plans in this component
-      this.allPlans = data.body;
-    },
-    error: err => {
-      console.log('Error retrieving plans');
-      console.log(err);
+// getAllPlans() {
+//   const headers = this.getHeader();
+//   this.http.get<any>(this.baseURL + '/plan' + '/all', {observe: 'response'}).subscribe({
+//     next : data => {
+//       console.log("Requesting all plans");
+//       console.log(data.body);
+//       // store all plans in this component
+//       this.allPlans = data.body;
+//     },
+//     error: err => {
+//       console.log('Error retrieving plans');
+//       console.log(err);
       
-    },
-    complete: () => {
-      console.log('All plans retrieved');
-    }
-  });
-}
+//     },
+//     complete: () => {
+//       console.log('All plans retrieved');
+//     }
+//   });
+// }
 
 /**
  * Add a plan to the current user
@@ -261,7 +265,8 @@ getAllPlans() {
     this.http.post<any>(this.baseURL + '/plan' + '/remove', { "planType" : planType }, {headers, observe: 'response'}).subscribe({
       next : data => {
         console.log(this.currentUser);
-        this.auth.setCurrentUser(data.body);
+        // update the current user
+      this.auth.setCurrentUser(data.body);
       },
       error: err => {
         console.log(`Error removing plan ${planType} from user ${this.currentUser?.email}`);
