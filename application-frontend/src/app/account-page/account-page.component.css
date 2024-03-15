@@ -38,7 +38,7 @@ section p {
 }
 
 section.plan {
-    width: 30em;
+    width: 40em;
 }
 
 .account-section {
@@ -87,6 +87,7 @@ th, td{
 
 td{
     padding: 0px 6px 0px 6px;
+
     /* border-radius: 4px; */
 }
 
@@ -124,4 +125,12 @@ div table tr:nth-child(even){
 
 div table tr:nth-child(odd){
     background-color: rgb(46, 27, 97);
+}
+
+div.planbuttonsarea button {
+    margin: 1em;
+    width: 10em;
+    justify-self: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }

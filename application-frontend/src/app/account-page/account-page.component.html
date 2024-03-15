@@ -8,6 +8,7 @@
         <h5 *ngIf="this.isLoggedIn">Email: {{this.currentUser.email}}</h5>
     </div>
     <section *ngIf="this.isLoggedIn" class="account-section">
+        <h3>Your Plans</h3>
 
         <!-- NO PLANS MESSAGE - SHOWS IF USER HAS NO PLANS -->
         <section *ngIf="this.currentUser!.plans!.length === 0">
@@ -22,9 +23,9 @@
                 <!-- TABLE FOR ALL LINES ON EACH PLAN -->
                 <table class="plan-devices-table">
                     <thead >
+                        <th>Phone Number</th>
                         <th>Device</th>
-                        <th>Device Price</th>
-                        <th>Line</th>
+                        <th>Device Fee</th>
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let line of plan.lines; let lineIndex = index; let e = even">
@@ -32,11 +33,27 @@
                                 'even': e,
                                 'odd': !e
                             }">
-                            <td>{{line.number}}</td>
+                            <td>{{line.number | phone}}</td>
                             <td *ngIf="line.device">{{line.device.brand}} {{line.device.model}}</td><td *ngIf="!line.device">no device</td>
                             <td *ngIf="line.device">{{line.device.price}}</td><td *ngIf="!line.device">no device</td>
+                            <!-- Dropdown to move device if the line has one -->
+                            <td *ngIf="line.device !== null">
+                                <form #myForm="ngForm" (ngSubmit)="moveDevice(line.number, line.device.brand, line.device.model, selectedOption)">
+                                    <label for="changeDeviceDropdown">Move Device</label>
+                                    <select id="changeDeviceDropdown" name="changeDeviceDropdown" [(ngModel)]="selectedOption" (change)="myForm.onSubmit($event)">
+                                        <option *ngFor="let option of options" [value]="option.value">
+                                            {{option.label}}
+                                        </option>
+                                    </select>
+                                    <!-- <button type="submit">Move Device</button> -->
+                                </form>
+                            </td>
                             <td><button (click)="this.removeLine(plan.planType, line.number)">Remove Line</button></td>
-                            <td><button *ngIf="line.device !== null">Change Device</button><button *ngIf="line.device !== null" (click)="this.removeDevice(line)">Remove Device</button><button *ngIf="line.device === null" routerLink="/devices">Shop Devices</button></td>
+                            <td><button *ngIf="line.device !== null" (click)="this.removeDevice(line)">Remove Device</button><button *ngIf="line.device === null" routerLink="/devices">Shop Devices</button>
+                            </td>
+                            <td *ngIf="line.device === null">
+
+                            </td>
                             <!-- <button *ngIf="line.device === null" type="button" routerLink="/devices">Shop Devices</button> -->
                             </tr>
 

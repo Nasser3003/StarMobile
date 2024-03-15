@@ -9,11 +9,12 @@ import { Plan } from '../models/plan';
 import { Line } from '../models/line';
 import { OnInit } from '@angular/core';
 import { BackendService } from '../services/backend.service';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-account-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, PhonePipe],
+  imports: [CommonModule, RouterLink, RouterLinkActive, PhonePipe, FormsModule],
   templateUrl: './account-page.component.html',
   styleUrl: './account-page.component.css'
 })
@@ -26,11 +27,17 @@ export class AccountPageComponent {
 
   // totals for bill
   devicesTotal: number = 0;
+  singlePlanTotal: number = 0;
   plansTotal: number = 0;
   billTotal: number = 0;
-    
-  constructor(private auth: AuthService, private backend: BackendService, private router: Router) {
 
+  // options for dropdowns
+  options: { value: string, label: string }[] = [];
+  selectedOption = '';
+  
+  
+  constructor(private auth: AuthService, private backend: BackendService, private router: Router) {
+    
     this.auth.currentUser.subscribe(user => {
       if(user !== undefined) {
         this.currentUser = user;
@@ -38,11 +45,17 @@ export class AccountPageComponent {
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
     // this.auth.plaintextpw.subscribe(plaintextpw => this.plaintextpw = plaintextpw);
-
+    
     // update bill totals on page load if a logged in user is present in auth service
     if(this.isLoggedIn) {
       this.updateBill();
     }
+    this.generateOptions();
+    
+    // if(this.isLoggedIn) {
+    //   this.selectedOption = this.options[0].value;
+    // }
+    
     
   }
 
@@ -99,28 +112,58 @@ export class AccountPageComponent {
     // if current user's plan array is not empty, calculate the total cost of devices and plans
     if(this.currentUser.plans?.length !== 0){
       for (let plan of this.currentUser!.plans!) {
-        // add the plan's price to the plansTotal if not null
+        // add the plan's price to singlePlanTotal if not null
         if (plan !== null && plan.price !== null) {
-          this.plansTotal += plan.price;
+          this.singlePlanTotal = plan.price * plan.lines!.length;
         }
         // if current user's line array is not empty, calculate the total cost of devices
         if (plan.lines?.length !== 0) {
-          // for each line in the plan, add the device's price to the devicesTotal
+          // for each line in the plan, add the device's price to the devicesTotal and also add the price of the line to the singlePlanTotal with plan.price (price per line)
           for(let line of plan.lines!) {
             // if device price is not null, add it to the devicesTotal
             if (line.device !== null && line.device.price !== null) {
               this.devicesTotal += line.device.price;
             }
+          }
         }
-        }
+        this.plansTotal += this.singlePlanTotal;
       }
     }
     this.billTotal = this.devicesTotal + this.plansTotal;
   }
 
+  onSubmit(form: NgForm) {
+    // Submit the form
+  }
 
   changeLine() {
 
   }
+
+  generateOptions() {
+    this.options = this.currentUser.plans!.flatMap(plan => 
+      plan.lines!.map(line => ({ value: line.number, label: `${line.number}` }))
+    );
+  }
+
+  moveDevice(phoneNumber: string, brand: string, model: string, newLine: string) {
+    this.backend.deviceLineChange(phoneNumber, brand, model, newLine);
+  }
+
+  // swapDevices(event: Event) {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const targetLineId = selectElement.value;
+  
+  //   // Find the current line and the target line
+  //   const currentLine = this.currentUser.plans!.flatMap(plan => plan.lines).find(line => line.device === this.currentDevice);
+  //   const targetLine = this.currentUser.plans!.flatMap(plan => plan.lines).find(line => line.id === targetLineId);
+  
+  //   // Swap the devices
+  //   if (currentLine && targetLine) {
+  //     const tempDevice = currentLine.device;
+  //     currentLine.device = targetLine.device;
+  //     targetLine.device = tempDevice;
+  //   }
+  // }
 
 }
