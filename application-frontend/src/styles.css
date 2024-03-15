@@ -53,3 +53,18 @@ button {
   section {
     transition: all 0.5s ease;
   }
+
+  dialog {
+    position: absolute;
+    justify-self: center;
+    padding: 1%;
+    top: 50%;
+    margin-top: -75px;
+    text-align: center;
+}
+
+dialog::backdrop {
+    background: rgb(65, 108, 126);
+    width: 100%;
+    opacity: 45%;
+}

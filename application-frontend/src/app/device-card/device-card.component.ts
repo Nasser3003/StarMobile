@@ -1,25 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { Device } from '../models/device';
 import { Line } from '../models/line';
 import { Plan } from '../models/plan';
 import { BackendService } from '../services/backend.service';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-device-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [RouterLinkActive, RouterLink, CommonModule],
   templateUrl: './device-card.component.html',
   styleUrl: './device-card.component.css'
 })
 export class DeviceCardComponent {
-
+  
   currentUser: User = new User('', '', '', '','', '', []);
   isLoggedIn: boolean = false;
-
+  
   DefaultValues: BackendService = inject(BackendService);
+
+  router = inject(Router);
+  
+  @ViewChild('myDialog',) myDialog!: ElementRef;
   
   constructor(private backend: BackendService, private auth: AuthService) {
     this.auth.currentUser.subscribe(user => {
@@ -28,7 +33,15 @@ export class DeviceCardComponent {
       }
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+    
+  }
+  
+  gotoAccount() {
+    this.router.navigate(["account"]);
+  }
 
+  openModal() {
+    this.myDialog.nativeElement.showModal();
   }
 
   addDevice(deviceToAdd: Device) {
@@ -56,6 +69,7 @@ export class DeviceCardComponent {
           console.log("Adding device to line " + line.number);
           // call backend service to add device to line
           this.backend.addDevice(line.number, deviceToAdd.brand, deviceToAdd.model);
+          this.openModal()
           return;
         }else {
           continue;
