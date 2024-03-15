@@ -67,7 +67,6 @@ export class DeviceCardComponent {
   // If no plan is found with a line that has no device, display a modal that prompts the user to add a plan
   //-----modal code here--------
   
-  
 }
 // phone1: Device = new Device("BlackHoleBerry", "revolutionary", 1, "3 Pro", 299, new Line(0, , 'no'), new Plan("Citizen", 25, 150, "galactic"))
 // phone2: Device = new Device("Quantum", "singular", 1, "1x", 399, new Line(0, 0, 'no'), new Plan("Citizen", 25, 150, "galactic"))

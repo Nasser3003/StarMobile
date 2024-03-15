@@ -125,6 +125,28 @@ removeDevice(phoneNumber: string, brand: string, model: string): Line | undefine
   return this.updatedLine!;
 }
 
+deviceLineChange(phoneNumber: string, brand: string, model: string, newLine: string) {
+  const headers = this.getHeader();
+  this.http.post<any>(this.baseURL + '/device' + '/changeLine', { "phoneNumber" : phoneNumber,
+  "brand" : brand, "model": model, "newLine" : newLine }, {headers, observe: 'response'}).subscribe({
+    next : data => {
+      console.log('IN DEVICE LINE CHANGE');
+      console.log(data.body);
+      // update the current user
+      this.auth.setCurrentUser(this.auth.constructUserFromResponse(data.body));
+    },
+    error: err => {
+      console.log(`Error moving device from ${phoneNumber} to ${newLine} for user ${this.currentUser?.email}`);
+      console.log(err);
+    },
+    complete: () => console.log(`Device moved from line ${phoneNumber} to line ${newLine} for user ${this.currentUser?.email}`)
+  });
+  if(this.updatedLine === undefined) {
+    return;
+  }
+  return this.updatedLine!;
+}
+
 //   ///////////////
 //   /////LINES/////
 //   ///////////////

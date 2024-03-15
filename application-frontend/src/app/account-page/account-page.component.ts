@@ -9,7 +9,7 @@ import { Plan } from '../models/plan';
 import { Line } from '../models/line';
 import { OnInit } from '@angular/core';
 import { BackendService } from '../services/backend.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-account-page',
@@ -32,16 +32,12 @@ export class AccountPageComponent {
   billTotal: number = 0;
 
   // options for dropdowns
-  options = [
-    {value: 'option1', label: 'Option 1'},
-    {value: 'option2', label: 'Option 2'},
-    // Other options
-  ];
+  options: { value: string, label: string }[] = [];
+  selectedOption = '';
   
-  selectedOption = this.options[0].value;
-    
+  
   constructor(private auth: AuthService, private backend: BackendService, private router: Router) {
-
+    
     this.auth.currentUser.subscribe(user => {
       if(user !== undefined) {
         this.currentUser = user;
@@ -49,11 +45,17 @@ export class AccountPageComponent {
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
     // this.auth.plaintextpw.subscribe(plaintextpw => this.plaintextpw = plaintextpw);
-
+    
     // update bill totals on page load if a logged in user is present in auth service
     if(this.isLoggedIn) {
       this.updateBill();
     }
+    this.generateOptions();
+    
+    // if(this.isLoggedIn) {
+    //   this.selectedOption = this.options[0].value;
+    // }
+    
     
   }
 
@@ -130,9 +132,38 @@ export class AccountPageComponent {
     this.billTotal = this.devicesTotal + this.plansTotal;
   }
 
+  onSubmit(form: NgForm) {
+    // Submit the form
+  }
 
   changeLine() {
 
   }
+
+  generateOptions() {
+    this.options = this.currentUser.plans!.flatMap(plan => 
+      plan.lines!.map(line => ({ value: line.number, label: `${line.number}` }))
+    );
+  }
+
+  moveDevice(phoneNumber: string, brand: string, model: string, newLine: string) {
+    this.backend.deviceLineChange(phoneNumber, brand, model, newLine);
+  }
+
+  // swapDevices(event: Event) {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const targetLineId = selectElement.value;
+  
+  //   // Find the current line and the target line
+  //   const currentLine = this.currentUser.plans!.flatMap(plan => plan.lines).find(line => line.device === this.currentDevice);
+  //   const targetLine = this.currentUser.plans!.flatMap(plan => plan.lines).find(line => line.id === targetLineId);
+  
+  //   // Swap the devices
+  //   if (currentLine && targetLine) {
+  //     const tempDevice = currentLine.device;
+  //     currentLine.device = targetLine.device;
+  //     targetLine.device = tempDevice;
+  //   }
+  // }
 
 }
