@@ -23,9 +23,13 @@
   <h2>Technologies Used</h2>
     <p>StarMobile is built using the following technologies:</p>
     <ul>
-        <li>Frontend: Angular</li>
-        <li>Backend: Spring Boot</li>
-        <li>Database: MySQL</li>
+        <li>Frontend: Angular 17</li>
+        <li>Backend: Java 17 Spring Boot</li>
+        <li>Database: MySQL Workbench</li>
+        <li>Java Maven</li>
+        <li>HTML 5</li>
+        <li>CSS 3</li>
+        <li>JavaScript</li>
     </ul>
 
   <h2>Bonus Features</h2>
@@ -72,10 +76,10 @@
   <h2>Project Team</h2>
     <p>StarMobile is developed by a 4-member student developer team:</p>
     <ul>
-        <li>Team Lead: Josh</li>
-        <li>Frontend Developer: Hunter </li>
-        <li>Backend Developer: Abdelnasser</li>
-        <li>Database Developer: Rod</li>
+        <li>Team Lead: Josh Holland</li>
+        <li>Frontend Developer: Hunter Halstead</li>
+        <li>Backend Developer: Abdelnasser Abdrabbo</li>
+        <li>Database Developer: Rod Palmer</li>
     </ul>
 
   <h2>License</h2>
