@@ -9,11 +9,12 @@ import { Plan } from '../models/plan';
 import { Line } from '../models/line';
 import { OnInit } from '@angular/core';
 import { BackendService } from '../services/backend.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-account-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, PhonePipe],
+  imports: [CommonModule, RouterLink, RouterLinkActive, PhonePipe, FormsModule],
   templateUrl: './account-page.component.html',
   styleUrl: './account-page.component.css'
 })
@@ -26,8 +27,18 @@ export class AccountPageComponent {
 
   // totals for bill
   devicesTotal: number = 0;
+  singlePlanTotal: number = 0;
   plansTotal: number = 0;
   billTotal: number = 0;
+
+  // options for dropdowns
+  options = [
+    {value: 'option1', label: 'Option 1'},
+    {value: 'option2', label: 'Option 2'},
+    // Other options
+  ];
+  
+  selectedOption = this.options[0].value;
     
   constructor(private auth: AuthService, private backend: BackendService, private router: Router) {
 
@@ -99,20 +110,21 @@ export class AccountPageComponent {
     // if current user's plan array is not empty, calculate the total cost of devices and plans
     if(this.currentUser.plans?.length !== 0){
       for (let plan of this.currentUser!.plans!) {
-        // add the plan's price to the plansTotal if not null
+        // add the plan's price to singlePlanTotal if not null
         if (plan !== null && plan.price !== null) {
-          this.plansTotal += plan.price;
+          this.singlePlanTotal = plan.price * plan.lines!.length;
         }
         // if current user's line array is not empty, calculate the total cost of devices
         if (plan.lines?.length !== 0) {
-          // for each line in the plan, add the device's price to the devicesTotal
+          // for each line in the plan, add the device's price to the devicesTotal and also add the price of the line to the singlePlanTotal with plan.price (price per line)
           for(let line of plan.lines!) {
             // if device price is not null, add it to the devicesTotal
             if (line.device !== null && line.device.price !== null) {
               this.devicesTotal += line.device.price;
             }
+          }
         }
-        }
+        this.plansTotal += this.singlePlanTotal;
       }
     }
     this.billTotal = this.devicesTotal + this.plansTotal;

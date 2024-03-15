@@ -36,6 +36,11 @@
                             <td *ngIf="line.device">{{line.device.brand}} {{line.device.model}}</td><td *ngIf="!line.device">no device</td>
                             <td *ngIf="line.device">{{line.device.price}}</td><td *ngIf="!line.device">no device</td>
                             <td><button (click)="this.removeLine(plan.planType, line.number)">Remove Line</button></td>
+                            <td><label for="changeDeviceDropdown">Move device to a different line</label><select id="changeDeviceDropdown" name="changeDeviceDropdown" [(ngModel)]="selectedOption">
+                                <option *ngFor="let option of options" [value]="option.value">
+                                  {{option.label}}
+                                </option>
+                              </select></td>
                             <td><button *ngIf="line.device !== null">Change Device</button><button *ngIf="line.device !== null" (click)="this.removeDevice(line)">Remove Device</button><button *ngIf="line.device === null" routerLink="/devices">Shop Devices</button></td>
                             <!-- <button *ngIf="line.device === null" type="button" routerLink="/devices">Shop Devices</button> -->
                             </tr>

@@ -70,27 +70,6 @@ export class BackendService {
 //   /////DEVICES/////
 //   /////////////////
 
-/**
- * Get all devices from the backend
- */
-  // getAllDevices() {
-  //   const headers = this.getHeader();
-  //   this.http.get<any>(this.baseURL + '/device' + '/all', {observe: 'response'}).subscribe({
-  //     next : data => {
-  //       console.log("Requesting all devices");
-  //       console.log(data.body);
-  //       this.allDevices = data.body;
-  //     },
-  //     error: err => {
-  //       console.log('Error retrieving devices');
-  //       console.log(err);
-  //     },
-  //     complete: () => {
-  //       console.log('All devices retrieved');
-  //     }
-  //   });
-  // }
-
   /**
    * Add a device to the current user
    * @param phoneNumber 
@@ -216,29 +195,6 @@ removeLine(planType: string, phoneNumber: string): Plan | undefined {
 //   ///////////////
 //   /////PLANS/////
 //   ///////////////
-
-/**
- * Get all plans from the backend
- */
-// getAllPlans() {
-//   const headers = this.getHeader();
-//   this.http.get<any>(this.baseURL + '/plan' + '/all', {observe: 'response'}).subscribe({
-//     next : data => {
-//       console.log("Requesting all plans");
-//       console.log(data.body);
-//       // store all plans in this component
-//       this.allPlans = data.body;
-//     },
-//     error: err => {
-//       console.log('Error retrieving plans');
-//       console.log(err);
-      
-//     },
-//     complete: () => {
-//       console.log('All plans retrieved');
-//     }
-//   });
-// }
 
 /**
  * Add a plan to the current user
