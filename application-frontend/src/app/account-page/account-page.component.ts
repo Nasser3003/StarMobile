@@ -150,20 +150,4 @@ export class AccountPageComponent {
     this.backend.deviceLineChange(phoneNumber, brand, model, newLine);
   }
 
-  // swapDevices(event: Event) {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   const targetLineId = selectElement.value;
-  
-  //   // Find the current line and the target line
-  //   const currentLine = this.currentUser.plans!.flatMap(plan => plan.lines).find(line => line.device === this.currentDevice);
-  //   const targetLine = this.currentUser.plans!.flatMap(plan => plan.lines).find(line => line.id === targetLineId);
-  
-  //   // Swap the devices
-  //   if (currentLine && targetLine) {
-  //     const tempDevice = currentLine.device;
-  //     currentLine.device = targetLine.device;
-  //     targetLine.device = tempDevice;
-  //   }
-  // }
-
 }

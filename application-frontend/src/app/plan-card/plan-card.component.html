@@ -1,44 +1,3 @@
-<!-- <section>
-    <h3>Plan Name Placeholder</h3>
-    <ul>
-        <li *ngFor="let line of lineList">{{line | phone}}</li>
-    </ul>
-</section> -->
-
-
-<section *ngIf="isLoggedIn">
-    <h1>Your Plans</h1>
-    
-    <div class="flex-container" *ngIf="currentUser?.plans !== null">
-        <div class="card">
-            <div class="card-head">Citizen Plan</div>
-            <div class="card-details">
-                <div>Device: </div>
-                <div>Number: </div>
-                <div>DataCap: </div>
-                <div>Signal Range: </div>
-                <div>Cost: </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="flex-container" *ngIf="currentUser?.plans == null">
-        <div class="card">
-            <div class="card-head">No Plans Yet</div>
-            <div class="card-details">
-                <div>Device: </div>
-                <div>Number: </div>
-                <div>DataCap: </div>
-                <div>Signal Range: </div>
-                <div>Cost: </div>
-            </div>
-        </div>
-    </div>
-
-    <div></div>
-</section>
-
-
 <h1>Available Plans</h1>
 <div class="flex-container">
     <ng-container *ngFor="let plan of DefaultValues.allPlans">
@@ -49,22 +8,6 @@
                 <div>Signal Range: {{plan.signalRange}}</div>
                 <div>Data Cap: {{plan.quota}} Gb</div>
                 <button (click)="addJustPlan(plan)">Add this plan to your account</button>
-                
-                <!-- myDialog.showModal() -->
-
-                <!-- <dialog #myDialog>
-                    <div>
-                        <h3>{{plan.planType}} Plan</h3>
-                        <div>Choose a Device</div>
-                        <ng-container *ngFor="let device of DefaultValues.allDevices">
-                            <button (click)="addPlanWithDevice(plan, device)" (click)="myDialog.close()">{{device.brand}} {{device.model}}</button>
-                        </ng-container>
-                    </div>
-                    <div>
-                        <div>...</div>
-                        <button (click)="myDialog.close()">Close</button>
-                    </div>
-                </dialog> -->
             </div>
         </div>
     </ng-container>

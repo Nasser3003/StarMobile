@@ -7,8 +7,8 @@
         <br>
         <h5 *ngIf="this.isLoggedIn">Email: {{this.currentUser.email}}</h5>
     </div>
+    <h3>Your Plans</h3>
     <section *ngIf="this.isLoggedIn" class="account-section">
-        <h3>Your Plans</h3>
 
         <!-- NO PLANS MESSAGE - SHOWS IF USER HAS NO PLANS -->
         <section *ngIf="this.currentUser!.plans!.length === 0">
@@ -51,8 +51,8 @@
                             <td><button (click)="this.removeLine(plan.planType, line.number)">Remove Line</button></td>
                             <td><button *ngIf="line.device !== null" (click)="this.removeDevice(line)">Remove Device</button><button *ngIf="line.device === null" routerLink="/devices">Shop Devices</button>
                             </td>
-                            <td *ngIf="line.device === null">
-
+                            <td class="fillertd" *ngIf="line.device === null">
+                                <!-- Empty element to take up space when there's no device and the dropdown is not displayed -->
                             </td>
                             <!-- <button *ngIf="line.device === null" type="button" routerLink="/devices">Shop Devices</button> -->
                             </tr>

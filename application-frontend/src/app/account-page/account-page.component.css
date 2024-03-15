@@ -134,3 +134,7 @@ div.planbuttonsarea button {
     cursor: pointer;
     transition: transform 0.3s ease;
 }
+
+.fillertd {
+    width: 6em;
+}

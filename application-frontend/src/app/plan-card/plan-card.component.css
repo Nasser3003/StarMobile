@@ -12,8 +12,8 @@
     transition: 0.3s;
     border-radius: 5px; /* 5px rounded corners */
     width: 20%;
-    background-color:rgb(238, 238, 208);
-    color:black;
+    background-color:var(--card-color);
+    color:var(--text-color);
     height: 40%;
 }
 
