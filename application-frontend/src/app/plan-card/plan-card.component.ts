@@ -7,16 +7,18 @@ import { User } from '../models/user';
 import { BackendService } from '../services/backend.service';
 import { Device } from '../models/device';
 import { Line } from '../models/line';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
     selector: 'app-plan-card',
     standalone: true,
     templateUrl: './plan-card.component.html',
     styleUrl: './plan-card.component.css',
-    imports: [CommonModule, PhonePipe]
+    imports: [RouterLinkActive, RouterLink, CommonModule, PhonePipe]
 })
 export class PlanCardComponent {
   DefaultValues: BackendService = inject(BackendService);
+  router = inject(Router);
   
   // citPlan: Plan = new Plan("Citizen", 25, 150, "galactic")
   // starPlan: Plan = new Plan("Starfighter", 20, 150, "universal")
@@ -35,6 +37,7 @@ export class PlanCardComponent {
     else {
       this.DefaultValues.addPlan(chosenPlan.planType)
       console.log("addJustPlan: Plan added to account")
+      this.router.navigate(["account"]);
     }
   }
 

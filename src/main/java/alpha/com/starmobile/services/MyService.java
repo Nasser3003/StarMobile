@@ -1,6 +1,8 @@
 package alpha.com.starmobile.services;
 
 import alpha.com.starmobile.configuration.SecurityConfig;
+import alpha.com.starmobile.dto.AddOrRemoveDeviceDTO;
+import alpha.com.starmobile.dto.DeviceLineChangeDTO;
 import alpha.com.starmobile.models.Device;
 import alpha.com.starmobile.models.ENUMS.PlanTypes;
 import alpha.com.starmobile.models.Line;
@@ -90,9 +92,9 @@ public class MyService {
     }
 
     @Transactional
-    public User addDevice(String phoneNumber, String brand, String model) {
-        Device device = new Device(brand, model);
-        Line line = lineRepository.findByNumber(phoneNumber)
+    public User addDevice(AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
+        Device device = new Device(addOrRemoveDeviceDTO.brand(), addOrRemoveDeviceDTO.model());
+        Line line = lineRepository.findByNumber(addOrRemoveDeviceDTO.phoneNumber())
                 .orElseThrow(() -> new IllegalArgumentException("please create the line first"));
         line.setDevice(device);
         device.setLine(line);
@@ -100,15 +102,30 @@ public class MyService {
     }
 
     @Transactional
-    public User removeDevice(String phoneNumber, String brand, String model) {
-        Line line = lineRepository.findByNumber(phoneNumber).orElseThrow(IllegalArgumentException::new);
+    public User removeDevice(AddOrRemoveDeviceDTO addOrRemoveDeviceDTO) {
+        Line line = lineRepository.findByNumber(addOrRemoveDeviceDTO.phoneNumber())
+                .orElseThrow(IllegalArgumentException::new);
 
-        Device device = deviceRepository.findDeviceByBrandAndModelAndLine(brand, model, line)
+        Device device = deviceRepository
+                .findDeviceByBrandAndModelAndLine(addOrRemoveDeviceDTO.brand(), addOrRemoveDeviceDTO.model(), line)
                 .orElseThrow(IllegalArgumentException::new);
 
         line.setDevice(null);
         device.setLine(null);
         deviceRepository.delete(device);
+        return fetchAuthenticatedUser();
+    }
+
+    @Transactional
+    public User changeDeviceLine(DeviceLineChangeDTO deviceLineChangeDTO) {
+        Line line = lineRepository.findByNumber(deviceLineChangeDTO.phoneNumber()).orElseThrow(IllegalArgumentException::new);
+        Line newLine = lineRepository.findByNumber(deviceLineChangeDTO.newLine()).orElseThrow(IllegalArgumentException::new);
+        Device device = deviceRepository
+                .findDeviceByBrandAndModelAndLine(deviceLineChangeDTO.brand(), deviceLineChangeDTO.model(), line)
+                .orElseThrow(IllegalArgumentException::new);
+        line.setDevice(null);
+        device.setLine(newLine);
+        newLine.setDevice(device);
         return fetchAuthenticatedUser();
     }
 
