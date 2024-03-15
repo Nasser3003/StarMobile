@@ -35,9 +35,8 @@ public class SecurityConfig {
 
 	public static String getAuthenticatedUsername() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null) {
+		if (authentication != null)
 			return authentication.getName();
-		}
 		return null;
 	}
 
