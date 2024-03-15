@@ -12,12 +12,28 @@
 
 <!-- <button (click)="myDialog.showModal()">Template</button> -->
 
-<!-- Note css in styles -->
+<!-- Note css for dialog is in styles -->
 <dialog #myDialog>
     <div>
         <h3>Device Added</h3>
         <!-- <div>Choose a Device</div> -->
         <button (click)="myDialog.close()" (click)="gotoAccount()">Close</button>
+    </div>
+</dialog>
+
+<dialog #promptToLoginDialog>
+    <div>
+        <h3>Can't Add Device</h3>
+        <div>Log-in to add a Device</div>
+        <button (click)="promptToLoginDialog.close()">Close</button>
+    </div>
+</dialog>
+
+<dialog #promptToAddPlanDialog>
+    <div>
+        <h3>Can't Add Device</h3>
+        <div>Add a line to add a Device</div>
+        <button (click)="myDialog.close()">Close</button>
     </div>
 </dialog>
 

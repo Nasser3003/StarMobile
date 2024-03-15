@@ -34,7 +34,6 @@ export class AccountPageComponent {
   options: { value: string, label: string }[] = [];
   selectedOption = '';
   
-  
   constructor(private auth: AuthService, private backend: BackendService, private router: Router) {
     
     this.auth.currentUser.subscribe(user => {
@@ -132,10 +131,6 @@ export class AccountPageComponent {
     // Submit the form
   }
 
-  changeLine() {
-
-  }
-
   generateOptions() {
     this.options = this.currentUser.plans!.flatMap(plan => 
       plan.lines!.map(line => ({ value: line.number, label: `${line.number}` }))
@@ -145,5 +140,7 @@ export class AccountPageComponent {
   moveDevice(phoneNumber: string, brand: string, model: string, newLine: string) {
     this.backend.deviceLineChange(phoneNumber, brand, model, newLine);
   }
+
+
 
 }

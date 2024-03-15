@@ -25,6 +25,8 @@ export class DeviceCardComponent {
   router = inject(Router);
   
   @ViewChild('myDialog',) myDialog!: ElementRef;
+  @ViewChild('promptToLoginDialog',) promptToLoginDialog!: ElementRef;
+  @ViewChild('promptToAddPlanDialog',) promptToAddPlanDialog!: ElementRef;
   
   constructor(private backend: BackendService, private auth: AuthService) {
     this.auth.currentUser.subscribe(user => {
@@ -44,10 +46,19 @@ export class DeviceCardComponent {
     this.myDialog.nativeElement.showModal();
   }
 
+  openPromptToLoginDialog() {
+    this.promptToLoginDialog.nativeElement.showModal();
+  }
+
+  openPromptToAddPlanDialog() {
+    this.promptToAddPlanDialog.nativeElement.showModal();
+  }
+
   addDevice(deviceToAdd: Device) {
     // Check that user is logged in; if not, display a modal that prompts the user to log in
     if(!this.isLoggedIn) {
       //-----modal code here--------
+      this.openPromptToLoginDialog();
       return;
     }
     // Retrieve the current user's array of plans
@@ -56,6 +67,7 @@ export class DeviceCardComponent {
     // If the user has no plans, display a modal that prompts the user to add a plan
     if(userPlans!.length === 0) {
       //-----modal code here--------
+      this.openPromptToAddPlanDialog();
       return;
     }
 
