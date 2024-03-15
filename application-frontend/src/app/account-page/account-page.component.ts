@@ -23,7 +23,6 @@ export class AccountPageComponent {
 
   currentUser: User = new User('', '', '', '','', '', []);
   isLoggedIn: boolean = false;
-  // plaintextpw: string = '';
 
   // totals for bill
   devicesTotal: number = 0;
@@ -41,21 +40,19 @@ export class AccountPageComponent {
     this.auth.currentUser.subscribe(user => {
       if(user !== undefined) {
         this.currentUser = user;
+        if(this.isLoggedIn) {
+          this.updateBill();
+        }
       }
     });
     this.auth.isLoggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-    // this.auth.plaintextpw.subscribe(plaintextpw => this.plaintextpw = plaintextpw);
     
     // update bill totals on page load if a logged in user is present in auth service
-    if(this.isLoggedIn) {
-      this.updateBill();
-    }
     this.generateOptions();
     
-    // if(this.isLoggedIn) {
-    //   this.selectedOption = this.options[0].value;
-    // }
-    
+    if(this.isLoggedIn) {
+      this.updateBill();
+    }    
     
   }
 
@@ -76,14 +73,13 @@ export class AccountPageComponent {
   }
 
   removeLine(planType: string, phoneNumber: string) {
-    // remove line from plan
-    // this.currentUser!.plans![planIndex].lines?.splice(lineIndex, 1); // this line will only remove the line in the frontend until an update happens
-
-    // send plan edit to backend
+    // send planType and phoneNumber to backend to remove line from plan
     this.backend.removeLine(planType, phoneNumber);
 
     // update bill totals
     this.updateBill();
+    
+
   }
 
   removeDevice(line: Line) {
